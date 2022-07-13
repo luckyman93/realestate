@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js p-0" {% if settings.enable_rtl_mode %} dir="rtl"{% endif %} > <!--<![endif]-->
+<head>
+
+  <!-- Basic page needs ================================================== -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Title and description ================================================== -->
+  <title>
+    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+  <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Helpers ================================================== -->
+  {% include 'social-meta-tags' %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.m_primary_color }}">
+  <link rel="icon" href="{{'favicon.png'| asset_url}}" type="image/png" sizes="16x16">
+
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- font -->
+  {% include 'engo-header-fonts' %}
+  <!-- CSS ================================================== -->
+  {% if settings.po_style == "po_swatchs" %}
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+  {% if settings.po_style == "po_dropdown" %}
+  {{ 'timber_2.scss.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
+  {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+  {{ 'slick.css' | asset_url | stylesheet_tag }}
+  {{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+  <link rel="stylesheet" href="{{ 'jquery.fancybox.min.css' | asset_url }}" media="nope!" onload="this.media='all'">
+  {{ 'style-main.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'engo-customizes.css' | asset_url | stylesheet_tag }}
+  {{ 'animate.min.css'| asset_url | stylesheet_tag}}
+
+
+
+  <!-- Header hook for plugins ================================================== -->
+  {{ content_for_header }}
+  {% include 'oldIE-js' %}
+  <script src="{{ 'jquery-3.5.0.min.js' | asset_url }}" type="text/javascript"></script>
+  {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+  {{ 'modernizr-2.8.3.min.js' | asset_url | script_tag }}
+  {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+  {{ 'lazysizes.min.js' | asset_url | script_tag }}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <script>
+    window.ajax_cart = true;
+    window.money_format = '{{shop.money_with_currency_format}}';
+    window.shop_currency = '{{ shop.currency }}';
+    window.show_multiple_currencies = true;
+    window.loading_url = "{{ 'loader.gif' | asset_url}}";
+    window.use_color_swatch = true;
+    window.product_image_resize = true;
+    window.enable_sidebar_multiple_choice = true;
+
+    window.file_url = "{{''|file_url}}";
+    window.asset_url = "{{''|asset_url}}";
+    window.images_size = {
+      is_crop: true,
+      ratio_width : 1,
+      ratio_height : 1,
+    };
+    window.inventory_text = {
+      in_stock: "{{ 'products.product.in_stock' | t }}",
+      many_in_stock: "{{ 'products.product.many_in_stock' | t }}",
+      out_of_stock: "{{ 'products.product.out_of_stock' | t }}",
+      add_to_cart: "{{ 'products.product.add_to_cart' | t }}",
+      sold_out: "{{ 'products.product.sold_out' | t }}",
+      unavailable: "{{ 'products.product.unavailable' | t }}"
+    };
+
+    window.sidebar_toggle = {
+      show_sidebar_toggle: "{{ 'general.sidebar_toggle.show_sidebar_toggle' | t }}",
+      hide_sidebar_toggle: "{{ 'general.sidebar_toggle.hide_sidebar_toggle' | t }}"
+    };
+
+  </script>
+
+  {% comment %}
+  If you store has customer accounts disabled, you can remove the following JS file
+  {% endcomment %}
+  {% if template contains 'customers' %}
+  {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+  {% render 'weglot_hreftags' %}
+  {% render 'weglot_switcher' %}
+</head>
+{% comment %}
+Add the page template as a class for easy page or template specific styling.
+{% endcomment %}
+<body class="{% if settings.enable_rtl_mode %}rtl{% endif %} preload push_filter_left js_overhidden relative" {% if settings.bg_color_body != blank %}style="background: {{settings.bg_color_body}};"{% endif %}>
+
+  <div class="wrap">
+    <div class="contentbody">
+      {% if settings.enable_promo_topbar %}
+      {% include 'promo-topbar' %}
+      {% endif %}
+      {% section 'header' %}
+
+      <!-- HEADING HIDDEN SEO -->
+      {% if template contains 'index' %}
+      <h1 class="sr-only">{{shop.name}}</h1>
+      {% endif %}
+
+      {% include 'search' %}
+      {% include 'minicart' %}
+      {% include 'menu_mobile' %}
+      {% include 'popup-login' %}
+      {{ content_for_layout }}
+
+      {% section 'footer' %}
+
+    </div>
+
+  </div>
+
+  {% comment %}
+  {{ 'fastclick.js' | asset_url | script_tag }}
+  {% endcomment %}
+  {% include 'currencies' %}
+  {{ 'timber.js' | asset_url | script_tag }}
+
+  {% comment %}
+  Template-specific js
+  {% endcomment %}
+  <script>
+    {% if resetPassword %}
+    $(function() {
+      timber.resetPasswordSuccess();
+    });
+    {% endif %}
+  </script>
+
+  <script>
+    jQuery(function() {
+      jQuery('.swatch :radio').change(function() {
+        var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+        var optionValue = jQuery(this).val();
+        jQuery(this)
+        .closest('form')
+        .find('.single-option-selector')
+        .eq(optionIndex)
+        .val(optionValue)
+        .trigger('change');
+      });
+    });
+  </script>
+
+  {% if settings.ajax_cart_method == "drawer" %}
+  {{ 'handlebars.min.js' | asset_url | script_tag }}
+  {% include 'ajax-cart-template' %}
+  {{ 'ajax-cart.js' | asset_url | script_tag }}
+  <script>
+    var ajaxCartConfig = {
+      cartContainer: '.enj-minicart-ajax',
+      addToCartSelector: '.enj-add-to-cart-btn',
+      cartCountSelector: '.enj-cartcount',
+      cartCostSelector: '.enj-cartcost',
+      moneyFormat: {{ shop.money_format | json }}
+    };
+      jQuery(function($) {
+      ajaxCart.init(ajaxCartConfig);
+    });
+
+    jQuery('body').on('ajaxCart.afterCartLoad', function(evt, cart) {
+      // Bind to 'ajaxCart.afterCartLoad' to run any javascript after the cart has loaded in the DOM
+      /*   timber.RightDrawer.open(); */
+    });
+  </script>
+  {% endif %}
+
+  {% if template contains 'contact' %}
+  {{ 'gmaps.min.js' | asset_url | script_tag }}
+  {% endif %}
+
+  {{ 'bootstrap.bundle.min.js' | asset_url | script_tag }}
+  {{ 'slick.min.js' | asset_url | script_tag }}
+  {{ 'instafeed.min.js' | asset_url | script_tag }}
+  {{ 'jquery.fancybox.min.js' | asset_url | script_tag }}
+  {{ 'engo-plugins.js' | asset_url | script_tag }}
+  {{ 'quickview.js' | asset_url | script_tag }}
+  {% comment %}
+  {{ 'wish-list.js' | asset_url | script_tag }}
+  {% endcomment %}
+  {{ 'collection.js' | asset_url | script_tag }}
+  {{ 'engo-scripts.js' | asset_url | script_tag }}
+  {{ 'masonry.pkgd.min.js' | asset_url | script_tag }}
+
+
+
+  {% include 'product-quick-view' %}
+  {% include 'template-popup' %}
+  {% include 'template-popup-ajax-addtocart' %}
+
+  {% include 'linked-options' %}
+  {% include 'remove-sold-out' %}
+  {% if settings.ena_popup_cookie %}
+  {% include 'popup-cookie' %}
+  {% endif %}
+
+  {% include 'popup-product-random' %}
+
+  {% if settings.ena_popup_recently_view %}
+  {% include 'recently-sticky-cart' %}
+  {% endif %}
+
+  {% if settings.show_menu_toolbar %}
+  {% include 'menu-toolbar' %}
+  {% endif %}
+
+  {% if settings.ena_popup_news %}
+  {% if template contains 'index' %}
+  {% include 'popup-newletter' %}
+  {% endif%}
+  {% endif %}
+
+  {% if template contains 'product' %}
+  <script>
+    jQuery(document).ready(function($) {
+      if($(window).width() > 1024){
+        $(window).scroll(function(){
+          if ($(window).scrollTop() >= 100) {
+            $('.sticky_addcart').addClass('active'); 
+            $('.popup_random_prod').addClass('active'); 
+            $('.popup-cookie').addClass('active'); 
+
+          }
+          else {
+            $('.sticky_addcart').removeClass('active');
+            $('.popup_random_prod').removeClass('active');
+
+            $('.popup-cookie').removeClass('active');
+          }
+        });
+      }
+    });
+
+    jQuery(document).ready(function($) {
+
+      if($(window).width() < 576){
+
+
+
+        if($('.popup-cookie').length){
+          $('.popup_random_prod').css('bottom','208px');
+        }
+        else{
+          $('.popup_random_prod').css('bottom','0px');
+        }
+        $('.got_it').on('click', function() {
+          $('.popup_random_prod').css('bottom','0px');
+
+        }); 
+
+
+
+        $(window).scroll(function(){
+          if ($(window).scrollTop() >= 300) {
+            $('.sticky_addcart').addClass('active'); 
+            $('.popup-cookie').css('bottom','114px');
+            $('.menu_toolbar').addClass('active'); 
+            $('.got_it').on('click', function() {
+              $('.popup_random_prod').css('bottom','114px');
+
+            }); 
+
+            if($('.popup-cookie').length){
+              $('.popup_random_prod').css('bottom','323px');
+            }
+            else{
+              $('.popup_random_prod').css('bottom','114px');
+            }
+            if($('.popup-cookie').hasClass('d-none')){
+              $('.popup_random_prod').css('bottom','114px');
+            }
+
+          }
+          else {
+            $('.menu_toolbar').removeClass('active');
+            $('.sticky_addcart').removeClass('active');
+            $('.popup-cookie').css('bottom','0px');
+            if($('.popup-cookie').length){
+              $('.popup_random_prod').css('bottom','208px');
+            }
+            else{
+              $('.popup_random_prod').css('bottom','0px');
+            }
+            if($('.popup-cookie').hasClass('d-none')){
+              $('.popup_random_prod').css('bottom','0px');
+            }
+          }
+        });
+      }
+    });
+  </script>
+  {% endif %}
+
+  {% unless template contains 'product' %}
+  <script>
+    jQuery(document).ready(function($) {
+      if($(window).width() < 577){
+
+        if($('.popup-cookie').length){
+          $('.popup_random_prod').css('bottom','208px');
+        }
+        else{
+          $('.popup_random_prod').css('bottom','0px');
+        }
+        $('.got_it').on('click', function() {
+          $('.popup_random_prod').css('bottom','0px');
+
+        }); 
+
+
+        $(window).scroll(function(){
+
+          if ($(window).scrollTop() >= 300) {
+            $('.menu_toolbar').addClass('active'); 
+            $('.popup_random_prod').css('bottom','260px');
+            $('.popup-cookie').css('bottom','50px');
+            $('.got_it').on('click', function() {
+              $('.popup_random_prod').css('bottom','50px');
+            });
+
+            if($('.popup-cookie').length){
+              $('.popup_random_prod').css('bottom','258px');
+            }
+            else{
+              $('.popup_random_prod').css('bottom','50px');
+            }
+
+            if($('.popup-cookie').hasClass('d-none')){
+              $('.popup_random_prod').css('bottom','50px');
+            }
+          }
+          else {
+
+            if($('.popup-cookie').length){
+              $('.popup_random_prod').css('bottom','208px');
+            }
+            else{
+              $('.popup_random_prod').css('bottom','0px');
+            }
+            if($('.popup-cookie').hasClass('d-none')){
+              $('.popup_random_prod').css('bottom','0px');
+            }
+            $('.menu_toolbar').removeClass('active');
+            $('.popup-cookie').css('bottom','0px');
+
+          }
+        });
+      }
+    });
+  </script>
+  {% endunless %}
+
+
+
+</body>
+</html>
