@@ -1,0 +1,401 @@
+{% if section.settings.select_hds == "header_v5" %}
+{% if template contains 'index' %}
+<header id="header" class="header-v5-h5 js_height_hd jsheader_sticky d-none d-xl-block {% if section.settings.hd_home_enable_transparents %}header-absolute {% endif %}">
+  {% include 'eveland-horizon-menu' %}
+  <div class="container container-v1">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <div class="menu {% if settings.enable_rtl_mode %}right {% else %}left{% endif %}">
+          <div class="model_menu js-model_menu">
+            <span class="model-menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            {% if settings.name_modal_menu_hdv5 != blank %}
+            <span class="model-menu-title">{{settings.name_modal_menu_hdv5}}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 text-center">
+        <div class="logo">
+          <div class="center logo delay05">           
+            {% if section.settings.hd_home_logo_svg !=blank %}
+            <div class="logosvg m-auto" style="max-width:{{section.settings.hd_home_logo_maxwidth}}px;">
+              <a class="logourl" href="{{shop.url}}">{{section.settings.hd_home_logo_svg}}</a>
+            </div>
+            {% else %}            
+            <a href="{{shop.url}}">
+              {% if section.settings.hd_home_logo != blank %}
+              <img src="{{section.settings.hd_home_logo|img_url:'master'}}" width="{{section.settings.hd_home_logo_maxwidth}}" alt="{{shop.name}}">
+              {% else %}
+              <img src="//via.placeholder.com/160x46" width="{{section.settings.hd_home_logo_maxwidth}}" alt="{{shop.name}}">
+              {% endif %}
+            </a>
+            {% endif %}          
+          </div>
+        </div>
+      </div>      
+      <div class="col-lg-5 currencies-login">
+        <div class="cart-login-search align-items-center"> 
+          <ul class="list-inline list-unstyled mb-0">
+            <li class="list-inline-item mr-0">
+              <a href="javascript:void(0)" class="search js-search-destop">
+                {% if section.settings.hd_icon_search_svg != blank %}
+                {{section.settings.hd_icon_search_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_search}}"></i>
+                {% endif %}
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="{% if customer %}/account {% else %}javascript:void(0){% endif %}" class="login {% if customer %}{% else %}js-call-popup-login{% endif %}">
+                {% if section.settings.hd_icon_login_svg != blank %}
+                {{section.settings.hd_icon_login_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_login}}"></i>
+                {% endif %}
+
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="{{section.section.settings.url_wishlist}}" class="">
+                {% if section.settings.hd_icon_wishlist_svg != blank %}
+                {{section.settings.hd_icon_wishlist_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_wishlist}}"></i>
+                {% endif %}
+
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="javascript:void(0)" class="cart js-call-minicart">
+                {% if section.settings.hd_icon_cart_svg != blank %}
+                {{section.settings.hd_icon_cart_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_cart}}"></i>
+                {% endif %}
+                <span class="js-number-cart number-cart {% if cart.item_count > 0 %} active {% endif %}"></span>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<script>
+  jQuery(document).ready(function($) {
+    
+    function hexToRgb(hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+    var r = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").r);
+    var g = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").g);
+    var b = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").b)
+    {% if section.settings.hd_home_enable_transparents %}
+    {% else %}                  
+    $('.header-v5-h5').css({'background':'rgba(' + r + ' ,' + g + ',' + b + ',{{section.settings.hd_bg_header_opacity}})'});
+    {% endif %}
+    
+    {% if section.settings.enable_sticky_hd_home  %}
+    function menudestopscroll5() {
+      var $nav = $(".jsheader_sticky");
+      $nav.removeClass('menu_scroll_v5');
+
+      $(document).scroll(function() {
+
+        $nav.toggleClass('menu_scroll_v5', $(this).scrollTop() > $nav.height());
+        var r = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").r);
+        var g = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").g);
+        var b = (hexToRgb("{{section.settings.hd_home_bg_header_normal}}").b)
+        $('.header-v5-h5.menu_scroll_v5').css({'background':'rgba(' + r + ' ,' + g + ',' + b + ',{{section.settings.hd_bg_header_opacity}})'});
+        {% if section.settings.hd_home_enable_transparents %}                    
+        if($(this).scrollTop() < $nav.height()){
+          $('.header-v5-h5').css({'background':'none'}); 
+            $nav.removeClass('menu_scroll_v5')
+        }
+        {% endif %}
+      });
+    } 
+    menudestopscroll5();
+    {% endif %}
+    
+    
+  });
+</script>
+
+<style>
+  
+  #header .menu ul li .nav-link{
+    color: {{section.settings.hd_home_color_text}};
+  }
+
+  #header .currencies-login .cart-login-search ul li a i{
+    color: {{section.settings.hd_home_color_text}};
+  }
+  
+  #header .currencies-login .cart-login-search ul li a svg{
+    fill: {{section.settings.hd_home_color_text}};
+  }
+  
+  #header .currencies-login .cart-login-search ul li a svg{
+    fill : {{section.settings.hd_home_color_text}};
+  }
+  #header .currencies-login .cart-login-search ul li .cart .number-cart{
+    color : {{section.settings.hd_home_color_text}};
+  }
+  .header-v5-h5 .model_menu{
+    color : {{section.settings.hd_home_color_text}};
+  }
+  .header-v5-h5 .model_menu .model-menu-icon span{
+    background : {{section.settings.hd_home_color_text}};
+  }
+  .header-v5-h5 .horizon-menu-home{
+    background : {{settings.hdv5_bg_menu}};
+  }
+  .header-v5-h5 .horizon-menu-home .main-navigation .menu-horizon-list .nammenu{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .nammenu:before{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .toggle-menumobile i{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb.title_only_one a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb.title_only_one a:hover{
+    opacity : .8;
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb a:hover{
+    opacity : .8;
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list ul li a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list ul li a:hover{
+    opacity : .8;
+  }
+  .horizon-menu-home .close-menu-horizon{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+</style>
+{% endif %}
+{% endif %}
+
+{% if section.settings.select_hds_all == "header_ver5" %}
+{% unless template contains 'index' %}
+<header id="header" class="header-v5-h5 js_height_hd jsheader_sticky d-none d-xl-block {% if section.settings.hd_other_enable_transparents %}header-absolute {% endif %}">
+   {% include 'eveland-horizon-menu' %}
+  <div class="container container-v1">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <div class="menu {% if settings.enable_rtl_mode %}right {% else %}left{% endif %}">
+          <div class="model_menu js-model_menu">
+            <span class="model-menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            {% if settings.name_modal_menu_hdv5 != blank %}
+            <span class="model-menu-title">{{settings.name_modal_menu_hdv5}}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 text-center">
+        <div class="logo">
+          <div class="center logo delay05">           
+            {% if section.settings.hd_other_logo_svg !=blank %}
+            <div class="logosvg m-auto" style="max-width:{{section.settings.hd_other_logo_maxwidth}}px;">
+              <a class="logourl" href="{{shop.url}}">{{section.settings.hd_other_logo_svg}}</a>
+            </div>
+            {% else %}            
+            <a href="{{shop.url}}">
+              {% if section.settings.hd_other_logo != blank %}
+              <img src="{{section.settings.hd_other_logo|img_url:'master'}}" width="{{section.settings.hd_other_logo_maxwidth}}" alt="{{shop.name}}">
+              {% else %}
+              <img src="//via.placeholder.com/160x46" width="{{section.settings.hd_other_logo_maxwidth}}" alt="{{shop.name}}">
+              {% endif %}
+            </a>
+            {% endif %}          
+          </div>
+        </div>
+      </div>      
+      <div class="col-lg-5 currencies-login">
+        <div class="cart-login-search align-items-center"> 
+          <ul class="list-inline list-unstyled mb-0">
+            <li class="list-inline-item mr-0">
+              <a href="javascript:void(0)" class="search js-search-destop">
+                {% if section.settings.hd_icon_search_svg != blank %}
+                {{section.settings.hd_icon_search_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_search}}"></i>
+                {% endif %}
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="{% if customer %}/account {% else %}javascript:void(0){% endif %}" class="login {% if customer %}{% else %}js-call-popup-login{% endif %}">
+                {% if section.settings.hd_icon_login_svg != blank %}
+                {{section.settings.hd_icon_login_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_login}}"></i>
+                {% endif %}
+
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="{{section.section.settings.url_wishlist}}" class="">
+                {% if section.settings.hd_icon_wishlist_svg != blank %}
+                {{section.settings.hd_icon_wishlist_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_wishlist}}"></i>
+                {% endif %}
+
+              </a>
+            </li>
+            <li class="list-inline-item mr-0">
+              <a href="javascript:void(0)" class="cart js-call-minicart">
+                {% if section.settings.hd_icon_cart_svg != blank %}
+                {{section.settings.hd_icon_cart_svg}}
+                {% else %}
+                <i class="{{section.settings.hd_icon_cart}}"></i>
+                {% endif %}
+                <span class="js-number-cart number-cart {% if cart.item_count > 0 %} active {% endif %}"></span>
+              </a>
+            </li>
+          </ul>
+        
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<script>
+  jQuery(document).ready(function($) {
+    
+    function hexToRgb(hex) {
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+    var r = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").r);
+    var g = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").g);
+    var b = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").b)
+    {% if section.settings.hd_other_enable_transparents %}
+    {% else %}                  
+    $('.header-v5-h5').css({'background':'rgba(' + r + ' ,' + g + ',' + b + ',{{section.settings.hd_other_bg_header_opacity}})'});
+    {% endif %}
+    
+    {% if section.settings.enable_sticky_hd_other  %}
+    function menudestopscroll5() {
+      var $nav = $(".jsheader_sticky");
+      $nav.removeClass('menu_scroll_v5');
+
+      $(document).scroll(function() {
+
+        $nav.toggleClass('menu_scroll_v5', $(this).scrollTop() > $nav.height());
+        var r = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").r);
+        var g = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").g);
+        var b = (hexToRgb("{{section.settings.hd_other_bg_header_normal}}").b)
+        $('.header-v5-h5.menu_scroll_v5').css({'background':'rgba(' + r + ' ,' + g + ',' + b + ',{{section.settings.hd_other_bg_header_opacity}})'});
+        {% if section.settings.hd_other_enable_transparents %}                    
+        if($(this).scrollTop() < $nav.height()){
+          $('.header-v5-h5').css({'background':'none'}); 
+            $nav.removeClass('menu_scroll_v5')
+        }
+        {% endif %}
+      });
+    } 
+    menudestopscroll4();
+    {% endif %}
+    
+    
+  });
+</script>
+
+<style>
+
+  #header .menu ul li .nav-link{
+    color: {{section.settings.hd_other_color_text}};
+  }
+
+  #header .currencies-login .cart-login-search ul li a i{
+    color: {{section.settings.hd_other_color_text}};
+  }
+  
+  #header .currencies-login .cart-login-search ul li a svg{
+    fill : {{section.settings.hd_other_color_text}};
+  }
+  #header .currencies-login .cart-login-search ul li .cart .number-cart{
+    color : {{section.settings.hd_other_color_text}};
+  }
+  .header-v5-h5 .model_menu{
+    color : {{section.settings.hd_other_color_text}};
+  }
+  .header-v5-h5 .model_menu .model-menu-icon span{
+    background : {{section.settings.hd_other_color_text}};
+  }
+  .header-v5-h5 .horizon-menu-home{
+    background : {{settings.hdv5_bg_menu}};
+  }
+  .header-v5-h5 .horizon-menu-home .main-navigation .menu-horizon-list .nammenu{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .nammenu:before{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .toggle-menumobile i{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb.title_only_one a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb.title_only_one a:hover{
+    opacity : .8;
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list .title_menu_mb a:hover{
+    opacity : .8;
+  }
+  .horizon-menu-home .main-navigation .menu-horizon-list ul li a{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+  
+  .horizon-menu-home .main-navigation .menu-horizon-list ul li a:hover{
+    opacity : .8;
+  }
+  .horizon-menu-home .close-menu-horizon{
+    color : {{settings.hdv5_color_menu_title}};
+  }
+</style>
+{% endunless %}
+{% endif %}

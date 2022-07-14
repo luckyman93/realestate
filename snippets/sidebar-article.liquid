@@ -1,0 +1,123 @@
+<aside id="secondary" class="sidebar widget-area" role="complementary">
+  {% if section.settings.enable_widget_search %}
+  <section class="widget widget_search">
+    <form action="/search" class="search-form">
+      <label>
+        <input type="hidden" name="type" value="product" />
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{section.settings.serch_placeholder}}" required>
+      </label>
+      <button type="submit" class="search-submit">
+        <span class="sr-only">Search</span>
+      </button>
+    </form>
+  </section>
+  <!-- /.widget_search -->
+  {% endif %}
+
+  {% if section.settings.enable_widget_categories %}
+  <section class="widget widget_categories">
+    <h3 class="widget-title" data-init="widgetToggle">{{section.settings.widget_categories_title}}</h3>
+
+    {% assign sidebar_menu = section.settings.widget_categories_menu %}
+
+    <ul>
+      {% for link in linklists[sidebar_menu].links %}
+      <li class="cat-item"><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  <!-- /.widget_categories -->
+  {% endif %}
+
+  {% if section.settings.enable_widget_newletter %}
+  <section class="widget widget_subscibe">
+    <h3 class="widget-title">{{section.settings.newletter_title}}</h3>
+    <p>{{section.settings.newletter_des}}</p>
+
+    {% if settings.newsletter_form_action != blank %}
+    {% assign form_action = settings.newsletter_form_action %}
+    {% else %}
+    {% assign form_action = '#' %}
+    {% endif %}
+
+    <form action="{{form_action}}" method="post" class="subscibe-form clearfix">
+      <label>
+        <input type="email" name="EMAIL" placeholder="{{section.settings.newletter_placeholder}}" required>
+      </label>
+      <button type="submit" class="btn-maxus subscibe-submit text-uppercase btn-default btn-sharp pull-right w-95">{{section.settings.newletter_btn_name}}</button>
+    </form>
+  </section>
+  <!-- /.widget_subscibe -->
+  {% endif %}
+
+  {% if section.settings.enable_widget_instagram %}
+  <section class="widget widget_instagram">
+    <h3 class="widget-title" data-init="widgetToggle">{{section.settings.widget_instagram_title}}</h3>
+    {% assign instafeed_img = '{{image}}' %}
+    {% assign instafeed_link = '{{link}}' %}
+    <script>
+      jQuery(document).ready(function($) {
+
+        var feed = new Instafeed({
+          get: 'user',
+          userId: '{{section.settings.instagram_userid}}',
+          accessToken: '{{section.settings.instagram_access_token}}',
+          template: '<li class="inst-item"><a href="{{instafeed_link}}" target="_blank"><img src="{{instafeed_img}}" alt=""></a></li>',
+          target: 'instagram-sidebar',
+          resolution: 'standard_resolution',
+          limit: '{{section.settings.instagram_limit_number}}'
+        });
+        feed.run();
+
+      });
+    </script>
+    <ul id="instagram-sidebar">
+
+    </ul>
+
+  </section>
+  <!-- /.widget_instagram -->
+  {% endif %}
+
+  {% if section.settings.enable_widget_rposts %}
+  <section class="widget widget_recent_entries">
+    <h3 class="widget-title" data-init="widgetToggle">{{section.settings.widget_recent_title}}</h3>
+
+    {%- assign blog_selected = section.settings.select_blog -%}
+    {%- assign blog_limit = section.settings.limit_blog -%}
+
+    <ul>
+      {% for article in blogs[blog_selected].articles limit: blog_limit %}
+      <li>
+        <a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a>
+        <p class="post-meta">
+          <span class="post-author">
+            {{ 'blogs.article.by' | t }}
+            <a href="{{ article.url }}" title="">{{ article.author }}</a>
+          </span>
+
+        </p>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <!-- /.widget_recent_entries -->
+  {% endif %}
+
+  {% if section.settings.enable_widget_tags %}
+  <section class="widget widget_tag_cloud">
+    <h3 class="widget-title" data-init="widgetToggle">{{section.settings.widget_tags_title}}</h3>
+    <div>
+      {% if blog.all_tags.size > 0 %}
+      {% for tag in blog.all_tags %}
+      {% if current_tags contains tag %}
+      {{ tag }}
+      {% else %}
+      {{ tag | link_to_tag: tag }}
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+</aside>

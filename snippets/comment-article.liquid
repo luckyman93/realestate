@@ -1,0 +1,62 @@
+{% assign number_of_comments = article.comments_count %}
+{% if comment and comment.created_at %}
+{% assign number_of_comments = article.comments_count | plus: 1 %}
+{% endif %}
+
+{% paginate article.comments by 5 %}
+<div class="blog-comment-detail">
+  {% if article.comments_count > 0 %}
+  <h2 class="title_cmt_details">{{'blogs.comments.comment' | t}} ( {{number_of_comments}} )</h2>
+  {% endif %}
+
+  {% if comment and comment.created_at %}
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p>
+      {% if blog.moderated? %}
+      {{ 'blogs.comments.success_moderated' | t }}
+      {% else %}
+      {{ 'blogs.comments.success' | t }}
+      {% endif %}
+    </p>
+  </div>
+  {% endif %}
+
+  {% if article.comments_count > 0 %}
+
+  {% comment %}
+  If a comment was just submitted with no blank field, show it.
+  {% endcomment %}
+  {% if comment and comment.created_at %}
+  {% include 'comment' %}
+  {% endif %}
+
+  {% comment %}
+  Showing the rest of the comments.
+  {% endcomment %}
+  {% for comment in article.comments %}
+  {% include 'comment' %}
+  {% endfor %}
+  {% endif %}
+</div>
+<!-- End Blog Comment -->
+<div class="reply-comment" id="comments">
+  <h2 class="title_form">{{ 'blogs.comments.title' | t }}</h2>
+  {% form 'new_comment', article %}
+  <div class="contact-form">
+    <p class="contact-name">
+      <input class="" name="comment[author]" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t }}" type="text" required>
+    </p>
+    <p class="contact-email">
+      <input class="" name="comment[email]" value="{{ form.email }}" placeholder="{{ 'blogs.comments.email' | t }}" type="email" required>
+    </p>
+    <p class="contact-message">
+      <textarea class="" name="comment[body]" placeholder="{{ 'blogs.comments.message' | t }}" cols="30" rows="10" required>{{form.body}}</textarea>
+    </p>
+    <p class="contact-submit">
+      <input class="shop-button" type="submit" value="{{ 'blogs.comments.submit' | t }}">
+    </p>
+  </div>
+  {% endform %}
+</div>
+{% endpaginate %}

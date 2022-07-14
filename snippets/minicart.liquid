@@ -1,0 +1,86 @@
+<div class="js-minicart minicart" >
+  <div class="relative" style="height: 100%;">
+    <div class="mini-content ">    
+      <div class="mini-cart-head">
+        <a href="javascript:void(0)" class="mini-cart-undo close-mini-cart">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+            <g>
+              <g>
+                <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "/>
+              </g>
+            </g>
+
+          </svg>
+        </a>        
+        <h3 class="title">{{ 'minicart.general.title' | t }}</h3>
+        <div class="mini-cart-counter"><span class="cart-counter enj-cartcount">{{cart.item_count }}</span></div>
+      </div>       
+
+      <div class="mini-cart-bottom enj-minicart-ajax">
+        {% if cart.item_count > 0 %}
+        <div class="prod">
+          <div class="product-cart ">
+            {% for item in cart.items %}
+            <ol class="minicart_item list-unstyled mb-0 px-0">
+              <li class="d-flex">
+                <div class="thumb_img_cartmini">
+                  <a href="{{item.url}}" title="" class=""><img alt="{{item.title}}" src="{{ item.image | product_img_url: 'small' }}"></a>
+                </div>
+                <div class="product-detail">
+                  <h3 class="product_name_mini">
+                    <a href="{{item.url}}">{{item.title}}</a>
+                  </h3>
+                  <div class="product_info">
+                    <div class="product_quanity">QTY : {{ item.quantity }} </div>
+                    <div class="product_price">
+                      <span class="price_sale">{{ item.price | money }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="produc_remove">
+                  <a href="javascript:void(0)" class="remove-product" data-line="{{ forloop.index }}"><i class="fa fa-trash-o"></i></a>
+                </div>
+              </li>
+            </ol>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="sub-total">
+          {% if settings.enable_rtl_mode %}
+          <span class="total-title float-right">{{ 'minicart.general.total_price' | t }}</span>
+          <span class="total-price float-left">{{cart.total_price | money}}</span>
+          {% else %}
+          <span class="total-title float-left">{{ 'minicart.general.total_price' | t }}</span>
+          <span class="total-price float-right">{{cart.total_price | money}}</span>
+          {% endif %}
+        </div>
+        <div class="action-checkout">
+          {% if settings.enable_rtl_mode %}
+          <a href="/checkout" class="button-checkout">
+            <span>{{ 'minicart.general.checkout' | t }}</span>
+          </a>
+          <a href="/cart" class="button-viewcart">
+            <span>{{ 'minicart.general.view_cart' | t }}</span>
+          </a>
+          {% else %}
+          <a href="/cart" class="button-viewcart">
+            <span>{{ 'minicart.general.view_cart' | t }}</span>
+          </a>
+          <a href="/checkout" class="button-checkout">
+            <span>{{ 'minicart.general.checkout' | t }}</span>
+          </a>
+          {% endif %}
+        </div>      
+        {% else %}
+        <div class="list_product_minicart empty">
+          <div class="empty-product_minicart">
+            <p class="mb-0">{{ 'minicart.general.empty' | t }}</p>
+            <a href="/collections/all" class="to-cart">{{ 'minicart.general.shop_now' | t }}</a>
+          </div>
+        </div>      
+        {% endif %}      
+      </div>    
+    </div>
+  </div>
+</div>
+<div class="js-bg bg-minicart"></div>

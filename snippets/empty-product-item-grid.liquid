@@ -1,0 +1,35 @@
+<div class="item-product item-product1">
+  <div class="product-thumb">
+    <a href="/admin/products" class="product-thumb-link zoom-thumb">
+      {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+    </a>
+    <a href="/admin/products" class="quickview-link title12 round white"><i class="fa fa-search"></i></a>
+
+  </div>
+  <div class="product-info">
+    <div class="table-custom border-bottom title12">
+      <div class="text-left">
+        <a href="/admin/products" class="cat-parent opacity dark text-uppercase">type</a>
+      </div>
+      <div class="text-right product-extra-link">
+        <a href="/admin/products" class="wishlist-link dark"><i class="fa fa-heart-o opacity"></i><span>Wishlist</span></a>
+      </div>
+    </div>
+    <h3 class="title14 product-title dosis-font text-uppercase"><a href="/admin/products">Example Product</a></h3>
+    <div class="product-price title14 dosis-font">
+      <ins>$300.00</ins>
+    </div>
+    <ul class="wrap-rating list-inline-block">
+      <li>
+        <div class="product-rate">
+          <div class="product-rating" style="width:100%"></div>
+        </div>
+      </li>
+      <li>
+        <span class="rate-number silver">(5.0)</span>
+      </li>
+    </ul>
+    <a href="/admin/products" class="addcart-link inline-block round title12"><i class="fa fa-shopping-basket opacity"></i></a>
+  </div>
+</div>

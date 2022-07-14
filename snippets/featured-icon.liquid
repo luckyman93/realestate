@@ -1,0 +1,29 @@
+<div class="featured-icon">
+  <div class="block-top-link">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == "featuredicon" %}
+          {% if block.settings.img_featured != blank or block.settings.icon_office != blank%}
+            <div class="textwidget custom-html-widget">
+                <div class="sp-iconfeatured">
+                    <div class="iconbox-inner">
+                      <div class="icon"> 
+                        {% if section.settings.display_feaicon == "dis_svg" %}
+                        	{{block.settings.img_featured}}
+                        {% elsif section.settings.display_feaicon == "dis_font"%}
+                        <i class="{{block.settings.icon_office}}"></i>
+                        {% endif %}
+                      </div>
+                        <div class="content">
+                            <p class="title">{{block.settings.block_textheading}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endif %}
+
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>

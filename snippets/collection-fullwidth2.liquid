@@ -1,0 +1,168 @@
+<section class="collection-page-fullwidth-sty2">
+  <div class="filter-to-left">
+    <div class="filter_sidebar">
+      <div class="close_filter">{{'products.product.close' | t}} <i class="ti-close"></i></div>
+      {% include 'collection-sidebar' %}
+    </div>
+
+  </div>
+  <div class="overlay"></div>
+  <div class="content-page">
+    <div class="container container-v2 cate-info">
+      <div class="row">
+        <div class="title_collection col-6 d-flex justify-content-start ">
+          <h3 class="mb-0">{{section.settings.text_bestseller}}</h3> 
+        </div>
+        <div class="btn_show_all col-6 d-flex justify-content-end ">
+          <a href="{{section.settings.btn_show_url}}">{{section.settings.btn_text_show}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div class="col_bestseller row js_product_related">
+        {% assign products_limit = section.settings.prod_limit %}
+        {% assign col = section.settings.col_bestseller %}
+
+        {% for product in collections[col].products limit: products_limit %}
+        <div class="col-12">
+          {% include 'product-item-v1' %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="container container-v2">
+      <div class="title-cate">
+        <h2 class="mb-0">{{collection.title}}</h2>
+      </div>
+      <div class="row shop_control " >
+        <div class="col-md-6  col-12  ">
+          <div class="filter_sortby">
+            <a class="filter js_filter" href="javascript:void(0)">
+              <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   viewBox="0 0 485.008 485.008" style="enable-background:new 0 0 485.008 485.008;" xml:space="preserve">
+                <g>
+                  <g>
+                    <path d="M171.501,464.698v-237.9l-166.3-192.6c-8.9-10.9-7.9-33.3,15.1-33.3h443.6c21.6,0,26.6,19.8,15.1,33.3l-162.3,187.5v147.2
+                             c0,6-2,11.1-7.1,15.1l-103.8,95.8C193.801,488.698,171.501,483.898,171.501,464.698z M64.701,41.298l142.2,164.3c3,4,5,8.1,5,13.1
+                             v200.6l64.5-58.5v-146.1c0-5,2-9.1,5-13.1l138.1-160.3L64.701,41.298L64.701,41.298z"/>
+                  </g>
+                </g>
+              </svg>
+              <p class="mb-0">{{'products.product.filter' | t}}</p>
+            </a>
+            {% include 'collection-sorting' %}
+          </div>  
+        </div>
+
+        <div class="col-md-6 col-12 justify-content-md-end  justify-content-center ">
+          <div class="style_layout_prod">
+            <div class="prod_grid active">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   width="5px" height="5px" viewBox="0 0 5 5" enable-background="new 0 0 5 5" xml:space="preserve">
+                <g>
+                  <g>
+                    <path d="M0,2.191h2.191V0H0V2.191z M0.626,0.626h0.939v0.939H0.626V0.626z"/>
+                    <path d="M2.81,0v2.191H5V0H2.81z M4.375,1.565h-0.94V0.626h0.94V1.565z"/>
+                    <path d="M0,5h2.191V2.809H0V5z M0.626,3.435h0.939v0.939H0.626V3.435z"/>
+                    <path d="M2.81,5H5V2.809H2.81V5z M3.435,3.435h0.94v0.939h-0.94V3.435z"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <div class="prod_list">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                   width="5px" height="5px" viewBox="0 0 5 5" enable-background="new 0 0 5 5" xml:space="preserve">
+                <g>
+                  <rect y="0.683" width="3.629" height="0.454"/>
+                  <rect y="3.863" width="2.5" height="0.454"/>
+                  <rect y="2.267" width="5" height="0.453"/>
+                </g>
+              </svg>
+            </div>
+
+            <div class="prod_per">
+              <a href="javascript:void(0)" class="size_1 d-md-none">1</a>
+              <a href="javascript:void(0)" class="size_2 d-lg-none">2</a>
+              <a href="javascript:void(0)" class="size_3">3</a>
+              <a href="javascript:void(0)" class="size_4">4</a>
+              <a href="javascript:void(0)" class="size_5 ">5</a>
+              <a href="javascript:void(0)" class="size_6 ">6</a>
+            </div>
+          </div>  
+        </div>
+      </div>  
+      <div class="clearfix relative"> 
+        <div class="product-grid-view active ">
+          <div class="row grid-uniform">
+            {% for product in collection.products %}
+            <div class="js_size_prod col-md-4 col-lg-3 col-6 pb-4 trans-product">
+              {% include 'product-item-v1' %}
+            </div>
+            {% else %}
+            {% if collection.handle == 'all' and current_tags == '' %}
+
+            {% for i in (1..12) %}
+            <div class="col-lg-3 col-md-3">
+              {% include 'empty-product-item' %}
+            </div>
+            {% endfor %}
+
+            {% else %}
+
+            {% comment %}
+            If collection exists but is empty, display message
+            {% endcomment %}
+            <div class="text-center">
+              <p>{{ 'collections.general.no_matches' | t }}</p>
+            </div>
+
+            {% endif %}
+            {% endfor %}
+
+          </div>
+
+          {% if paginate.pages > 1 %}
+          <div class="pagi-nav text-right">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+          </div>
+          {% endif %}
+
+          <!-- End Paginav -->
+        </div>
+        <div class="product-list-view ">
+          {% for product in collection.products %}
+          <div class="list_prod">
+            {% include 'product-item-list' %}
+          </div>
+          {% else %}
+          {% if collection.handle == 'all' and current_tags == '' %}
+
+          {% for i in (1..12) %}
+          <div class="col-lg-3">
+            {% include 'empty-product-item' %}
+          </div>
+          {% endfor %}
+
+          {% else %}
+
+          {% comment %}
+          If collection exists but is empty, display message
+          {% endcomment %}
+          <div class="text-center">
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+          </div>
+
+          {% endif %}
+          {% endfor %}
+          {% if paginate.pages > 1 %}
+          <div class="pagi-nav">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+          </div>
+          {% endif %}
+
+          <!-- End Paginav -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

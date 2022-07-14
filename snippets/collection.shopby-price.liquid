@@ -1,0 +1,18 @@
+<section class="filter-price filter-tag">
+  <div class="widget-title">
+    <h2 class="mb-0">{{settings.shop_by_price_title}}</h2>
+  </div>
+  
+  <ul class="list-none list-price">
+    {% assign tags = settings.shop_by_price_list_tags | split: ',' %}
+    {% for t in tags %}
+    {% assign tag = t | strip %}
+    {% assign tag_value = tag | handleize %}
+    <li class="cat-item{% if current_tags contains tag %} current-cat{% endif %}">
+      <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+      <a href="javascript:void(0)" title="{{tag}}" class=" {% if current_tags contains tag %}active{% endif %}">{{tag}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  <!-- /.product-categories -->
+</section>

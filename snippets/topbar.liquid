@@ -1,0 +1,30 @@
+<div class="topbar d-none d-sm-block" >
+  <div class=" image_topbar ">
+    <img src="{{settings.background_topbar|img_url: 'master'}}">
+  </div>
+  <div class="container container-v2" {% if settings.enable_snow_mode %} style="background : #fff" {% endif %}>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="curent-language">
+          <div class="currencies">
+            {% include 'currency-picker' %}
+          </div>
+          <div class="change_language">
+            {% include 'change-language' %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 justify-content-end d-sm-flex">
+        <div class="menu_topbar">
+          <ul class="mb-0 list-unstyled ">
+            {% for link in linklists[settings.menu_topbar].links %}
+            <li><a href="{{link.url}}" title="{{link.title}}" class="">{{link.title}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

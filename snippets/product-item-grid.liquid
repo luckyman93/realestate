@@ -1,0 +1,107 @@
+{% assign product_label_new = false %}
+{% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+{% assign time = _time|plus:0 %}
+{% assign now = 'now' | date: '%s'|plus:0 %}
+
+{% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+{% assign value = _value|plus:0 %}
+
+{% if now < value %}
+{% assign product_label_new = true %}
+{% endif %}
+
+{% assign label_popular = false %}
+{% if product.tags contains "hot" %}
+{% assign label_popular = true %}
+{% endif %} 
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+<div class="item-product item-product1 engoj_grid_parent">
+  <div class="product-thumb">
+    <a href="{{ product.url | within: collection }}" class="product-thumb-link zoom-thumb engoj_find_img">
+      <img data-src="{{ product.featured_image.src | img_url: 'master' }}" class="lazyload" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+    <a href="javascript:void(0)" data-id="{{ product.handle }}" class="quickview-link title12 round white engoj_btn_quickview"><i class="{{settings.pia_quickview}}"></i></a>
+    <div class="product-label">
+      {% if settings.show_new_label and product_label_new == true %}
+      <span class="new engoc-label-new">{{settings.new_label_name}}</span>
+      {% endif %}
+      {% if settings.show_hot_label and label_hot %}
+      <span class="new engoc-label-hot">{{settings.hot_label_name}}</span>
+      {% endif %}
+      {% if settings.show_sale_label and on_sale %}
+      <span class="sale engoc-label-sale">-{% if product.compare_at_price_max > product.price %}{{ product.compare_at_price_min | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_min | money_without_currency | times: 100 | replace: '.0', ''}}%{% endif %}</span>
+      {% endif %}
+      {% if settings.show_sold_out_label and sold_out %}
+      <span class="new engoc-label-sold">{{settings.sold_out_label_name}}</span>
+      {% endif %}
+    </div>
+
+    <div class="list-attr-color text-center engoj_select_color">
+      {% for option in product.options %}
+      {% if option == 'Color' %}
+      {% assign index = forloop.index0 %}
+      {% assign colorlist = '' %}
+      {% assign color = '' %}
+      {% for variant in product.variants %}
+      {% capture color %}{{ variant.options[index] }}{% endcapture %}
+      {% unless colorlist contains color %}
+
+      {% assign text = color | handleize %}
+      <a href="javascript:void(0)" {% if variant.image != null %}data-engojvariant-img="{{ variant.image.src | product_img_url: 'grande' }}"{% endif %} style="{% if text == 'white' %}border: 1px solid #bcbcbc; {% endif %}background-color: {{ color | split: ' ' | last | handle }};"></a>
+      {% capture tempList %}
+      {{ colorlist | append: color | append: ' ' }}
+      {% endcapture %}
+
+      {% assign colorlist = tempList %}
+      {% endunless %}
+
+      {% endfor %}
+      {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+  <div class="product-info">
+    <div class="table-custom border-bottom title12">
+      <div class="text-left">
+        <a href="{{ product.url | within: collection }}" class="cat-parent opacity dark text-uppercase">{{ product.type }}</a>
+      </div>
+      <div class="text-right product-extra-link">
+        {% include 'add-wishlist' %}
+      </div>
+    </div>
+    <h3 class="title14 product-title dosis-font text-uppercase"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+    <div class="product-price title14 dosis-font">
+      {% capture price %}{{ product.price | money }}{% endcapture %}
+      {% if on_sale %} <del class="silver">{{ product.compare_at_price | money }}</del> {% endif %}
+      <ins>{% if product.price_varies %}{{ 'products.general.from_text_html' | t: price: price }}{% else %}{{ price }}{% endif %}</ins>
+    </div>
+
+    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+
+    {% if sold_out %}
+    <a href="{{ product.url | within: collection }}" class="addcart-link inline-block round title12"><i class="{{settings.pia_sold}} opacity"></i></a>
+    {% else %}
+    {% if product.variants.size > 1 %}
+    <a href="{{ product.url | within: collection }}" class="addcart-link inline-block round title12"><i class="{{settings.pia_selectoption}} opacity"></i></a>
+    {% else %}
+    <form method="post" action="/cart/add" class="add-to-cart">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+      <button type="submit" name="add" id="AddToCart{{ product.id }}" class="enj-add-to-cart-btn addcart-link inline-block round title12">
+        <i class="{{settings.pia_addcart}} opacity"></i>
+      </button>
+    </form>
+    {% endif %}
+    {% endif %}
+  </div>
+</div>

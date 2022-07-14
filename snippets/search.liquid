@@ -1,0 +1,38 @@
+<div class="search-full-destop">
+  <div class="search-eveland js-box-search">
+    <div class="drawer-search-top">
+      <h3 class="drawer-search-title">{{ 'general.search.title' | t }}</h3>
+    </div>
+    <form class="wg-search-form" action="/search">
+      <input type="hidden" name="type" value="product">
+      <input type="text" name="q" placeholder="Search anything" class="search-input js_engo_autocomplate">
+      <button type="submit" class="set-20-svg">   
+        {% if settings.pia_quickview_svg != blank %}
+        {{settings.pia_quickview_svg}}
+        {% else %}
+        <i class="{{settings.pia_quickview}}"></i>
+        {% endif %}</button>
+    </form>
+    <div class="drawer_back">
+      <a href="javascript:void(0)" class="close-search js-drawer-close set-16-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+          <g>
+            <g>
+              <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+            </g>
+          </g>
+
+        </svg>
+      </a>
+    </div>
+
+    <div class="result_prod js_productSearchResults">
+      <div class="js_search_results row">
+
+      </div>
+    </div>
+
+  </div>
+  <div class="bg_search_box">
+  </div>
+</div>

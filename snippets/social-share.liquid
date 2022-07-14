@@ -1,0 +1,21 @@
+{% if template contains 'article' or template contains 'blog' %}
+{% capture permalinkURL %}{{ shop.url }}{{ article.url }}{% endcapture %}
+{% capture shareTitle %}{{ article.title | url_param_escape }}{% endcapture %}
+{% elsif template contains 'product' or template contains 'collection' %}
+{% capture permalinkURL %}{{ shop.url }}{{ product.url }}{% endcapture %}
+{% capture shareTitle %}{{ product.title | url_param_escape }}{% endcapture %}
+{% elsif template == 'password' %}
+{% capture permalinkURL %}{{ shop.url }}{% endcapture %}
+{% capture shareTitle %}{% unless shop.description == blank %}{{ shop.description | url_param_escape }}{% else %}{{ shop.name | url_param_escape }}{% endunless %}{% endcapture %}
+{% endif %}
+
+{% comment %}
+Share button styles are:
+* is-clean
+* normal
+{% endcomment %}
+
+{% assign shareButtonStyle = 'is-clean' %}
+<a href="//twitter.com/share?text={{ shareTitle }}&amp;url={{ permalinkURL }}" target="_blank" class="float-shadow"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+<a href="//www.facebook.com/sharer.php?u={{ permalinkURL }}" target="_blank" class="float-shadow"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+<a href="//pinterest.com/pin/create/button/?url={{ permalinkURL }}&amp;media=http:{% if template contains 'product' %}{{ product | img_url: '1024x1024' }}{% else %}{{ article | img_url: '1024x1024' }}{% endif %}&amp;description={{ shareTitle }}" target="_blank" class="float-shadow"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a>

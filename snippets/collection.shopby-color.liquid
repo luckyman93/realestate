@@ -1,0 +1,23 @@
+<div class="filter-color widget widget-category widget_product_categories filter-tag">
+  <div class="widget-title">
+    <h2 class="mb-0">{{settings.shop_by_color_title}}</h2>
+  </div>
+
+  <ul class="list-none list_color {% if section.settings.filter_layout == 'filter_collapse' %}color_collapse{% endif%}">
+    {% assign tags = settings.shop_by_color_list_tags | split: ',' %}
+
+    {% for t in tags %}
+    {% assign tag = t | strip %}
+    {% assign tag_value = tag | handleize %}
+    <li class="cat-item{% if current_tags contains tag %} current-cat{% endif %}">
+      <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+      <a href="javascript:void(0)" title="{{tag}}" style="background: {{tag}}" class=" {% if current_tags contains tag %}active{% endif %}">
+        {% if section.settings.filter_layout == 'filter_collapse' %}<span>{{tag}}</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+
+  </ul>
+
+  <!-- /.product-categories -->
+</div>

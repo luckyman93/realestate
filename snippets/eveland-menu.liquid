@@ -1,0 +1,348 @@
+<nav class="navbar navbar-expand-lg navbar-light p-0 text-center justify-content-between">
+  <div class="collapse navbar-collapse justify-content-center">
+    <ul class="navbar-nav">
+      {% assign main_menu = section.settings.main_menu_store %}
+      {% for link in linklists[main_menu].links %}
+
+      {% assign item = link.title | split: '[' | first | downcase %}
+      {% assign child_list_handle = link.title | handleize %}
+
+      {% capture megamenu_1 %}apmenuitem_title_1{% endcapture %}
+      {% capture megamenu_2 %}apmenuitem_title_2{% endcapture %}
+      {% capture megamenu_3 %}apmenuitem_title_3{% endcapture %}
+      {% capture megamenu_4 %}apmenuitem_title_4{% endcapture %}
+      {% capture megamenu_5 %}apmenuitem_title_5{% endcapture %}
+
+      {% if settings[megamenu_1] == item or settings[megamenu_2] == item or settings[megamenu_3] == item or settings[megamenu_4] == item or settings[megamenu_5] == item  %}
+      {% for i in (1..5) %}
+
+      {% capture megamenu %}apmenuitem_title_{{i}}{% endcapture %}
+      {% capture enamega %}apmenuitem_enable_{{i}}{% endcapture %}
+
+
+      {% if settings[megamenu] == item %}
+      {% if settings[enamega] == true %}
+
+      {%- capture enavideo -%}apmenuitem_evideo_{{i}}{%- endcapture -%}
+      {%- capture enaproduct -%}apmenuitem_eproduct_{{i}}{%- endcapture -%}
+      {%- capture enahtml -%}apmenuitem_ehtml_{{i}}{%- endcapture -%}
+      {%- capture enalink -%}apmenuitem_eblocklinks_{{i}}{%- endcapture -%}
+      {%- capture ena_menu_fullwidth -%}apmenuitem_fullwidth_{{i}}{%- endcapture -%}
+      {%- capture ap_colvideo -%}apmenuitem_columns_blockvideo_{{i}}{%- endcapture -%}
+      {%- capture ap_colproduct -%}apmenuitem_columns_blockproducts_{{i}}{%- endcapture -%}
+      {%- capture ap_colhtml -%}apmenuitem_columns_blockhtml_{{i}}{%- endcapture -%}
+      {%- capture ap_collink -%}apmenuitem_columns_blocklinks_{{i}}{%- endcapture -%}
+      {%- capture apwidth -%}apmenuitem_width_{{ i }}{%- endcapture -%}
+      {%- capture apmenuposition -%}apmenuitem_position_{{ i }}{%- endcapture -%}
+      {%- capture apmenuposition_orther -%}apmenuitem_position_orther_{{ i }}{%- endcapture -%}
+      {%- capture apbgimage -%}apmenuitem_bg_image_{{ i }}{%- endcapture -%}
+      {%- capture apbgimage_enable-%}apbgimage_enable_{{ i }}{%- endcapture -%}
+      {%- capture apstyle -%}style='width:{{ settings[apwidth] }};{% if template contains 'index' %} left : {{settings[apmenuposition]}}{% else %} left : {{settings[apmenuposition_orther]}}{% endif %}; {%- if settings[apbgimage_enable] -%} {% if settings[apbgimage] != blank %} background:#fff url({{ settings[apbgimage] | img_url : 'master' }}) center ; background-size: cover; {% endif %} {%- endif -%}'{%- endcapture -%}
+
+      <li class="nav-item dropdown">
+        {% if link.title contains '[' %}
+        {%- assign label  = link.title | split: '[' | last  | split: ']' | first -%}  
+        {%- assign bgc  = link.title | split: '(' | last  | split: ')' | first -%}
+
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03  relative nav-link menu_lv1 ">{{link.title | split: '[' | first }}
+          <span class="absolute label_menu label_menu-{{link.title | handleize}}-{{forloop.index}}" {% if link.title contains '(' %}style="background-color: {{link.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{link.title | split: '[' | last  | split: ']' | first}}</span></span>
+          <style>
+            .label_menu-{{link.title | handleize}}-{{forloop.index}}:before {
+              border-top: 4px solid {{link.title | split: '(' | last  | split: ')' | first}};
+            }            
+          </style>
+        </a>
+        {% else %}
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03 relative nav-link  menu_lv1 ">{{link.title | split: '[' | first }}</a>
+        {% endif %}
+        <div class="dropdown-menu {% if settings[ena_menu_fullwidth] %} js-full-width {% endif %} list-woman shop show" {{ apstyle }}>
+          <div class="{% if settings[ena_menu_fullwidth] %}container container-v1{% endif %} ">
+            {% capture position_blocklink %}position_menu_blocklink_{{i}}{% endcapture %}
+            {% capture position_blockvideo %}position_menu_blockvideo_{{i}}{% endcapture %}
+            {% capture position_blockproduct %}position_menu_blockproduct_{{i}}{% endcapture %}
+            {% capture position_blockhtml %}position_menu_blockhtml_{{i}}{% endcapture %}
+            <div class="row">
+              {% if settings[enalink] %}
+              <div class="order-md-{{ settings[position_blocklink] }} mb-3 col-md-{{ settings[ap_collink] }}">
+                {%- capture ap_col_links -%}apmenuitem_columns_{{i}}{%- endcapture -%}
+                <div class="row">
+                  {% for childlink in linklists[child_list_handle].links %}
+                  {%- assign intLinks = forloop.index -%}
+                  {% capture ap_img_enable %}apmenuitem_img_blocklinks_enable_{{i}}{% endcapture %}
+                  {% capture ap_img_blocklinks %}apmenuitem_img_blocklinks_{{i}}_{{ intLinks }}{% endcapture %}
+                  {% capture ap_url_blocklinks %}apmenuitem_url_blocklinks_{{i}}_{{ intLinks }}{% endcapture %}
+                  <div class="col-md-{{ settings[ap_col_links]}}">
+                    {%- if settings[ap_img_enable] -%}
+                    {% if settings[ap_img_blocklinks] != blank %}
+                    <div class="img_blocklinks eveland-demolink mb-2">
+                      <a href="{{ settings[ap_url_blocklinks]  }}">
+                        <img data-src="{{settings[ap_img_blocklinks] | img_url : 'master' }}" class="img-fluid lazyload" alt>
+                      </a>
+                    </div>
+                    {% endif %}
+                    {%- endif -%}	
+
+                    {% if childlink.title contains '[' %}
+                    {%- assign label  = childlink.title | split: '[' | last  | split: ']' | first -%}  
+                    {%- assign bgc  = childlink.title | split: '(' | last  | split: ')' | first -%}
+                    <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class="relative delay03 d-inline-block mb-2  menu_lv2 ">{{childlink.title | split: '[' | first }}
+                      <span class="absolute label_menu label_menu-{{childlink.title | handleize}}-{{forloop.index}}" {% if childlink.title contains '(' %}style="background-color: {{childlink.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{childlink.title | split: '[' | last  | split: ']' | first}}</span></span>
+
+                      <style>
+                        .label_menu-{{childlink.title | handleize}}-{{forloop.index}}:before {
+                          border-top: 4px solid {{childlink.title | split: '(' | last  | split: ')' | first}};
+                        }
+                      </style>
+                    </a>
+                    {% else %}
+                    <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class="delay03 d-inline-block mb-2 relative menu_lv2 ">{{childlink.title | split: '[' | first }}</a>
+                    {% endif %}
+
+                    {% assign grand_child_list_handle = childlink.title | handleize %}
+                    {% if linklists[grand_child_list_handle].links != blank %}
+                    <ul class="px-0">
+                      {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                      <li class="list-unstyled px-0 py-1">
+                        {% if grandchildlink.title contains '[' %}
+                        {%- assign label  = grandchildlink.title | split: '[' | last  | split: ']' | first -%}  
+                        {%- assign bgc  = grandchildlink.title | split: '(' | last  | split: ')' | first -%}
+                        <a href="{{ grandchildlink.url }}" title="{{grandchildlink.title | split: '[' | first }}" class="relative delay03  menu_lv3 ">{{grandchildlink.title | split: '[' | first }}
+                          <span class="absolute label_menu label_menu-{{grandchildlink.title | handleize}}-{{forloop.index}}" {% if grandchildlink.title contains '(' %}style="background-color: {{grandchildlink.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{grandchildlink.title | split: '[' | last  | split: ']' | first}}</span></span>
+
+                          <style>
+                            .label_menu-{{grandchildlink.title | handleize}}-{{forloop.index}}:before {
+                              border-top: 4px solid {{childlink.title | split: '(' | last  | split: ')' | first}};
+                            }
+                          </style>
+                        </a>
+                        {% else %}
+                        <a href="{{ grandchildlink.url }}" title="{{grandchildlink.title | split: '[' | first }}" class="delay03 relative menu_lv3 ">{{grandchildlink.title | split: '[' | first }}</a>
+                        {% endif %}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+
+              {% if settings[enavideo] %}
+              <div class="order-md-{{ settings[position_blockvideo] }} mb-3 col-md-{{ settings[ap_colvideo] }}">
+                {%- capture ap_video -%}apmenuitem_cvideo_{{i}}{%- endcapture -%}
+                <div class="margin-top-15">
+                  {{settings[ap_video]}}
+                </div>
+              </div>
+              {% endif %}
+
+              {% if settings[enaproduct] %}
+              <div class="order-md-{{ settings[position_blockproduct] }} mb-3 col-md-{{ settings[ap_colproduct] }}">
+                {%- capture collection_menu -%}apmenuitem_cproduct_{{i}}{%- endcapture -%}
+                {%- capture collection_menu_title -%}apmenuitem_tproduct_{{i}}{%- endcapture -%}
+                {%- capture collection_product_limit -%}apmenuitem_nproduct_{{i}}{%- endcapture -%}
+                <div class="mega-col-inner ">
+                  {%- assign collection_name = settings[collection_menu] -%}
+                  {%- assign collection_products = collections[collection_name].products -%}
+                  {%- assign on_sale = false -%}
+                  <div class="products_menu">
+                    {%- if settings[collection_menu_title] != blank -%}
+                    <div class="menu-title">
+                      {{ settings[collection_menu_title] }}
+                    </div>
+                    {%- endif -%}
+                    <div class="product-block ">
+                      <ul class="prod_sidebar_menu js_prod_menu">
+                        {%- for product in collection_products limit:settings[collection_product_limit] -%}
+                        <li class="product_info px-0" {% if forloop.first %} style="padding-top : 0" {% endif %} {% if forloop.last %} style="border-bottom : none" {% endif %}>
+                          <a href="{{product.url}}">
+                            <img style="width: 100%" data-src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive lazyload" alt="{{ product.featured_image.alt | escape }}">
+                            <h4 class="title-product">
+                              <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+                            </h4>
+                          </a>
+                          <span>
+                            {% assign on_sale = false %}
+                            {% if product.compare_at_price > product.price %}
+                            {% assign on_sale = true %}
+                            {% endif %}
+
+                            <p class="price-product">
+                              {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                              <span class="price">{{ product.price | money }}</span>
+                            </p>
+                          </span>
+                        </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+              {%- if settings[enahtml] -%}
+              <div class="order-md-{{ settings[position_blockhtml] }} mb-3 col-md-{{ settings[ap_colhtml] }}">
+                {%- capture ap_html_title -%}apmenuitem_thtml_{{i}}{%- endcapture -%}
+                {%- capture ap_html_eimg -%}apmenuitem_eihtml_{{ i }}{%- endcapture -%}
+                {%- capture ap_html_img -%}apmenuitem_ihtml_{{ i }}.jpg{%- endcapture -%}
+                {%- capture ap_html_des -%}apmenuitem_chtml_{{ i }}{%- endcapture -%}
+                {%- capture ap_html_Link -%}apmenuitem_lchtml_{{ i }}{%- endcapture -%}
+                {%- capture ap_html_color -%}apmenuitem_cochtml_{{ i }}{%- endcapture -%}
+                {%- capture ap_html_class -%}apmenuitem_classchtml_{{ i }}{%- endcapture -%}
+
+                <div class="mega-col-inner ">
+                  <div class="block-html">
+
+                    {%- if settings[ap_html_title] != blank -%}
+                    <div class="menu-title">{{ settings[ap_html_title] }}</div>
+                    {%- endif -%}
+                    <a href="{{ settings[ap_html_Link] }}" title="{{ settings[ap_html_title] }}" class="ap_html_link">
+                      <div class="widget-inner">
+                        {%- if settings[ap_html_eimg] -%}
+                        <div class="box-image ">
+                          {{ ap_html_img | asset_url | img_tag: settings[ap_html_title], "img-responsive" }}
+                        </div>
+                        {%- endif -%}
+                      </div>
+                    </a>
+                    {%- if settings[ap_html_des] != blank -%}
+                    <p class="{{ settings[ap_html_class] }}">{{ settings[ap_html_des] }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endif %}
+      {% endif %}
+
+      {% endfor %}     
+      {% else %}
+      {% if linklists[child_list_handle].links != blank %}
+      <li class="nav-item dropdown">
+        {% if link.title contains '[' %}
+        {%- assign label  = link.title | split: '[' | last  | split: ']' | first -%}  
+        {%- assign bgc  = link.title | split: '(' | last  | split: ')' | first -%}
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03  nav-link menu_lv1 ">{{link.title | split: '[' | first }}
+          <span class="absolute label_menu label_menu-{{link.title | handleize}}-{{forloop.index}}" {% if link.title contains '(' %}style="background-color: {{link.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{link.title | split: '[' | last  | split: ']' | first}}</span></span>
+          <style>
+            .label_menu-{{link.title | handleize}}-{{forloop.index}}:before {
+              border-top: 4px solid {{link.title | split: '(' | last  | split: ')' | first}};
+            }
+          </style>
+        </a>
+        {% else %}
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03 nav-link  menu_lv1 ">{{link.title | split: '[' | first }}</a>
+        {% endif %}
+        <div class="dropdown-menu list-woman page show">
+          <div class="list-clothing">
+            <ul class="mb-0 list-unstyled">
+              {% for childlink in linklists[child_list_handle].links %}
+              {% assign grand_child_list_handle = childlink.title | handleize %}
+              {% if linklists[grand_child_list_handle].links != blank %}
+              <li class="dropdownmenu_lv2 relative px-3">
+                {% if childlink.title contains '[' %}
+                {%- assign label  = childlink.title | split: '[' | last  | split: ']' | first -%}  
+                {%- assign bgc  = childlink.title | split: '(' | last  | split: ')' | first -%}
+                <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class="relative delay03   menu_lv1 ">{{childlink.title | split: '[' | first }}
+                  <span class="absolute label_menu label_menu-{{childlink.title | handleize}}-{{forloop.index}}" {% if childlink.title contains '(' %}style="background-color: {{childlink.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{childlink.title | split: '[' | last  | split: ']' | first}}</span></span>
+                  <i class="fa fa-angle-right right mt-1" ></i>
+                  <style>
+                    .label_menu-{{childlink.title | handleize}}-{{forloop.index}}:before {
+                      border-top: 4px solid {{childlink.title | split: '(' | last  | split: ')' | first}};
+                    }
+                  </style>
+                </a>
+                {% else %}
+
+                <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class="delay03 relative menu_lv1 ">{{childlink.title | split: '[' | first }} <i class="fa fa-angle-right right mt-1" ></i></a>
+                {% endif %}
+
+
+                <div class="dropdown-menu menu_lv2 show">
+                  <div class="list-clothing">
+                    <ul class="px-0">
+                      {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                      <li class="list-unstyled px-3 py-1">
+                        {% if grandchildlink.title contains '[' %}
+                        {%- assign label  = grandchildlink.title | split: '[' | last  | split: ']' | first -%}  
+                        {%- assign bgc  = grandchildlink.title | split: '(' | last  | split: ')' | first -%}
+                        <a href="{{ grandchildlink.url }}" title="{{grandchildlink.title | split: '[' | first }}" class="relative   menu_lv3 ">{{grandchildlink.title | split: '[' | first }}
+                          <span class="absolute label_menu label_menu-{{grandchildlink.title | handleize}}-{{forloop.index}}" {% if grandchildlink.title contains '(' %}style="background-color: {{grandchildlink.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{grandchildlink.title | split: '[' | last  | split: ']' | first}}</span></span>
+
+                          <style>
+                            .label_menu-{{grandchildlink.title | handleize}}-{{forloop.index}}:before {
+                              border-top: 4px solid {{childlink.title | split: '(' | last  | split: ')' | first}};
+                            }
+                          </style>
+                        </a>
+                        {% else %}
+                        <a href="{{ grandchildlink.url }}" title="{{grandchildlink.title | split: '[' | first }}" class=" relative menu_lv3 ">{{grandchildlink.title | split: '[' | first }}</a>
+                        {% endif %}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+
+              </li>
+
+
+              {% else %}
+              <li class="px-3">
+                {% if childlink.title contains '[' %}
+                {%- assign label  = childlink.title | split: '[' | last  | split: ']' | first -%}  
+                {%- assign bgc  = childlink.title | split: '(' | last  | split: ')' | first -%}
+                <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class="relative  menu_lv1 ">{{childlink.title | split: '[' | first }}
+                  <span class="absolute label_menu label_menu-{{childlink.title | handleize}}-{{forloop.index}}" {% if childlink.title contains '(' %}style="background-color: {{childlink.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{childlink.title | split: '[' | last  | split: ']' | first}}</span></span>
+
+                  <style>
+                    .label_menu-{{childlink.title | handleize}}-{{forloop.index}}:before {
+                      border-top: 4px solid {{childlink.title | split: '(' | last  | split: ')' | first}};
+                    }
+                  </style>
+                </a>
+                {% else %}
+                <a href="{{ childlink.url }}" title="{{childlink.title | split: '[' | first }}" class=" relative menu_lv1 ">{{childlink.title | split: '[' | first }}</a>
+                {% endif %}
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </li>
+      {% else %}
+      <li class="nav-item dropdown">
+        {% if link.title contains '[' %}
+        {%- assign label  = link.title | split: '[' | last  | split: ']' | first -%}  
+        {%- assign bgc  = link.title | split: '(' | last  | split: ')' | first -%}
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03 relative menu_lv1 nav-link">{{link.title | split: '[' | first }}
+          <span class="absolute label_menu label_menu-{{link.title | handleize}}-{{forloop.index}}" {% if link.title contains '(' %}style="background-color: {{link.title | split: '(' | last  | split: ')' | first}};"{% endif %}><span>{{link.title | split: '[' | last  | split: ']' | first}}</span></span>
+          <style>
+
+            .label_menu-{{link.title | handleize}}-{{forloop.index}}:before {
+              border-top: 4px solid {{link.title | split: '(' | last  | split: ')' | first}};
+            }
+            }
+
+          </style>
+        </a>
+        {% else %}
+        <a href="{{ link.url }}" title="{{link.title | split: '[' | first }}" class="delay03  relative menu_lv1 nav-link">{{link.title | split: '[' | first }}</a>
+        {% endif %}
+      </li>
+      {% endif %}
+      {% endif %}
+
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

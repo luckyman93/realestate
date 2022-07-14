@@ -1,0 +1,190 @@
+{% if settings.select_newletter == "newsletter_v1" %}
+<section class="popup jsengo_popup">
+  <div class="modal-overlay"></div>
+  <div class="modal-window">
+    <div class="window-window">
+      <div class="window-content clearfix">
+        <a class="close_edit jsclosepoup" title="Close" href="javascript:void(0)">
+          <span class="  set-14-svg fill-white flex justify-content-center align-items-center w-100 h-100">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+              <g>
+                <g>
+                  <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+                </g>
+              </g>
+            </svg>
+          </span>
+        </a>
+        {% if settings.enable_image_poup %}
+        <div class="right">
+          {% if settings.image_poup != blank %}
+          <img src="{{settings.image_poup|img_url:'master'}}" class="img-fluid" alt="image popup">
+          {% else %}
+          <img src="https://via.placeholder.com/318x400" alt="">
+          {% endif %}
+
+        </div>
+        {% endif %}
+        <div class="left">
+          {% if settings.title_popup != blank %}
+          <h1 class="title">{{settings.title_popup}}</h1>
+          {% endif %}
+          {% if settings.description_popup != blank %}
+          <p class="sub-title mb-0">{{settings.description_popup}}</p>
+          {% endif %}
+          <div id="mailchimp-email-subscibe ">
+            <div id="mc_embed_signup">  
+
+              {% form 'create_customer' %}
+              {{ form.errors | default_errors }}
+              <div class="form">
+                <div class="form-group">
+                  <input type="email" placeholder="{{settings.placeholder_popup}}" class="form-control" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>              
+                  <button type="submit" class="btn btn-primary">{{settings.button_name_popup}}</button>
+                </div>
+              </div>
+              {% endform %}
+
+            </div>
+          </div>
+
+          <div class="product-socials">
+            <ul class="nav-social list-inline list-unstyled">
+              {% if settings.icon_sc_popup1 != blank %}
+              <li class="list-inline-item"><a href="{{settings.url_sc_popup1}}"><i class="{{settings.icon_sc_popup1}}"></i></a></li>
+              {% endif %}
+              {% if settings.icon_sc_popup2 != blank %}
+              <li class="list-inline-item"><a href="{{settings.url_sc_popup2}}"><i class="{{settings.icon_sc_popup2}}"></i></a></li>
+              {% endif %}
+              {% if settings.icon_sc_popup3 != blank %}
+              <li class="list-inline-item"><a href="{{settings.url_sc_popup3}}"><i class="{{settings.icon_sc_popup3}}"></i></a></li>
+              {% endif %}
+              {% if settings.icon_sc_popup4 != blank %}
+              <li class="list-inline-item"><a href="{{settings.url_sc_popup4}}"><i class="{{settings.icon_sc_popup4}}"></i></a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% elsif settings.select_newletter == "newsletter_v2" %}
+<section class="popup2 jsengo_popup">
+  <div class="modal-overlay"></div>
+  <div class="modal-window">
+    <div class="window-window">
+      <div class="window-content clearfix">
+        
+       
+        <div class="left">
+          <div class="left_content">
+            <a class="close_edit jsclosepoup" title="Close" href="javascript:void(0)">
+              <span class="  set-14-svg fill-white flex justify-content-center align-items-center w-100 h-100">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </a>
+            {% if settings.name_popup != blank %}
+              <h3 class="newsletter_name">{{settings.name_popup}}</h3>
+            {% endif %}
+            {% if settings.title_popup != blank %}
+            <h1 class="title">{{settings.title_popup}}</h1>
+            {% endif %}
+            {% if settings.description_popup != blank %}
+            <p class="sub-title mb-0">{{settings.description_popup}}</p>
+            {% endif %}
+            <div id="mailchimp-email-subscibe ">
+              <div id="mc_embed_signup">  
+
+                {% form 'create_customer' %}
+                {{ form.errors | default_errors }}
+                <div class="form">
+                  <div class="form-group">
+                    <input type="email" placeholder="{{settings.placeholder_popup}}" class="form-control" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>              
+                    <button type="submit" class="btn btn-primary">{{settings.button_name_popup}}</button>
+                  </div>
+                </div>
+                {% endform %}
+
+              </div>
+            </div>
+            
+            <a class="no_thank jsclosepoup" title="Close" href="javascript:void(0)">No Thanks</a>
+          </div>
+         
+        </div>
+         {% if settings.enable_image_poup %}
+        <div class="right">
+          {% if settings.image_poup != blank %}
+          <img src="{{settings.image_poup|img_url:'master'}}" class="img-fluid" alt="image popup">
+          {% else %}
+          <img src="https://via.placeholder.com/318x400" alt="">
+          {% endif %}
+
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% elsif settings.select_newletter == "newsletter_v3" %}
+<section class="popup3 jsengo_popup">
+  <div class="modal-overlay"></div>
+  <div class="modal-window">
+    <div class="window-window">
+      <div class="window-content clearfix">
+        
+       <a class="close_edit jsclosepoup" title="Close" href="javascript:void(0)">
+              <span class="  set-14-svg fill-white flex justify-content-center align-items-center w-100 h-100">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+            </a>
+        <div class="left">
+          <div class="left_content">
+            
+            {% if settings.name_popup != blank %}
+              <h3 class="newsletter_name">{{settings.name_popup}}</h3>
+            {% endif %}
+            {% if settings.title_popup != blank %}
+            <h1 class="title">{{settings.title_popup}}</h1>
+            {% endif %}
+            {% if settings.description_popup != blank %}
+            <p class="sub-title mb-0">{{settings.description_popup}}</p>
+            {% endif %}
+            <div id="mailchimp-email-subscibe ">
+              <div id="mc_embed_signup">  
+
+                {% form 'create_customer' %}
+                {{ form.errors | default_errors }}
+                <div class="form">
+                  <div class="form-group">
+                    <input type="email" placeholder="{{settings.placeholder_popup}}" class="form-control" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>              
+                    <button type="submit" class="btn btn-primary">{{settings.button_name_popup}}</button>
+                  </div>
+                </div>
+                {% endform %}
+
+              </div>
+            </div>
+            
+            <a class="no_thank jsclosepoup" title="Close" href="javascript:void(0)">No, Thanks.</a>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif  %}

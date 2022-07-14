@@ -1,0 +1,51 @@
+{% if customer %}
+{% assign value = product.id %}
+{% capture productID %}{{ product.id }}{% endcapture %}
+
+{% for tag in customer.tags %}
+{% capture tagID %}{{ tag }}{% endcapture %}
+{% if tagID contains productID %}
+{% capture value %}x{{ tagID }}{% endcapture %}
+{% endif %}
+{% if value.size == 0 %}{% assign value = productID %}{% endif %}
+{% endfor %}
+
+{%assign t = 0 %}
+{% for tag in customer.tags %}{% if tag contains productID %}{% assign t = t |plus:1 %}{% endif %}{% endfor %}
+{% assign check = t | modulo:2 %}
+
+{% if check == 0 %}{% assign display = 'true' %}{%else%}{% assign display = 'false' %}{% endif %}
+{% if display == 'true' %}
+{% form 'customer' %}
+<input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+<input type="hidden" name="contact[tags]" value="{{ value }}" />
+<button class="box-shadow maxus-product__wishlist engoj_add_to_wishlist inline-block text-center" data-toggle="tooltip" data-placement="top" data-original-title="{{settings.pia_wishlist_name}}">
+  {% if settings.pia_wishlist_svg != blank %}
+  <i class="fsz-unset">{{settings.pia_wishlist_svg}}</i>
+  {% else %}
+  <i class="{{settings.pia_wishlist}}"></i>
+  {% endif %}
+
+</button>
+
+{% endform %}
+
+{% else %}
+<a href="/pages/wishlist" class="box-shadow inline-block maxus-product__wishlist added wish text-center" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'wishlist.general.added' | t }}">
+  {% if settings.pia_wishlist_svg != blank %}
+  <i class="fsz-unset">{{settings.pia_wishlist_svg}}</i>
+  {% else %}
+  <i class="{{settings.pia_wishlist}}"></i>
+  {% endif %}
+</a>
+{% endif %}
+
+{% else %}
+<a href="/account/login" class="box-shadow  inline-block maxus-product__wishlist wish text-center" data-toggle="tooltip" data-placement="top" data-original-title="{{settings.pia_wishlist_name}}">
+  {% if settings.pia_wishlist_svg != blank %}
+  <i class="fsz-unset">{{settings.pia_wishlist_svg}}</i>
+  {% else %}
+  <i class="{{settings.pia_wishlist}}"></i>
+  {% endif %}
+</a>
+{% endif %}

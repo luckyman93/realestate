@@ -1,0 +1,325 @@
+<div class="ciloe-size-guide relative">
+  <div class="extra-link">
+    {% if settings.show_sizeguide %}
+  	<a href="javascript:void(0);" class="btn_size_guide">Size guide</a>
+    {% endif %}
+    {% if settings.show_delivery_return %}
+    <a href="javascript:void(0);" class="btn_delivery">Delivery & Return</a>
+    {% endif %}
+    {% if settings.show_question %}
+    <a href="javascript:void(0);" class="btn_question">Ask a Question</a>
+    {% endif %}
+  </div>
+  
+  
+  <div class="content_size_guide fixed delay05">
+    <div class="layout_size_guide">
+      <div class="relative">
+        <div class="size_guide">
+          {% if settings.addcontent_sizeguide != blank %}
+              {{ settings.addcontent_sizeguide }}
+          {% endif %}        
+        </div>
+        
+        <div class="delivery_return">
+          {% if settings.addcontent_delivery != blank %}
+              {{ settings.addcontent_delivery }}
+          {% endif %}        
+        </div>
+        
+        {% if settings.show_question %}
+        	<div class="question-form-page">
+
+              {% form 'contact' %}
+
+              {% if form.posted_successfully? %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p style="margin-bottom: 5px;">
+                  {{ 'contact.form.post_success' | t }}
+                </p>
+              </div>
+              {% endif %}
+
+              {% if form.errors %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+                <p style="margin-bottom: 5px;">Your contact form has {{ form.errors | size | pluralize: "an error", "a few errors" }}. To submit your form, make the following changes and try again:</p>
+                {% for field in form.errors %}
+                <p style="margin-bottom: 5px;">The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+              <div class="contact-form">
+                <h3>Ask a Question</h3>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label>Your Name</label>
+                  	<p class="contact-name">
+                      <input class="" placeholder="" type="text" id="contactFormName" name="contact[name]" required>
+                    </p>
+                  </div>
+                  <div class="col-sm-12">
+                    <label>Email</label>
+                  	<p class="contact-email">
+                      <input class="" placeholder="" type="email" id="contactFormEmail" name="contact[email]" required>
+                    </p>
+                  </div>
+                  <div class="col-sm-12">
+                    <label>Phone Number</label>
+                  	<p class="contact-phone">
+                      <input class="" placeholder="" type="tel" id="contactFormPhone" name="contact[phone]" required>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label>Message</label>
+                  	<p class="contact-message">
+                      <textarea class="" placeholder="" cols="30" rows="5" id="contactFormMessage" name="contact[body]" required></textarea>
+                    </p>
+                  </div>
+                </div>
+                
+                
+                <p class="contact-submit">
+                  <input  class="shop-button" type="submit" value="Send">
+                </p>
+              </div>
+              {% endform %}
+            </div>
+        {% endif %}
+        
+        
+        
+        <div class="close_size_guide absolute">
+          <a href="#" class="set-16-svg fill-white">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+              <g>
+                <g>
+                  <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+                </g>
+              </g>
+
+            </svg>
+          </a>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="overlay"></div>
+<style>
+  .ciloe-size-guide{
+    margin: 30px 0 20px;
+  }
+  .ciloe-size-guide .extra-link{
+    display:flex;
+  }
+  .ciloe-size-guide .close_size_guide{
+    top: -30px;
+    right: -30px;
+    background: #111;
+    width: 30px;
+    height: 30px;
+    opacity: .8;
+    text-align:center;
+  }
+  .rtl .ciloe-size-guide .close_size_guide{
+    left:-30px;
+    right:unset;
+  }
+  .ciloe-size-guide .close_size_guide a{
+    color:#fff;
+  }
+  .ciloe-size-guide .extra-link a{
+    margin-right:20px;
+    font-weight:bold;
+  }
+/*   .ciloe-size-guide .btn_size_guide{
+    font-size: 14px;
+    line-height: 24px;
+    padding-left: 31px;
+    font-weight: 400;
+    cursor: pointer;
+    background: url(//cdn.shopify.com/s/files/1/0082/8509/3968/t/13/assets/Forma-1.png?216455) no-repeat;
+    min-width: 150px;
+    background-position-y: 8px;
+    background-position-x: 0px;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+  } */
+  .ciloe-size-guide .content_size_guide{
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:999999;
+    display:inline-block;
+    transform:scale(0);
+  }
+  .ciloe-size-guide .content_size_guide .layout_size_guide{
+    max-width:1000px;
+    margin:5% auto;
+    width:100%;
+    background:#fff;
+    padding:30px;
+    overflow-y:auto;
+    height:auto;
+  }
+  .ciloe-size-guide .content_size_guide .layout_size_guide.active{
+    height:80%;
+  }
+  .ciloe-size-guide .content_size_guide .layout_size_guide.layout_question{
+    max-width:570px;
+  }
+  .ciloe-size-guide .content_size_guide.active{
+    transform:scale(1);
+  }
+  .ciloe-size-guide .content_size_guide img{
+    margin:0 auto;
+  }
+  @media (max-width:767px){
+    .ciloe-size-guide .content_size_guide .layout_size_guide{
+      max-width:290px;
+    }
+  }
+  @media (min-width:767px) and (max-width:992px) {
+    .ciloe-size-guide .content_size_guide .layout_size_guide{
+      max-width : 600px;
+    }
+  }
+  .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 30;
+    background: #0b0b0b;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease;
+  }  
+  .overlay.active {
+    opacity: .8;
+    visibility: visible;
+  }
+  .question-form-page .contact-form{
+    text-align:left;
+  }
+  .rtl .question-form-page .contact-form{
+    text-align:right;
+  }
+  .question-form-page .contact-form h3{
+    color:#222;
+    font-size:23px;
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .question-form-page .contact-form label{
+    color:#878787;
+    font-size:15px;
+    font-weight:500;
+    margin:0;
+    position:relative;
+  }
+  .rtl .question-form-page .contact-form label{
+    margin:0 10px 0 0;
+  }
+  .question-form-page .contact-form label:before{
+    content: "*";
+    color: red;
+    position: absolute;
+    top: 1px;
+    right: -10px;
+  }
+  .question-form-page .contact-form input,
+  .question-form-page .contact-form textarea{
+    width:100%;
+    border-radius:0;
+  }
+  .question-form-page .contact-form .shop-button{
+    cursor: pointer;
+    border: 1px solid #222;
+    padding: 5px 25px;
+    background: #fff;
+    color: #222;
+    font-weight: 600;
+    min-height: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius:0;	
+      
+  }
+  .question-form-page .contact-form .shop-button:hover,
+  .question-form-page .contact-form .shop-button:focus{
+    background:{{settings.color_main2}};
+    border: 2px solid {{settings.color_main2}};
+    color:#fff;
+  }
+  .delivery-wrap h4.title{
+    font-size:18px;
+    color:#222;
+    margin: 0 0 10px 0;
+    font-weight:600;
+    letter-spacing:0.5px;
+    line-height:1.4;
+  }
+  .delivery-wrap ul{
+    padding:0;
+  }
+  .delivery-wrap p{
+    color:#878787;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .delivery-wrap p a{
+    text-decoration:underline;
+  }
+  .tab-content h2.heading_title{
+    font-size: 24px;
+    text-transform: capitalize;
+    letter-spacing: 0;
+    margin: 25px 0 10px;
+  }
+  .tab-content .accordion{
+    color:#878787;
+  }
+  .sizeguide_table{
+    margin:20px 0;
+  }
+  table, td, th{
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+  
+ 
+/*  scroll  */
+  .layout_size_guide::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+  }
+
+  .layout_size_guide::-webkit-scrollbar
+  {
+    width: 7px;
+    background-color: #F5F5F5;
+  }
+
+  .layout_size_guide::-webkit-scrollbar-thumb
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #ddd;
+  }
+
+</style>

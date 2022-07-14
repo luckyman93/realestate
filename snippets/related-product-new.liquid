@@ -1,0 +1,38 @@
+<div class="related-product container container-v2">
+  {% if settings.enable_related_product%}
+  {% assign products_limit = settings.related_product_limit | plus: 1%}
+  {% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+  {% assign found_a_collection = false %}
+  {% for c in product.collections %}
+  {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+  {% assign found_a_collection = true %}
+  {% assign collection = c %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  <div class="text-center">
+    <div class="title_heading" >{{settings.related_product_title}}</div>
+  </div>
+  <div class="related-tabs pt-4 pt-lg-5">
+    <div class="row js_product_related">
+      {% if collection and collection.products_count > 1 %}
+      {% assign current_product = product %}
+      {% assign current_product_found = false %}
+      {% for product in collection.products limit: products_limit %}
+      {% if product.handle == current_product.handle %}
+      {% assign current_product_found = true %}
+      {% else %}
+      {% unless current_product_found == false and forloop.last %}
+
+      <div class="col-12">
+        {% include 'product-item-v1' %}  
+      </div>
+      {% endunless %}
+      {% endif %}
+      {% endfor %}
+
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+</div>

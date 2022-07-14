@@ -1,0 +1,73 @@
+{% assign products_limit = section.settings.related_product_limit %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+{% assign found_a_collection = true %}
+{% assign collection = c %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if section.settings.enable_related_product or section.settings.enable_upsell_product %}
+<div class="related-tabs">
+  <ul class="list-inline-block related-tab-title font-bold text-uppercase dosis-font">
+    {% if section.settings.enable_related_product %}
+    <li class="active"><a href="#ral1" data-toggle="tab">{{section.settings.related_product_title}}</a></li>
+    {% endif %}
+
+    {% if section.settings.enable_upsell_product %}
+    <li><a href="#ral2" data-toggle="tab">{{section.settings.upsell_product_title}}</a></li>
+    {% endif %}
+  </ul>
+  <div class="tab-content">
+    {% if section.settings.enable_related_product %}
+    <div id="ral1" class="tab-pane active">
+      <div class="product-slider">
+        <div class="wrap-item group-navi rect-navi" data-pagination="false" data-navigation="true" data-itemscustom="[[0,{% if settings.mobile_products_per_row == "1" %}1{% elsif settings.mobile_products_per_row == "2" %}2{% endif %}],[560,2],[990,{{section.settings.products_per_related}}]]">
+          {% if collection and collection.products_count > 1 %}
+          {% assign current_product = product %}
+          {% assign current_product_found = false %}
+          {% for product in collection.products limit: products_limit %}
+          {% if product.handle == current_product.handle %}
+          {% assign current_product_found = true %}
+          {% else %}
+          {% unless current_product_found == false and forloop.last %}
+
+          {% include 'product-item-grid' %}
+
+          {% endunless %}
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          {% for i in (1..8) %}
+          {% include 'empty-product-item-grid' %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if section.settings.enable_upsell_product %}
+
+    {%- assign product_limit = section.settings.upsell_product_limit -%}
+    {%- assign col = section.settings.upsell_product_collection -%}
+    <div id="ral2" class="tab-pane">
+      <div class="product-slider">
+        <div class="wrap-item group-navi rect-navi" data-pagination="false" data-navigation="true" data-itemscustom="[[0,{% if settings.mobile_products_per_row == "1" %}1{% elsif settings.mobile_products_per_row == "2" %}2{% endif %}],[560,2],[990,{{section.settings.products_per_upsell}}]]">
+          {% for product in collections[col].products limit: product_limit %}
+          {% include 'product-item-grid' %}
+          {% else %}
+          {% for i in (1..8) %}
+          {% include 'empty-product-item-grid' %}
+          {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}

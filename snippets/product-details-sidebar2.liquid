@@ -1,0 +1,900 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+<div class="prod_extended" >
+  <section id="content">
+
+    <div class="wrap-bread-crumb">
+      <div class="container container-v1">
+        <div class="row">
+          <div class="col-sm-8">
+            {% include 'breadcrumb' %}
+          </div>
+          <div class="col-sm-4 justify-content-end align-items-center d-sm-flex d-none">
+            {% assign found_a_collection = false %}
+            {% for c in product.collections %}
+            {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+            {% assign found_a_collection = true %}
+            {% assign collection = c %}
+            {% endif %}
+            {% endfor %}
+
+            <div class="arrows-product">
+              {% assign current = product.id %}
+              {% if collection and collection.all_products_count >1 %}
+              {% for product in collection.products %}
+              {% assign id = product.id %}
+              {% if id == current %}
+              {% if forloop.last %}
+              {% assign next = 0 %}
+              {% else %}
+              {% assign next = forloop.index %}
+              {% endif %}
+              {% assign prev = forloop.index |minus:2 %}
+              {% endif %}
+              {% endfor %}
+              <div class="prev_prod"  >
+                <a href="{{collection.products[prev].url}}"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'products.product.prev' |t}}</a>
+                <div class="position-absolute img-prev">
+                  <a href="{{collection.products[prev].url}}">
+                    <img data-src="{{collection.products[prev].featured_image.src | img_url:"80x80"}}" class="lazyload">
+                  </a>
+                  <div class="info-prod">
+                    <a href="{{collection.products[prev].url}}">{{collection.products[prev].title}}</a>
+                    <p >{{collection.products[prev].price|money}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="next_prod" >
+                <a href="{{collection.products[next].url}}">
+                  {{'products.product.next' |t}}<i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+                <div class=" img-next">
+                  <a href="{{collection.products[next].url}}">
+                    <img data-src="{{collection.products[next].featured_image.src | img_url:"80x80"}}" class="lazyload">
+                  </a>
+                  <div class="info-prod">
+                    <a href="{{collection.products[next].url}}" >{{collection.products[next].title}}</a>
+                    <p >{{collection.products[next].price|money}}</p>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <a href="#"><i class="prev flaticon-left-arrow position-relative"></i></a>
+              <a href="#"><i class="next flaticon-right-arrow position-relative"></i></a>
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- End Bread Crumb -->
+    <div class="">
+      <div class="content-page container container-v1">      
+        <div class="content-page-detail">
+          <div class="row">
+            <div class="{% if settings.show_servicebox == true %}col-lg-5{% else %}col-lg-7 {% endif %} col-md-7 col-sm-12 col-12">
+              <div class="gallery-control">
+                {% if section.settings.style_page  == "left" %}
+                <div class="row">
+                  <div class="col-sm-2 gutter ">
+                    <div class="js_prod_sub">
+                      {% for image in product.images %}
+                      <div class="engoj_img_variant prod_sub thumb_mg engoj-nav-item">
+                        <img  data-src="{{ image.src | product_img_url: 'master' }}" class="lazyload" alt="{{product.title}}"> 
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-sm-10 gutter">
+
+                    {% if product.metafields.engo_video.video_link != blank   %}
+                    <div class="btn-video" data-fancybox href="{{product.metafields.engo_video.video_link}}">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512.13 512.13" style="enable-background:new 0 0 512.13 512.13;" xml:space="preserve">
+                        <g>
+                          <g>
+                            <path d="M346.541,221.958l-121.198-87.091c-11.977-8.591-27.338-11.977-39.315-5.077c-11.977,5.077-18.746,18.747-18.746,34.107    v184.335c0,15.361,6.769,27.338,18.746,34.107c5.077,1.692,10.284,3.385,15.361,3.385c8.592,0,17.054-3.385,23.953-10.285    l121.198-87.092c11.977-8.591,18.746-20.439,18.746-34.107C365.286,242.397,358.518,230.42,346.541,221.958z M326.102,262.835    l-121.198,87.091c-1.692,0-3.385,1.692-3.385,1.692s0-1.692,0-3.385V163.899c0-1.692,0-3.385,0-3.385    c1.692,0,1.692,1.692,5.077,3.385l121.197,87.091c1.692,0,3.385,3.385,3.385,5.077S329.487,261.141,326.102,262.835z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M256.065,0C114.43,0,0,114.298,0,256.065S114.298,512.13,256.065,512.13S512.13,397.832,512.13,256.065    S397.702,0,256.065,0z M256.065,477.892c-122.891,0-221.828-98.937-221.828-221.828S133.175,34.236,256.065,34.236    s221.828,98.937,221.828,221.828S378.956,477.892,256.065,477.892z"/>
+                          </g>
+                        </g>
+                      </svg>
+                      <span class="text_video">{{'products.product.video' | t}}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="img_thumb js_prod_main">
+                      {% for image in product.images %}
+                      <div class=" {% if section.settings.ena_zoom %}js-zoom-img zoom-image {% endif %}">
+                        <img class="{% if forloop.first %} engoj_img_main {% endif %} w-100 img-fluid lazyload" data-src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+                      </div> 
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>  
+                {% elsif section.settings.style_page  == "right"  %}
+                <div class="row">
+                  <div class="col-sm-10 gutter">
+
+                    {% if product.metafields.engo_360.enable_360 == 'true' %}
+                    <div class="btn-360" data-toggle="modal" data-target="#my360" >
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                           viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                        <g>
+                          <g>
+                            <path d="M426.576,11.533c-8.157,0-14.769,6.613-14.769,14.769v26.537C367.315,18.574,313.088,0,256,0
+                                     C187.62,0,123.333,26.629,74.98,74.98C26.628,123.332,0,187.62,0,256c0,68.382,26.629,132.67,74.982,181.022
+                                     c2.884,2.885,6.664,4.326,10.443,4.326s7.56-1.442,10.444-4.326c5.767-5.768,5.767-15.119,0-20.887
+                                     C53.095,373.361,29.538,316.492,29.538,256C29.538,131.129,131.129,29.538,256,29.538c47.289,0,92.364,14.397,130.222,41.117
+                                     h-18.723c-8.157,0-14.769,6.613-14.769,14.769s6.613,14.769,14.769,14.769h59.077c0.472,0,0.937-0.028,1.398-0.071
+                                     c0.005,0,0.01,0,0.015-0.001c0.41-0.039,0.812-0.103,1.212-0.174c0.07-0.013,0.141-0.019,0.211-0.032
+                                     c0.39-0.076,0.771-0.175,1.15-0.281c0.082-0.023,0.165-0.039,0.247-0.064c0.368-0.11,0.727-0.241,1.082-0.379
+                                     c0.093-0.035,0.187-0.065,0.28-0.102c0.35-0.143,0.687-0.306,1.023-0.475c0.096-0.048,0.194-0.089,0.289-0.139
+                                     c0.352-0.186,0.69-0.392,1.024-0.606c0.072-0.046,0.148-0.086,0.22-0.133c1.652-1.096,3.07-2.514,4.165-4.166
+                                     c0.048-0.072,0.088-0.148,0.134-0.221c0.213-0.334,0.418-0.672,0.605-1.022c0.05-0.096,0.092-0.194,0.14-0.29
+                                     c0.168-0.335,0.331-0.672,0.474-1.021c0.037-0.093,0.067-0.187,0.102-0.281c0.138-0.355,0.269-0.714,0.379-1.082
+                                     c0.024-0.079,0.039-0.16,0.061-0.239c0.107-0.381,0.207-0.766,0.283-1.159c0.012-0.062,0.018-0.126,0.029-0.188
+                                     c0.156-0.86,0.249-1.74,0.249-2.644V26.302C441.345,18.145,434.732,11.533,426.576,11.533z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M169.63,256c13.192-4.811,22.129-17.367,22.129-31.665c0-18.593-15.126-33.718-33.717-33.718h-48.537
+                                     c-8.157,0-14.769,6.613-14.769,14.769s6.613,14.769,14.769,14.769h48.537c2.304,0,4.179,1.875,4.179,4.18
+                                     c0,1.921-1.302,3.588-3.166,4.054l-32.225,8.057c-8.99,2.247-15.267,10.288-15.267,19.554s6.278,17.308,15.267,19.554
+                                     l32.225,8.057c1.864,0.467,3.165,2.133,3.165,4.054c0,2.305-1.875,4.18-4.179,4.18h-48.537c-8.157,0-14.769,6.613-14.769,14.769
+                                     s6.613,14.769,14.769,14.769h48.537c18.592,0,33.718-15.126,33.718-33.718C191.759,273.367,182.82,260.811,169.63,256z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M264.435,241.231h-27.409v-10.537c0-5.81,4.727-10.538,10.538-10.538h42.178c8.157,0,14.769-6.613,14.769-14.769
+                                     s-6.613-14.769-14.769-14.769h-42.178c-22.098,0-40.077,17.979-40.077,40.077v50.613c0,22.098,17.978,40.077,40.077,40.077h16.871
+                                     c22.098,0,40.077-17.979,40.077-40.077S286.534,241.231,264.435,241.231z M264.435,291.845h-16.871
+                                     c-5.81,0-10.538-4.728-10.538-10.538v-10.537h27.409c5.81,0,10.538,4.727,10.538,10.537S270.246,291.845,264.435,291.845z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M377.189,190.617h-16.871c-22.098,0-40.076,17.979-40.076,40.077v50.613c0,22.098,17.978,40.077,40.076,40.077h16.871
+                                     c22.098,0,40.076-17.979,40.076-40.077v-50.613C417.265,208.596,399.287,190.617,377.189,190.617z M387.727,281.307
+                                     c0,5.81-4.727,10.538-10.537,10.538h-16.871c-5.81,0-10.537-4.728-10.537-10.538v-50.613c0-5.81,4.727-10.538,10.537-10.538
+                                     h16.871c5.81,0,10.537,4.728,10.537,10.538V281.307z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M261.816,482.389c-3.804,0.096-7.697,0.096-11.5,0.003c-8.151-0.167-14.929,6.243-15.133,14.397
+                                     c-0.203,8.155,6.243,14.929,14.398,15.132c2.124,0.053,4.283,0.08,6.419,0.08c2.183,0,4.39-0.028,6.562-0.083
+                                     c8.155-0.206,14.598-6.983,14.392-15.137C276.748,488.626,269.945,482.197,261.816,482.389z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M504.892,195.855c-1.008-4.188-2.139-8.406-3.359-12.535c-2.312-7.823-10.527-12.287-18.35-9.977
+                                     c-7.823,2.313-12.29,10.529-9.977,18.35c1.079,3.65,2.078,7.377,2.97,11.078c1.63,6.768,7.678,11.315,14.347,11.315
+                                     c1.144,0,2.308-0.135,3.47-0.415C501.921,211.762,506.802,203.785,504.892,195.855z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M147.773,454.979c-3.348-1.825-6.69-3.758-9.934-5.747c-6.953-4.263-16.047-2.084-20.311,4.87
+                                     c-4.264,6.953-2.083,16.047,4.87,20.311c3.671,2.251,7.452,4.439,11.239,6.502c2.245,1.223,4.666,1.804,7.055,1.804
+                                     c5.231,0,10.301-2.786,12.981-7.705C157.577,467.853,154.934,458.882,147.773,454.979z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M202.957,476.219c-3.71-0.89-7.442-1.886-11.09-2.963c-7.825-2.304-16.035,2.168-18.341,9.992
+                                     c-2.306,7.824,2.168,16.036,9.992,18.342c4.128,1.216,8.35,2.343,12.547,3.351c1.158,0.278,2.318,0.412,3.458,0.412
+                                     c6.672,0,12.724-4.554,14.35-11.327C215.776,486.095,210.889,478.123,202.957,476.219z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M480.818,133.459c-2.062-3.775-4.252-7.552-6.506-11.226c-4.267-6.951-13.363-9.128-20.314-4.86
+                                     c-6.951,4.267-9.127,13.362-4.86,20.314c1.995,3.25,3.932,6.591,5.755,9.931c2.683,4.912,7.747,7.693,12.975,7.693
+                                     c2.393,0,4.82-0.583,7.067-1.811C482.094,149.59,484.727,140.618,480.818,133.459z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M338.575,483.214c-2.308-7.823-10.521-12.292-18.345-9.985c-3.663,1.081-7.39,2.078-11.078,2.965
+                                     c-7.931,1.905-12.817,9.879-10.912,17.81c1.627,6.772,7.677,11.324,14.349,11.324c1.141,0,2.302-0.134,3.461-0.413
+                                     c4.178-1.003,8.397-2.132,12.541-3.355C336.413,499.251,340.883,491.036,338.575,483.214z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M494.043,298.031c-7.934-1.9-15.904,2.991-17.803,10.924c-0.887,3.703-1.882,7.433-2.956,11.084
+                                     c-2.303,7.825,2.174,16.034,9.999,18.337c1.391,0.41,2.794,0.605,4.176,0.605c6.382,0,12.269-4.17,14.162-10.604
+                                     c1.216-4.131,2.341-8.352,3.345-12.543C506.866,307.902,501.975,299.932,494.043,298.031z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M475.062,358.231c-7.163-3.901-16.133-1.258-20.035,5.907c-1.823,3.345-3.756,6.693-5.75,9.95
+                                     c-4.259,6.956-2.072,16.049,4.885,20.308c2.406,1.473,5.068,2.175,7.697,2.175c4.97,0,9.825-2.51,12.611-7.06
+                                     c2.253-3.68,4.44-7.464,6.498-11.246C484.87,371.102,482.225,362.132,475.062,358.231z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M441.074,411.432c-5.914-5.618-15.262-5.38-20.881,0.534c-2.625,2.763-5.355,5.494-8.116,8.121
+                                     c-5.909,5.623-6.142,14.971-0.519,20.881c2.904,3.051,6.799,4.588,10.703,4.588c3.657,0,7.32-1.35,10.178-4.069
+                                     c3.118-2.968,6.203-6.053,9.169-9.175C447.226,426.4,446.988,417.052,441.074,411.432z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M511.916,249.37c-0.205-8.026-6.774-14.393-14.757-14.393c-0.127,0-0.255,0.002-0.383,0.005
+                                     c-8.155,0.208-14.597,6.986-14.389,15.14c0.049,1.945,0.075,3.922,0.075,5.879c0,1.868-0.023,3.756-0.068,5.614
+                                     c-0.198,8.155,6.253,14.925,14.407,15.123c0.122,0.003,0.243,0.004,0.364,0.004c7.991,0,14.563-6.379,14.758-14.412
+                                     c0.05-2.095,0.077-4.225,0.077-6.33C512,253.794,511.971,251.563,511.916,249.37z"/>
+                          </g>
+                        </g>
+                        <g>
+                          <g>
+                            <path d="M394.534,454.059c-4.264-6.951-13.358-9.131-20.312-4.866c-3.241,1.99-6.578,3.921-9.919,5.744
+                                     c-7.16,3.907-9.797,12.879-5.89,20.039c2.681,4.914,7.748,7.698,12.977,7.698c2.391,0,4.816-0.582,7.062-1.808
+                                     c3.777-2.061,7.55-4.247,11.216-6.495C396.622,470.107,398.8,461.013,394.534,454.059z"/>
+                          </g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                        <g>
+                        </g>
+                      </svg>
+                      <span class="text_360">360 Degree</span>
+                    </div>
+                    {% endif %}
+
+                    {% if product.metafields.engo_video.video_link != blank   %}
+                    <div class="btn-video" data-fancybox href="{{product.metafields.engo_video.video_link}}">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                           viewBox="0 0 294.843 294.843" style="enable-background:new 0 0 294.843 294.843;" xml:space="preserve">
+                        <g>
+                          <path d="M278.527,79.946c-10.324-20.023-25.38-37.704-43.538-51.132c-2.665-1.97-6.421-1.407-8.392,1.257s-1.407,6.421,1.257,8.392
+                                   c16.687,12.34,30.521,28.586,40.008,46.983c9.94,19.277,14.98,40.128,14.98,61.976c0,74.671-60.75,135.421-135.421,135.421
+                                   S12,222.093,12,147.421S72.75,12,147.421,12c3.313,0,6-2.687,6-6s-2.687-6-6-6C66.133,0,0,66.133,0,147.421
+                                   s66.133,147.421,147.421,147.421s147.421-66.133,147.421-147.421C294.842,123.977,289.201,100.645,278.527,79.946z"/>
+                          <path d="M109.699,78.969c-1.876,1.067-3.035,3.059-3.035,5.216v131.674c0,3.314,2.687,6,6,6s6-2.686,6-6V94.74l88.833,52.883
+                                   l-65.324,42.087c-2.785,1.795-3.589,5.508-1.794,8.293c1.796,2.786,5.508,3.59,8.294,1.794l73.465-47.333
+                                   c1.746-1.125,2.786-3.073,2.749-5.15c-0.037-2.077-1.145-3.987-2.93-5.05L115.733,79.029
+                                   C113.877,77.926,111.575,77.902,109.699,78.969z"/>
+                        </g>
+
+                      </svg>
+                      <span class="text_video">{{'products.product.video' | t}}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="img_thumb js_prod_main">
+                      {% for image in product.images %}
+                      <div class=" {% if section.settings.ena_zoom %}js-zoom-img zoom-image {% endif %}">
+                        <img class="{% if forloop.first %} engoj_img_main {% endif %} w-100 img-fluid" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+                      </div> 
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="col-sm-2 gutter ">
+                    <div class="js_prod_sub">
+                      {% for image in product.images %}
+                      <div class="engoj_img_variant prod_sub thumb_mg engoj-nav-item">
+                        <img  src="{{ image.src | product_img_url: 'master' }}" alt="{{product.title}}">
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>  
+
+                {% elsif section.settings.style_page  == "bottom"  %}
+
+                <div class="relative ">
+
+                  {% if product.metafields.engo_video.video_link != blank   %}
+                  <div class="btn-video" data-fancybox href="{{product.metafields.engo_video.video_link}}">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 294.843 294.843" style="enable-background:new 0 0 294.843 294.843;" xml:space="preserve">
+                      <g>
+                        <path d="M278.527,79.946c-10.324-20.023-25.38-37.704-43.538-51.132c-2.665-1.97-6.421-1.407-8.392,1.257s-1.407,6.421,1.257,8.392
+                                 c16.687,12.34,30.521,28.586,40.008,46.983c9.94,19.277,14.98,40.128,14.98,61.976c0,74.671-60.75,135.421-135.421,135.421
+                                 S12,222.093,12,147.421S72.75,12,147.421,12c3.313,0,6-2.687,6-6s-2.687-6-6-6C66.133,0,0,66.133,0,147.421
+                                 s66.133,147.421,147.421,147.421s147.421-66.133,147.421-147.421C294.842,123.977,289.201,100.645,278.527,79.946z"/>
+                        <path d="M109.699,78.969c-1.876,1.067-3.035,3.059-3.035,5.216v131.674c0,3.314,2.687,6,6,6s6-2.686,6-6V94.74l88.833,52.883
+                                 l-65.324,42.087c-2.785,1.795-3.589,5.508-1.794,8.293c1.796,2.786,5.508,3.59,8.294,1.794l73.465-47.333
+                                 c1.746-1.125,2.786-3.073,2.749-5.15c-0.037-2.077-1.145-3.987-2.93-5.05L115.733,79.029
+                                 C113.877,77.926,111.575,77.902,109.699,78.969z"/>
+                      </g>
+
+                    </svg>
+                    <span class="text_video">{{'products.product.video' | t}}</span>
+                  </div>
+                  {% endif %}
+
+                  <div class="img_thumb js_prod_main2">
+                    {% for image in product.images %}
+                    <div class=" {% if section.settings.ena_zoom %}js-zoom-img zoom-image {% endif %}">
+                      <img class="{% if forloop.first %} engoj_img_main {% endif %} w-100 img-fluid" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+                    </div> 
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="sub_img img_thumb_bottom">
+                  <div class="js_prod_sub2">
+                    {% for image in product.images %}
+                    <div class="engoj_img_variant prod_sub engoj-nav-item">
+                      <img  src="{{ image.src | product_img_url: 'master' }}" alt="{{product.title}}">
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                {% elsif section.settings.style_page  == "top" %}
+                <div class="sub_img img_thumb_top">
+                  <div class="js_prod_sub2">
+                    {% for image in product.images %}
+                    <div class="engoj_img_variant prod_sub engoj-nav-item">
+                      <img  src="{{ image.src | product_img_url: 'master' }}" alt="{{product.title}}">
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class=" ">
+                  {% if product.metafields.engo_video.video_link != blank   %}
+                  <div class="btn-video" data-fancybox href="{{product.metafields.engo_video.video_link}}">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                         viewBox="0 0 294.843 294.843" style="enable-background:new 0 0 294.843 294.843;" xml:space="preserve">
+                      <g>
+                        <path d="M278.527,79.946c-10.324-20.023-25.38-37.704-43.538-51.132c-2.665-1.97-6.421-1.407-8.392,1.257s-1.407,6.421,1.257,8.392
+                                 c16.687,12.34,30.521,28.586,40.008,46.983c9.94,19.277,14.98,40.128,14.98,61.976c0,74.671-60.75,135.421-135.421,135.421
+                                 S12,222.093,12,147.421S72.75,12,147.421,12c3.313,0,6-2.687,6-6s-2.687-6-6-6C66.133,0,0,66.133,0,147.421
+                                 s66.133,147.421,147.421,147.421s147.421-66.133,147.421-147.421C294.842,123.977,289.201,100.645,278.527,79.946z"/>
+                        <path d="M109.699,78.969c-1.876,1.067-3.035,3.059-3.035,5.216v131.674c0,3.314,2.687,6,6,6s6-2.686,6-6V94.74l88.833,52.883
+                                 l-65.324,42.087c-2.785,1.795-3.589,5.508-1.794,8.293c1.796,2.786,5.508,3.59,8.294,1.794l73.465-47.333
+                                 c1.746-1.125,2.786-3.073,2.749-5.15c-0.037-2.077-1.145-3.987-2.93-5.05L115.733,79.029
+                                 C113.877,77.926,111.575,77.902,109.699,78.969z"/>
+                      </g>
+
+                    </svg>
+                    <span class="text_video">{{'products.product.video' | t}}</span>
+                  </div>
+                  {% endif %}
+
+                  <div class="img_thumb js_prod_main2">
+                    {% for image in product.images %}
+                    <div class=" {% if section.settings.ena_zoom %}js-zoom-img zoom-image {% endif %}">
+                      <img class="engoj_img_main w-100 img-fluid" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+                    </div> 
+                    {% endfor %}
+                  </div>
+                </div>                      
+                {% endif %}
+              </div>
+
+              <!-- End Gallery -->
+            </div>
+            <div class="{% if settings.show_servicebox == true %}col-lg-4{% else %}col-lg-5 {% endif %} col-md-5 col-sm-12 col-12 ">
+
+              <div class="detail-info" style="{% if settings.show_servicebox == true %} padding-left: 0px; {% endif %}">
+                <div class="relative">
+                  <h2 class="product-title ">{{product.title}}</h2>
+                  <div class="product-price ">                      
+                    {% capture price %}{{ product.price | money }}{% endcapture %}
+                    {% if on_sale %}<del class="enj-product-price-compare">{{ product.compare_at_price | money }}</del> {% endif %}
+                    <ins class="enj-product-price engoj_price_main">{{ price }}</ins>
+
+                  </div>
+                  {% if section.settings.show_rating %}
+                  <div class="wrap-rating">
+                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                  </div>
+                  {% endif %}
+
+
+
+                  {% if section.settings.show_sdes %}
+                  {% if product.metafields.engo_summary.summary_content != blank %}
+                  <div class="pd_summary">
+                    <p class=" mb-0">{{product.metafields.engo_summary.summary_content}}</p>
+                  </div>
+                  {% else %}
+                  <div class="pd_summary">
+                    <p class=" mb-0">{{product.description| strip_html | truncatewords: 50}}</p>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+
+                  {% if settings.ena_info_sale %}
+                  <div class="list_ul_engo_full">                
+                    {{settings.content_infosale}}
+                  </div>
+                  {% endif %}
+
+
+                  {% if settings.ena_random_sold_item %}
+                  <p class="random_product" ><span id="random_prod"></span>  {{settings.random_text1}}  <span id="random_hour"></span> {{settings.random_text2}}</p>   
+                  {% endif %}
+
+                  {% if settings.ena_countdown %}
+                  <div class="count-down">
+                    <p class="text" >{{settings.countdown_text1}} <span id="random_sold_prod"></span> {{settings.countdown_text2}}</p>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
+                    </div>
+                    {% if product.metafields.engo_countdown_prod.countdown_datetime != blank %}
+                    <div class="countdown-timer">
+                      <ul data-countdown="countdown-v1" data-date="{{product.metafields.engo_countdown_prod.countdown_datetime}}">
+                      </ul>
+                    </div> 
+                    {% endif %}
+                  </div> 
+                  {% endif %}
+
+                  {% comment %}
+                  Setup MetaFields Editor: https://apps.shopify.com/metafields-editor
+
+                  If you’ve added to a product a metafield with the following attributes to store extra description for your products.
+                  Namespace: shopilaunch_function
+                  Key: countdown_time
+                  Value: 12/12/2019
+                  Value_type: string
+
+                  You can output the value of this metafield in product.liquid with this Liquid tag:
+                  product.metafields.Namespace.Key
+
+                  {{product.metafields.engo_summary.summary_content}}
+                  {{product.metafields.engo_external.external_name}}
+                  {{product.metafields.engo_external.external_url}}
+                  {{product.metafields.engo_video.video_link}}
+
+                  {% endcomment %}
+
+
+                  {% if settings.show_sizeguide or settings.show_question or settings.show_delivery_return %}
+                  {% include 'size-guide' %}
+                  {% endif %}
+
+                  <form  action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="cart clearfix mt-3">
+                    {% comment %}
+                    Add product variants as a dropdown.
+                    - By default, each variant (or combination of variants) will display as its own <option>
+                    - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+
+                    You can leverage jQuery to add a callback on page load and each time the select element changes:
+                    - Include option_selection.js (as seen at the bottom of this file)
+                    - This allows you to use JavaScript anytime the variant dropdown changes
+                    - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+
+                    For more information on products with multiple options, visit:
+                    - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+                    {% endcomment %}
+
+                    <select name="id" id="productSelect" class="product-single__variants">
+                      {% for variant in product.variants %}
+                      {% if variant.available %}
+                      {% assign sku = variant.sku %}
+                      {% comment %}
+                      Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                      {% endcomment %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                      {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                      {% endif %}
+                      {% endfor %}
+                      </select>
+                    </select>
+
+
+
+
+                    {% if product.available and product.variants.size > 1 %}
+                    
+
+                    <!--Swatch Variant -->
+                    {% for option in product.options %}
+                    {% include 'swatch' with option %}
+                    {% endfor %}
+                    {% endif %}
+                    <!--End Swatch Variant -->
+
+                    <!-- Add to cart & quantity -->
+                    {% if settings.enable_catalog_mode == false %}
+                    {% if product.metafields.engo_external.external_name != blank %}
+
+                    <div class=" btn-action">
+                      <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+                    </div>  
+
+                    {% else %}
+                    {% if sold_out %}
+                    <div class="btn-action">
+                      <div class="shop-button-soldout">
+                        {{ 'products.product.out_of_stock' | t }}
+                      </div>
+                    </div>  
+                    {% else %}
+                    <div class="btn-action detail-attr qty-cart">
+                      {% if section.settings.show_quantity %}
+                      <div class="">
+                        <input type="number" size="4" title="Qty" value="1" min="1" id="Quantity" name="quantity" />
+                      </div>
+                      {% endif %}
+                      <button type="submit" class="shop-button enj-add-to-cart-btn engoj-btn-addtocart">
+                        {{settings.pia_addcart_name}}
+                      </button>
+                    </div>
+                    <!-- End add to cart & quantity -->
+                    {% form 'product', product %}
+                    {{ form | payment_button }}
+                    {% endform %}
+
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+
+                  </form>
+
+                  {% if settings.ena_random_visit %}
+                  <p class="visitor">Real time <span id="realtime_visit"></span> Visitor right now</p>
+                  {% endif %}
+                  {% if settings.trust_badge  %}
+                  <div class="trust_bagde">
+                    <img src="{{settings.trust_badge|img_url : 'master'}}" >
+                  </div>
+                  {% endif %}
+
+                  {% if settings.enable_catalog_mode == false %}
+                  <div class="btn-addwhlist">
+                    {% include 'add-wishlist' %}
+                    <span class="text_whlist"></span>
+                  </div>
+                  {% endif %}
+
+                  <ul class="product-meta-info"> 
+                    {% if section.settings.show_sku %}
+                    {% if product.variants.first.sku != blank %}
+                    <li>
+                      <div class="item-product-meta-info product-sku">
+                        <label>{{'products.product.sku' | t}} :</label>
+                        <span class="engoj-variant-sku">{{ current_variant.sku }}</span>
+                      </div>
+                    </li>
+                    {% endif %}
+                    {% endif %} 
+
+                    {% if section.settings.show_cate %}
+                    <li>
+                      <div class="item-product-meta-info product-category-info">
+                        <label>{{'blogs.sidebar.categories' | t}} :</label>
+                        {% for collection in product.collections %}
+                        <a href="{{collection.url}}">{{ collection.title }}{% unless forloop.last%},{% endunless %} </a>  
+                        {% endfor %}
+                      </div>
+                    </li>
+                    {% endif %}
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+
+            {% if settings.show_servicebox  %}
+            <div class="col-lg-3 col-md-12 col-12">
+              <div class="row">
+                <div class="col-lg-12 col-md-4">
+                  <div class="content_box ">
+                    <div class="icon"> <i class="{{settings.icon_box_1}}"></i></div>
+                    <div class="content_text">
+                      <h3 class="title">{{settings.title_box_1}}</h3>
+                      <div class="text">{{settings.content_box_1}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-4">
+                  <div class="content_box ">
+                    <div class="icon"> <i class="{{settings.icon_box_2}}"></i></div>
+                    <div class="content_text">
+                      <h3 class="title">{{settings.title_box_2}}</h3>
+                      <div class="text">{{settings.content_box_2}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-4">
+                  <div class="content_box ">
+                    <div class="icon"> <i class="{{settings.icon_box_3}}"></i></div>
+                    <div class="content_text">
+                      <h3 class="title">{{settings.title_box_3}}</h3>
+                      <div class="text">{{settings.content_box_3}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+            {% endif %}
+
+          </div>
+        </div>
+        {% if section.settings.ena_featured_icon %}
+        {% render 'featured-icon' %}
+        {% endif %}
+      </div>
+
+      {% if section.settings.ena_sticky_addcart %}
+      <div class="sticky_addcart">
+        <div class="container container-v4">
+          <div class="row">
+            <div class="d-flex col-sm-6 align-items-center relative">
+              {% for image in product.images %}
+              {% if forloop.first %}
+              <div class="img_left">
+                <img width="60" height="60" class="engoj_img_main img-fluid" src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+              </div>
+              {% endif %}
+              {% endfor %}
+
+              <div class="info_right">
+                <h2 class="product-title ">{{product.title}}</h2>
+                <div class="product-price ">                      
+                  {% capture price %}{{ product.price | money }}{% endcapture %}
+                  {% if on_sale %}<del class="enj-product-price-compare">{{ product.compare_at_price | money }}</del> {% endif %}
+                  <ins class="enj-product-price engoj_price_main">{{ price }}</ins>
+
+                </div>
+                {% if section.settings.show_rating %}
+                <div class="wrap-rating">
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+                {% endif %}
+              </div>
+
+              <div class="d-sm-none d-block position_add" style="position: absolute;  {% if settings.enable_rtl_mode %} left: 15px {% else %} right: 15px; {% endif %}">
+                {% if settings.enable_catalog_mode == false %}
+                {% if product.metafields.engo_external.external_name != blank %}
+
+                <div class=" btn-action">
+                  <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+                </div>  
+
+                {% else %}
+                {% if sold_out %}
+                <div class="btn-action">
+                  <div class="shop-button-soldout">
+                    {{ 'products.product.out_of_stock' | t }}
+                  </div>
+                </div>  
+                {% else %}
+                <div class="btn-action detail-attr qty-cart">
+                  <button type="submit" class="shop-button btn-add-stickycart">
+                    {{settings.pia_addcart_name}}
+                  </button>
+                </div>
+                <!-- End add to cart & quantity -->
+                {% endif %}
+                {% endif %}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="col-sm-6 d-sm-flex d-none justify-content-sm-end justify-content-start align-items-center">
+              {% if settings.enable_catalog_mode == false %}
+              {% if product.metafields.engo_external.external_name != blank %}
+
+              <div class=" btn-action">
+                <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+              </div>  
+
+              {% else %}
+              {% if sold_out %}
+              <div class="btn-action">
+                <div class="shop-button-soldout">
+                  {{ 'products.product.out_of_stock' | t }}
+                </div>
+              </div>  
+              {% else %}
+              <div class="btn-action detail-attr qty-cart">
+                <button type="submit" class="shop-button btn-add-stickycart">
+                  {{settings.pia_addcart_name}}
+                </button>
+              </div>
+              <!-- End add to cart & quantity -->
+              {% endif %}
+              {% endif %}
+              {% endif %}
+
+            </div>
+
+          </div> 
+        </div>
+      </div>
+
+      <style>
+        @media(max-width: 576px){
+          .sticky_addcart{
+            {% if section.settings.style_stickyaddcart == "top" %}
+            top:75px;
+            bottom: auto;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: .8s;
+            {% elsif section.settings.style_stickyaddcart == "bottom" %}
+            bottom: 50px;
+            top: auto;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: .8s;
+            {% endif %}
+          }
+        }
+
+      </style>
+
+      {% endif %}
+
+    </div>  
+  </section>
+  {% include 'tab-product-details' %}
+
+  {% if section.settings.show_social_share %}
+  	{% include 'social_share-product' %}
+  {% endif %}
+  
+  {% if settings.enable_related_product %}
+  {% include 'related-product-new' %}
+  {% endif %}
+
+</div>
+
+<style>
+  .list_ul_engo_full ul li{
+    color: {{settings.color_content_infosale}};
+    font-weight:500;
+  }
+  .list_ul_engo_full ul li:before{
+    border-color: transparent transparent transparent {{settings.color_content_infosale}};
+  }
+  .list_ul_engo_full .title-list{
+    color: {{settings.color_content_infosale}}
+  }
+</style>
+
+<script>
+  function random(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+  {% if settings.ena_random_sold_item %}
+  var initial = random({{settings.min_prod1}}, {{settings.max_prod1}});
+  var count = initial;
+  document.getElementById('random_prod').innerHTML = count;
+  setInterval(function() {
+    if (count <= 5) { 
+      count +=5;}
+
+    var variation = random(-5,5);
+    count += variation;
+    if(count>={{settings.max_prod1}}){
+       count ={{settings.max_prod1}};
+       }
+       if(count<=0){
+      count ={{settings.max_prod1}};
+    }
+    document.getElementById('random_prod').innerHTML = count;
+
+  },{% if settings.settime_random_sold != blank %} {{settings.settime_random_sold}}000  {% else %} 5000{% endif %})
+  {% endif %}  
+
+  {% if settings.ena_random_sold_item %}  
+  var initial2 = random({{settings.min_prod2}}, {{settings.max_prod2}});
+  var count2 = initial2;
+  document.getElementById('random_hour').innerHTML = count2;
+  setInterval(function() {
+    if (count2 <= 5) { 
+      count2 +=5;}
+
+    var variation2 = random(-5,5);
+    count2 += variation2;
+    if(count2>={{settings.max_prod2}}){
+       count2 ={{settings.max_prod2}};
+       }
+       if(count2<= 0){
+      count2 ={{settings.max_prod2}};
+    }
+    document.getElementById('random_hour').innerHTML = count2;
+
+  }, {% if settings.settime_random_sold != blank %} {{settings.settime_random_sold}}000  {% else %} 5000{% endif %})  
+  {% endif %}  
+
+  {% if settings.ena_random_visit %}
+  var initial3 = random({{settings.min_visit}}, {{settings.max_visit}});
+  var count3 = initial3;
+  document.getElementById('realtime_visit').innerHTML = count3;
+  setInterval(function() {
+    if (count3 <= 5) { 
+      count3 +=5;}
+
+    var variation3 = random(-5,5);
+    count3 += variation3;
+    if(count3>={{settings.max_visit}}){
+       count3 ={{settings.max_visit}};
+       }
+       if(count3<=0){
+      count3 ={{settings.max_visit}};
+    }
+    document.getElementById('realtime_visit').innerHTML = count3;
+
+  },{% if settings.settime_random_visitor != blank %} {{settings.settime_random_visitor}}000 {% else %} 3000 {% endif %})    
+
+  {% endif %}
+
+  {% if settings.ena_countdown %}
+  jQuery(document).ready(function($) {
+    var intinal4 = random(1, {{settings.max_product}});
+                          var count4 = intinal4;
+                          document.getElementById('random_sold_prod').innerHTML = count4;
+    $('.progress-bar').css('width', function(){
+      return count4/{{settings.max_product}}*100 + '%';
+    });
+    setInterval(function() {
+      count4 -= 1;
+      if(count4 ==0){
+        count4 = {{settings.max_product}};
+      }
+      document.getElementById('random_sold_prod').innerHTML = count4;
+      $('.progress-bar').css('width', function(){
+        return count4/{{settings.max_product}}*100 + '%';
+      });
+    }, {% if settings.settime_hurry_stock != blank %} {{settings.settime_hurry_stock}}000 {% else %}10000 {% endif %})  
+
+  }); 
+  {% endif %}
+
+
+
+  jQuery(document).ready(function($) {
+    $('.btn-add-stickycart').on( 'click', function() {
+      $('.shop-button.enj-add-to-cart-btn.engoj-btn-addtocart').click();
+    });
+  }); 
+
+</script>

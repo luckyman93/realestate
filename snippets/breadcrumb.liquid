@@ -1,0 +1,95 @@
+<!-- /snippets/breadcrumb.liquid -->
+{% comment %}
+Documentation - http://docs.shopify.com/support/your-website/navigation/creating-a-breadcrumb-navigation
+{% endcomment %}
+
+{% unless template == 'index' %}
+{% if settings.enable_rtl_mode %}
+<div class="bread-crumb">
+  {% if template contains 'product' %}
+  <strong>{{ product.title }}</strong>
+  {% if collection %}
+  {% if collection.handle %}
+  {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+  <a href="{{ collection.url}}"><i class="fa fa-angle-left" aria-hidden="true"></i>{{collection.title}}</a>
+  {% endif %}
+  {% endif %}
+
+
+  {% elsif template contains 'collection' and collection.handle %}
+  {% if current_tags %}
+  {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+  {{ collection.title | link_to: url }}
+  {% else %}
+  <strong>{{ collection.title }}</strong>
+  {% endif %}
+
+  {% elsif template == 'blog' %}
+  {% if current_tags %}
+  {{ blog.title | link_to: blog.url }}
+  {% else %}
+  <strong>{{ blog.title }}</strong>
+  {% endif %}
+
+  {% elsif template == 'article' %}
+  <strong>{{ article.title }}</strong>
+  <a href="{{ blog.url}}"><i class="fa fa-angle-left" aria-hidden="true"></i> {{blog.title}}</a>
+
+
+  {% elsif template contains 'page' %}
+  <strong>{{ page.title }}</strong>
+
+  {% else %}
+  <strong>{{ page_title }}</strong>
+
+  {% endif %}
+  <a href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}"><i class="fa fa-angle-left" aria-hidden="true"></i>{{ 'general.breadcrumbs.home' | t }}</a>
+
+</div>
+{% else %}
+<div class="bread-crumb">
+  <a href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  {% if template contains 'product' %}
+
+  {% if collection %}
+  {% if collection.handle %}
+  {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+  <a href="{{ collection.url}}">{{collection.title}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  {% endif %}
+  {% endif %}
+  <strong>{{ product.title }}</strong>
+
+  {% elsif template contains 'collection' and collection.handle %}
+  {% if current_tags %}
+  {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+  {{ collection.title | link_to: url }}
+  <strong>{{ current_tags | join: " + " }}</strong>
+  {% else %}
+  <strong>{{ collection.title }}</strong>
+  {% endif %}
+
+  {% elsif template == 'blog' %}
+  {% if current_tags %}
+  {{ blog.title | link_to: blog.url }}
+  <strong>{{ current_tags | join: " + " }}</strong>
+  {% else %}
+  <strong>{{ blog.title }}</strong>
+  {% endif %}
+
+  {% elsif template == 'article' %}
+  <a href="{{ blog.url}}">{{blog.title}} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  <strong>{{ article.title }}</strong>
+
+  {% elsif template contains 'page' %}
+  <strong>{{ page.title }}</strong>
+
+  {% else %}
+  <strong>{{ page_title }}</strong>
+
+  {% endif %}
+</div>
+
+{% endif %}
+{% endunless %}
+
+

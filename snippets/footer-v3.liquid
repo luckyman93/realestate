@@ -1,0 +1,231 @@
+{% if section.settings.select_fts == "footer_v3" %}
+{% if template contains 'index' %}
+<footer class="footer_v3" style="background-color : {{section.settings.ft_home_bg_footer}}">
+
+  <div class="newsletter-fv3">
+    {% if settings.newsletter_form_action != blank %}
+    {% assign form_action = settings.newsletter_form_action %}
+    {% else %}
+    {% assign form_action = '#' %}
+    {% endif %}
+    <div class="container container-v2">   
+      {% if settings.title_newletter != blank %}
+      <div class="title_newletter">
+        <h3 class="title mb-0">{{settings.title_newletter}}</h3>
+      </div>
+      {% endif %}
+
+      {% if settings.content_newletter != blank %}
+      <p class="mb-0 content">{{settings.content_newletter}}</p>
+      {% endif %}      
+
+      <div class="row ">        
+        <div class="col-lg-12">
+          <div class="newletter_email">          
+            <form class="needs-validation form-inline" action="{{form_action}}" method="post">
+              <div class="form-group">                           
+                <input type="email" name="EMAIL" class="form-control" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required >                 
+              </div>
+              <button class="btn" type="submit">{{ 'general.newsletter_form.submit_footer' | t }}</button>
+            </form>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content_menu">
+    <div class="container container-v1">    
+      <div class="row align-items-center">
+        <div class="col-lg-3 text-lg-left">
+          <div class="copyright">
+            {% if settings.copyright_fv3 != blank %}
+            {{settings.copyright_fv3}}
+            {% else %}
+            <div class="text-copyright mb-0"><p>Copyright © 2021 by <a href="http://themeocean.net/" rel="nofollow" target="_blank">ThemeOcean</a>. All Rights Reserved.</p>
+              <p><a href="https://www.shopify.com/?ref=shopifycenter" rel="nofollow" target="_blank">Powered by Shopify.</a></p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-lg-6 text-center">
+          <div class="menu">
+            <ul class="list-inline list-unstyled mb-0">
+              {% for link in linklists[settings.menu_fv3].links %}
+              <li class="list-inline-item mr-0"><a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-3 text-lg-right">
+          <div class="casano-socials">
+            <ul class="list-inline list-unstyled mb-0">
+              {% if settings.icon_sc_fv3_1 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_1}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_1}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_2 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_2}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_2}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_3 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_3}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_3}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_4 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_4}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_4}}"></i></a>
+              </li>
+              {% endif %}         
+
+            </ul>
+          </div>
+        </div> 
+      </div>
+    </div> 
+  </div>
+</footer>
+
+<style>
+  .footer_v3 .content_menu .copyright{
+    color : {{section.settings.ft_home_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .title_newletter h3{
+    color : {{section.settings.ft_home_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .content{
+    color : {{section.settings.ft_home_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .newletter_email form .btn{
+    color : {{section.settings.ft_home_color_text}};
+  }
+
+  .footer_v3 .content_menu .casano-socials ul li a {
+    color : {{section.settings.ft_home_color_text}};
+  }
+
+  .footer_v3 .content_menu .menu ul li a{
+    color : {{section.settings.ft_home_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .newletter_email form{
+    border-bottom : 2px solid {{section.settings.ft_home_color_text}};
+  }
+</style>
+{% endif %}
+{% endif %}
+
+{% if section.settings.select_fts_all == "footer_ver3" %}
+{% unless template contains 'index' %}
+<footer class="footer_v3" style="background-color : {{section.settings.ft_other_bg_footer}}">
+  <div class="newsletter-fv3">
+    {% if settings.newsletter_form_action != blank %}
+    {% assign form_action = settings.newsletter_form_action %}
+    {% else %}
+    {% assign form_action = '#' %}
+    {% endif %}
+    <div class="container container-v2">   
+      {% if settings.title_newletter != blank %}
+      <div class="title_newletter">
+        <h3 class="title mb-0">{{settings.title_newletter}}</h3>
+      </div>
+      {% endif %}
+
+      {% if settings.content_newletter != blank %}
+      <p class="mb-0 content">{{settings.content_newletter}}</p>
+      {% endif %}      
+
+      <div class="row ">        
+        <div class="col-lg-12">
+          <div class="newletter_email">          
+            <form class="needs-validation form-inline" action="{{form_action}}" method="post">
+              <div class="form-group">                           
+                <input type="email" name="EMAIL" class="form-control" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required >                 
+              </div>
+              <button class="btn" type="submit">{{ 'general.newsletter_form.submit_footer' | t }}</button>
+            </form>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content_menu">
+    <div class="container container-v1">    
+      <div class="row align-items-center">
+        <div class="col-lg-3 text-lg-left">
+          <div class="copyright">
+            {% if settings.copyright_fv3 != blank %}
+            {{settings.copyright_fv3}}
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="menu">
+            <ul class="list-inline list-unstyled mb-0">
+              {% for link in linklists[settings.menu_fv3].links %}
+              <li class="list-inline-item mr-0"><a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-3 text-lg-right">
+          <div class="casano-socials">
+            <ul class="list-inline list-unstyled mb-0">
+              {% if settings.icon_sc_fv3_1 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_1}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_1}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_2 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_2}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_2}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_3 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_3}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_3}}"></i></a>
+              </li>
+              {% endif %}
+              {% if settings.icon_sc_fv3_4 !=blank %}
+              <li class="list-inline-item mr-0 mb-0">
+                <a href="{{settings.url_sc_fv3_4}}" title="" target="_blank" class="social-item"><i class="{{settings.icon_sc_fv3_4}}"></i></a>
+              </li>
+              {% endif %}         
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</footer>
+
+<style>
+  .footer_v3 .content_menu .copyright{
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .title_newletter h3{
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .content{
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .newletter_email form .btn{
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .content_menu .casano-socials ul li a {
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .content_menu .menu ul li a{
+    color : {{section.settings.ft_other_color_text}};
+  }
+  .footer_v3 .newsletter-fv3 .newletter_email form{
+    border-bottom : 2px solid {{section.settings.ft_other_color_text}};
+  }
+</style>
+{% endunless %}
+{% endif %}

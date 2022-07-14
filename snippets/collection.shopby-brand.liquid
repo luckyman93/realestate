@@ -1,0 +1,15 @@
+<section class="widget widget-category widget_product_categories filter-brand">
+  <div class="widget-title">
+    <h2 class="mb-0">{{settings.shop_by_brand_title}}</h2>
+  </div>
+  
+  <ul class="list-none list-brand">
+    {% for product_vendor in collection.all_vendors %}
+    <li class="cat-item">
+
+      {{ product_vendor | link_to_vendor }} 
+    </li>
+    {% endfor %}
+  </ul>
+  <!-- /.product-categories -->
+</section>

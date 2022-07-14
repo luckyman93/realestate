@@ -1,0 +1,40 @@
+{% if settings.font_type == 'google_fonts' %}
+
+{% assign fonts_1 = false %}
+{% if settings.fonts_name_1 != blank %}
+{% assign fonts_1 = true %}
+{% endif %}
+
+
+
+
+<script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 
+      {% if fonts_1 %}
+      '{{ settings.fonts_name_1 }}:100,200,300,400,500,600,700,800,900'
+      {% endif %}
+
+    ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); 
+</script>
+{% else %}
+
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+
+{% endif %}

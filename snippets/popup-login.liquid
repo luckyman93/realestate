@@ -1,0 +1,125 @@
+<div class="poup-login-destop js-poup-login-destop d-none d-xl-block">
+  <div class="overlay_login-content">
+    <div class="row justify-content-center box_content_accountdestop text-center">            
+      <div class="formlogin-destop">
+        <div class="login_primary CustomerLoginForm">
+          <div class="login-icon-popup-login">
+            {% if settings.pouplogin_logo_svg != blank %}
+            <div class="logosvg m-auto" style="max-width:{{settings.pouplogin_logo_maxwidth}}px;">
+              <a class="logourl" href="{{shop.url}}">{{settings.pouplogin_logo_svg}}</a>
+            </div>
+            {% else %}          	
+            <a href="{{shop.url}}">
+              {% if settings.pouplogin_logo != blank %}
+              <img src="{{settings.pouplogin_logo|img_url:'master'}}" width="{{settings.pouplogin_logo_maxwidth}}" alt="{{shop.name}}">
+              {% else %}
+              <img src="//via.placeholder.com/160x46" width="{{settings.pouplogin_logo_maxwidth}}" alt="{{shop.name}}">
+              {% endif %}
+            </a>
+            {% endif %}
+          </div>
+          <h2 class="title-tab-login">{{ 'customer.login.title-1' | t }}</h2>
+          <div class="mailrrr mt-3">
+            {% form 'customer_login' %}
+            {{ form.errors | default_errors }}
+            <div class="form-group">
+              <input type="email"  class="form-control" name="customer[email]"  placeholder="{{ 'customer.login.email' | t }}" required>
+            </div>
+            {% if form.password_needed %}
+            <div class="form-group">
+              <input type="password" class="form-control"  placeholder="{{ 'customer.login.password' | t }}" name="customer[password]" required>
+            </div>
+            {% endif %}
+            <div class="form-check">
+              {% if form.password_needed %}
+              <a href="#recover" class="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+              {% endif %}
+            </div>
+            <button type="submit" class="btn btn-dark w-100" value="{{ 'customer.login.log_in' | t }}">
+              {{ 'customer.login.log_in' | t }}
+            </button>
+            {% endform %}
+          </div>
+
+          <div class="or_creat my-3">
+            {% if settings.enable_rtl_mode %}
+            <div class="box-register"><a href="javascript:void(0)" class="jsCreate_account"><i class="mr-2 ti-arrow-left"></i>{{ 'customer.account.register_now' | t }} </a><span class="or-register ml-2">{{ 'customer.login.title-2' | t }}</span></div>
+            {% else %}
+            <div class="box-register"><span class="or-register mr-2">{{ 'customer.login.title-2' | t }}</span><a href="javascript:void(0)" class="jsCreate_account">{{ 'customer.account.register_now' | t }} <i class="ml-2 ti-arrow-right"></i></a></div>
+            {% endif %}
+          </div>
+        </div>
+        {% form 'recover_customer_password' %}
+        {{ form.errors | default_errors }}
+        {% comment %}
+        Assign variable to be used after timber.init() is run in theme.liquid
+        {% endcomment %}
+        {% if form.posted_successfully? %}
+        {% assign resetPassword = true %}
+        {% endif %}
+        <div class="RecoverPasswordForm" style="display: none;">
+          <div class="block-login">
+            <span class="login-icon">
+              <i class="ti-reload"></i>
+            </span>
+            <h2 class="title_resgister title24 text-center title-form-account">{{ 'customer.recover_password.title' | t }}</h2>
+            <div class="form-group mb-0 row">
+              <div class="col-sm-12">
+                <input type="email" class="form-control" placeholder="{{ 'customer.login.email' | t }}" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>
+              </div>
+            </div>
+            <div class="text-center">
+              <input type="submit" class="btn register-button" value="{{ 'customer.recover_password.submit' | t }}">
+            </div>
+            <div class="table-custom create-account">
+              <div class="box-register text-center mt-4">
+                <a class="HideRecoverPasswordLink" style="cursor: pointer;" class="color">{{ 'customer.recover_password.cancel' | t }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endform %}
+      </div>
+      <div class="form_register-destop">
+        <div class="login_primary">
+          <div class="login-icon register-icon">
+            <span class="ti-pencil-alt">
+            </span>
+          </div>
+          <span class="title_resgister">{{ 'customer.register.title' | t }}</span>
+          <div class="mailrrr mt-3">
+            {% form 'create_customer' %}
+            {{ form.errors | default_errors }}
+            <div class="form-group">
+              <input type="email" placeholder="{{ 'customer.register.email' | t }}" class="form-control" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="customer[password]" placeholder="{{ 'customer.register.password' | t }}" required>
+            </div>
+            <button type="submit" class="btn btn-dark w-100" value="{{ 'customer.register.submit' | t }}">
+              {{ 'customer.register.submit' | t }}
+            </button>
+            {% endform %}
+          </div>
+          <div class="or_creat my-3">
+            {% if settings.enable_rtl_mode %}
+            <div class="box-register"><a href="javascript:void(0)" class="jsBack_login"> <i class="mr-3 ti-arrow-left"></i> {{ 'customer.login.back_to_login' | t }} </a></div>
+            {% else %}
+            <div class="box-register"><a href="javascript:void(0)" class="jsBack_login">{{ 'customer.login.back_to_login' | t }} <i class="ml-3 ti-arrow-right"></i></a></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="eveland-close-login js-eveland-close-login set-16-svg fill-white"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+      <g>
+        <g>
+          <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+        </g>
+      </g>
+
+      </svg></a>
+  </div>  
+</div>
+<div class="bg-login-popup js-bg-login-popup">
+</div>

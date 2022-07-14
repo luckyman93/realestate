@@ -1,0 +1,85 @@
+<div class=" tab-pd-details">
+  <ul class="nav nav-tabs tab_prod">
+    {% if settings.enable_description_tab %}
+    <li>
+      <a  data-toggle="tab" href="#des" class=" underline_scale active" >{{settings.destab_title}}</a>
+    </li>
+    {% endif %}
+    {% if settings.enable_addition_tab %}
+    <li >
+      <a class="underline_scale"  data-toggle="tab" href="#add"  >{{settings.addtab_title}}</a>
+    </li>
+    {% endif %}
+
+
+    {% if settings.enable_review_tab %}
+    <li>
+      <a class="underline_scale" data-toggle="tab" href="#review" >{{settings.reviewtab_title}}</a>
+    </li>
+    {% endif %}
+  </ul>
+  <div class="tab-content" >
+    {% if settings.enable_description_tab %}
+    <div class="tab-pane fade show active" id="des">
+      <div class="desc product-desc">{{ product.description}}
+      </div>      
+    </div>
+    {% endif %}
+    {% if settings.enable_addition_tab %}
+    <div class="tab-pane fade tab-addition" id="add">
+      {% if settings.addtab_content != blank %}
+      {{settings.addtab_content}}
+      {% else %}
+      <div class="">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="title_content">
+              <p class="more_info">More Infomation To You</p>
+              <h3 class="">Things you need to know</h3>
+            </div>
+            <div class="row ">
+              <div class="col-md-6 content1">
+                <p class="info_1">We use industry standard SSL encryption to protect your details. Potentially sensitive information such as your name, address and card details are encoded so they can only be read on the secure server.</p>
+                <ul class="px-0 list-unstyled">
+                  <li>Safe Payments</li>
+                  <li>Accept Credit Cart</li>
+                  <li>Different Payment Method</li>
+                  <li>Price Include VAT</li>
+                  <li>Easy To Order</li>
+                </ul>
+              </div>
+              <div class="col-md-6 content2">
+                <div class="info2">
+                  <h3>Express Delivery</h3>
+                  <ul class="px-0 list-unstyled">
+                    <li>Europe & USA within 2-4 days</li>
+                    <li>Rest of the world within 3-7 days</li>
+                    <li>Selected locations</li>
+                  </ul>
+                </div>
+                <div class="info2">
+                  <h3>Need more information</h3>
+                  <ul class="px-0 list-unstyled">
+                    <li><a href="">Orders & Shipping</a></li>
+                    <li><a href="">Returns & Refunds</a></li>
+                    <li><a href="">Payments</a></li>
+                    <li><a href="">Your Orders</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <img data-src="{{ product | img_url : 'master' }}" class="lazyload" alt>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% if settings.enable_review_tab %}
+    <div class="tab-pane fade mt-4" id="review"><div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div></div>
+    {% endif %}
+  </div>
+</div>
+

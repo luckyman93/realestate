@@ -1,0 +1,129 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+{% assign file_extension = 'png' %}
+{% capture variantsswatch %} {% endcapture %}
+{% if swatch == "Color" %}
+	{% capture variantsswatch %}{{ 'products.variants.color' | t }}{% endcapture %}
+{% elsif swatch == "Size" %}
+	{% capture variantsswatch %}{{ 'products.variants.size' | t }}{% endcapture %}
+{% else %}
+	{% capture variantsswatch %}{{ swatch }}{% endcapture %}
+{% endif %}
+{% if swatch == blank %}
+    <div class="swatch error">
+        <p>You must include the snippet swatch.liquid with the name of a product option.</p>
+        <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+        <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+    </div>
+{% else %}
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign option_index = 0 %}
+{% assign indexChild = 0 %}
+{% for option in product.options %}
+    {% if option == swatch %}
+        {% assign found_option = true %}
+        {% assign option_index = forloop.index0 %}
+		{% assign indexChild = forloop.index %}
+		<style rel="stylesheet" type="text/css">
+          .proVariants .selector-wrapper:nth-child({{ indexChild }}){display: none;}
+          .maxus-productdetail__options:not(:last-child) {
+            margin-right: 20px;
+          }
+        </style>
+        {% assign downcased_option = swatch | downcase %}
+        {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+            {% assign is_color = true %}
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% unless found_option %}
+
+{% else %}
+<div class="maxus-productdetail__options{% unless section.settings.spd_style == "pd_style2" %} {% endunless %}">
+  
+  <div class="{% if settings.swatch_style == "sw_radio1" or settings.swatch_style == "sw_radio2" %}	swatch_radio1 {% elsif settings.swatch_style == "sw_radio3" or settings.swatch_style == "sw_radio4" %} swatch_radio3 {% elsif settings.swatch_style == "sw_rectangle1" or settings.swatch_style == "sw_rectangle2" or settings.swatch_style == "sw_gallery"  %} swatch_rectangle1 {% endif %}swatch clearfix {% if settings.po_style == "po_swatchs" %} align-center flex engoc-flex-wrap{% endif %}" data-option-index="{{ option_index }}">
+    <p class="text-uppercase title_variant">{{ variantsswatch }} </p>
+    {% assign values = '' %}
+    {% for variant in product.variants %}
+    {% assign value = variant.options[option_index] %}
+    {% unless values contains value %}
+    {% assign values = values | join: ',' %}
+    {% assign values = values | append: ',' | append: value %}
+    {% assign values = values | split: ',' %}
+
+    <div data-value="{{ value | escape }}"  data-style="square" class="maxus-color none {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}" {% if variant.available %}{% else %}data-toggle="tooltip" data-placement="top"  data-original-title="Sold Out"{% endif %}>
+      <input id="swatch-{{ option_index }}-{{ value | handle }}" type="radio" name="option-{{ option_index }}" value="{{ value | escape }}"{% if forloop.first %} checked{% endif %} {% unless variant.available %}disabled{% endunless %} />
+
+      {% if is_color %}
+      {% if settings.swatch_style == "sw_radio1" or settings.swatch_style == "sw_radio3"  %}
+        <label class="radio_style1" for="swatch-{{ option_index }}-{{ value | handle }}">
+          <label class="color_style1" for="swatch-{{ option_index }}-{{ value | handle }}">
+            
+          </label>
+          <span class="text_color">{{ value }}</span>
+        </label> 
+      {% elsif settings.swatch_style == "sw_radio2"  %}
+
+      	<div class="radio_style2" data-toggle="tooltip" data-placement="top" data-original-title="{{value}}">
+          <label class="color_style2" for="swatch-{{ option_index }}-{{ value | handle }}" style="background-image: url({{ variant.image.src | product_img_url: 'grande' }}); background-size: cover;">
+            
+          </label>
+        </div> 
+      
+      {% elsif settings.swatch_style == "sw_rectangle1"  %}
+      	<label class="rectangle_style1" for="swatch-{{ option_index }}-{{ value | handle }}">
+          {{ value }}
+        </label>
+      
+      {% elsif settings.swatch_style == "sw_gallery"  %}
+      <div class="swatch_gallery">
+        <label class="bg_image" for="swatch-{{ option_index }}-{{ value | handle }}" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }}); background-size: cover;">
+
+        </label>
+      </div> 
+      
+      
+      {% elsif settings.swatch_style == "default" or settings.swatch_style == "sw_radio4" or settings.swatch_style == "sw_rectangle2"   %}
+      <div class="  border-color ">
+        <label class="link_color" for="swatch-{{ option_index }}-{{ value | handle }}" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | append: '.' | append: file_extension | file_url }}); background-size: cover;">
+
+        </label>
+      </div> 
+      {% endif %}
+      
+      {% else %}
+      {% if settings.swatch_style == "sw_radio1" or settings.swatch_style == "sw_radio2" or settings.swatch_style == "sw_radio3" or settings.swatch_style == "sw_radio4" %}
+      <label class="radio_style1" for="swatch-{{ option_index }}-{{ value | handle }}">
+        <label class="color_style1" for="swatch-{{ option_index }}-{{ value | handle }}" >
+
+        </label>
+        <span class="text_color">{{ value }}</span>
+      </label> 
+      {% elsif settings.swatch_style == "sw_rectangle1" or settings.swatch_style == "sw_rectangle2" or settings.swatch_style == "sw_gallery" %}
+      	<label class="rectangle_style1" for="swatch-{{ option_index }}-{{ value | handle }}">
+          {{ value }}
+        </label>
+      
+      {% elsif settings.swatch_style == "default" %}
+
+      <label class="variant_other" for="swatch-{{ option_index }}-{{ value | handle }}" >
+        {{ value }}
+      </label>
+      {% endif %}
+      {% endif %}
+      
+
+    </div>
+
+    {% endunless %}
+    <script>
+      jQuery('.swatch[data-option-index="{{ option_index }}"] .{{ value | handle }}').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+    </script>
+    {% endfor %}
+
+  </div>
+</div>
+{% endunless %}
+{% endif %}

@@ -1,0 +1,117 @@
+{% if settings.ena_random_prod %}
+{% if settings.best_product_collection != blank %}
+<div class="popup_random_prod" style="{% if settings.lr_randomprod == "left" %} left: 40px; right: auto{% elsif settings.lr_randomprod == "right" %} left: auto ; right: 40px {% endif %}">
+  <div class="close_popup">
+    <span class="set-10-svg fill-white flex justify-content-center align-items-center w-100 h-100">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+        <g>
+          <g>
+            <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+          </g>
+        </g>
+      </svg>
+    </span>
+  </div>
+  <ul class="prod_sidebar">
+    {% assign col = settings.best_product_collection %}
+    {% for product in collections[col].products%}
+    <li class="product_info d-none">  
+      <div class="d-flex align-items-md-center align-items-start">
+        <div class="img_left">
+          <a href="{{ product.url | within: collection }}">
+            <img width="80" height="80" data-src="{{ product.featured_image.src | img_url: 'master' }}" class="lazyload img-responsive" alt="{{ product.featured_image.alt | escape }}">
+          </a>
+        </div>
+        <div class="info_right">
+          <p class="info_puchare"><span class="js-name"></span> in <span class="js-address"></span> purchased a </p>
+          <a class="product-title" href="{{ product.url | within: collection }}">{{ product.title |truncatewords: 8}}</a>
+          <div class="minute_random">About <span class="random_minute"></span> minutes ago</div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="read_name">
+    {% assign name = settings.name_purchare | split: ", " %}
+    <ul class="d-none js-readname" data-max={{name.size}}>
+      {% for xxx in name %}
+      <li>{{xxx}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="read_address">
+    {% assign address = settings.address_purchare | split: ", " %}
+    <ul class="d-none js-readaddress" data-max={{address.size}}>
+      {% for address in address %}
+      <li>{{address}}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<script>
+  function random(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+  var max = $('.js-readname').attr('data-max')-1;
+  var text = $('.js-readname').children().eq(random(0,max)).text();
+  $('.js-name').text(text);
+
+  var max2 = $('.js-readaddress').attr('data-max')-1;
+  var text2 = $('.js-readaddress').children().eq(random(0,max2)).text();
+  $('.js-address').text(text2);
+
+
+
+  jQuery(document).ready(function($) { 
+    var dem = {{ collections[col].all_products_count }} - 1;
+    var initial2 = random(0,dem);
+    var count2 = initial2;
+    $( '.popup_random_prod' ).find('ul').children().eq(count2).removeClass('d-none');
+    var initial = random(1,60);
+    var count = initial;
+    var x = document.getElementsByClassName("random_minute");
+    x[count2].innerHTML = count;
+
+  });
+
+
+
+  jQuery(document).ready(function($) { 
+    setInterval(function() {
+      $('.popup_random_prod').addClass('hide_popup_random_prod');
+    }, 10000) 
+    $('.close_popup').on('click', function() {
+      $('.popup_random_prod').addClass('hide_popup_random_prod');
+
+    });
+    setInterval(function() {
+      $('.popup_random_prod').removeClass('hide_popup_random_prod');
+      var dem = {{ collections[col].all_products_count }} - 1;
+      var initial2 = random(0,dem);
+
+      var count2 = initial2;
+      $( '.popup_random_prod' ).find('ul').children().addClass('d-none');
+      $( '.popup_random_prod' ).find('ul').children().eq(count2).removeClass('d-none');
+      var initial = random(1,60);
+      var count = initial;
+      var x = document.getElementsByClassName("random_minute");
+      x[count2].innerHTML = count;
+
+      var max = $('.js-readname').attr('data-max')-1;
+      var text = $('.js-readname').children().eq(random(0,max)).text();
+      $('.js-name').text(text);
+
+      var max2 = $('.js-readaddress').attr('data-max')-1;
+      var text2 = $('.js-readaddress').children().eq(random(0,max2)).text();
+      $('.js-address').text(text2);
+
+    }, 15000)  
+  })  
+
+
+</script>
+
+{% endif %}
+{% endif %}

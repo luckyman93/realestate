@@ -1,0 +1,31 @@
+<div class="widget widget-category filter-category">
+  <div class="widget-title">
+    <h2 class=" mb-0">{{settings.widget_cate_title}}</h2>
+  </div>
+  <div class="widget-content">
+    <ul class="list-category-toggle toggle-tab list-none">
+      {% assign n = 1 %}
+      {% for link in linklists[settings.widget_cate_menu].links %}
+      {% assign child_list_handle = link.title | handleize %}
+      {% if linklists[child_list_handle].links != blank %}
+      <li class="item-toggle-tab">
+        <a  href="{{ link.url }}">{{link.title | split: '[' | first }}</a>
+        <a href="#c{{n}}" class="toggle-menumobile {% if settings.enable_rtl_mode %} left {% else %}right {% endif %} collapsed js_check_ic_cate  " data-toggle="collapse" aria-expanded="false">
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </a>
+      </li>
+      <div id="c{{n}}" class="collapse " >
+        <ul class="menu_lv2">
+          {% for childlink in linklists[child_list_handle].links %}
+          <li class="item_menu_lv2"><a href="{{childlink.url}}">{{childlink.title | split: '[' | first }}</a></li>            
+          {% endfor %}
+        </ul>
+      </div>
+      {% assign n = n | plus :1 %}
+      {% else %}
+      <li class="item-toggle-tab"><a  href="{{ link.url }}">{{link.title | split: '[' | first }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

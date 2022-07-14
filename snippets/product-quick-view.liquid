@@ -1,0 +1,76 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+<!-- /snippets/product-quick-view.liquid -->
+<div id="quick-view" class="hidden-label  br-product-popup">
+  <div class="overlay-quickview"></div>
+  <div class="content product-quickview product-single br-product br-product-detail br-product-slide-vertical">
+    <div class="row">
+      <div class="col-6">
+        <div class="product-media thumbnai-left">
+          <div class="featured-image "></div>
+          <div class="more-views owl-carousel-play {% if settings.enable_rtl %}engoc_no_rtl{% endif %}">
+            <div class="engoc_hide_owl_control owl-carousel"  data-items="3" data-dots="false" data-lazyLoad="true" data-nav="true" data-autoHeight="false"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 popup-quickview">
+        <div class=" br-product-detail__container detail-info">
+          <div class="product-shop product-info-main">
+            <div class="product-item">
+              <h2 class="product-name"><a>&nbsp;</a></h2>
+              <div class="details clearfix">
+                <form action="/cart/add" method="post" class="variants CartContainer">
+                  <div class="d-flex justify-content-between">
+                    <div class="prices product-price dosis-font variation-price mb-15"> 
+                      <label class="price product-price">                 
+                        <span class="compare-price dark opaci title14"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <p class="des description desc product-desc"></p>
+                  <select name='id' style="display:none;" class="engoj-except-select2">
+                  </select>
+                  <div class="product-actions">
+
+                    <div class="product-quantity">
+
+                      <div class="quantity-all js-qty">
+                        <span  class='qtyminus qty_minus js-qty__adjust js-qty__adjust--minus' data-field='quantity'><i class="fa fa-caret-down"></i></span>
+                        <input type="text" name="quantity" value="1" class="qty quantity js-qty__num">
+                        <span class='qtyplus qty_plus js-qty__adjust js-qty__adjust--plus' data-field='quantity'><i class="fa fa-caret-up"></i></span>
+                      </div>
+                    </div>
+                    <div class="actions btn-addtocart" >
+                      <button  type="button" class="btn-addToCart shop-button addcart-link font-bold">{{ 'products.product.add_to_cart' | t }}</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close-window set-16-svg fill-white">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+          <g>
+            <g>
+              <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  Shopify.doNotTriggerClickOnThumb = false;
+</script>

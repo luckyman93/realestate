@@ -1,0 +1,51 @@
+<div class="product-item-v1">
+  <div class="product mb-30 engoj_grid_parent relative">
+    <div class="img-product relative">
+      <a href="#" >
+        <img style="width: 100%" data-src="//via.placeholder.com/960x997" class="lazyload img-responsive" alt="1">
+      </a>
+      <div class="product-icon-action">
+        <div class="add-wishlist">
+          <a>{% if settings.pia_wishlist_svg != blank %}
+            <i class="fsz-unset">{{settings.pia_wishlist_svg}}</i>
+            {% else %}
+            <i class="{{settings.pia_wishlist}}"></i>
+            {% endif %}</a>
+        </div>
+        <div class="add-to-cart">
+          <button type="submit" name="add" class="">
+            {% if settings.pia_addcart_svg != blank  %}
+            <i class="fsz-unset">{{settings.pia_addcart_svg}}</i>
+            {% else %}
+            <i class="{{settings.pia_addcart}}" style="font-size: 22px;"></i>
+            {% endif %}
+          </button>
+        </div>
+        <div class="quick-view">
+          <a href="javascript:void(0)" class=" icon-quickview inline-block box-shadow" data-id="{{ product.handle }}" data-toggle="tooltip" data-placement="top" data-original-title="{{settings.pia_quickview_name}}">
+            {% if settings.pia_quickview_svg %}
+            <i class="fsz-unset">{{settings.pia_quickview_svg}}</i>
+            {% else %}
+            <i class="{{settings.pia_quickview}}"></i>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+      <!--     END ICON -->
+
+    </div>
+
+    <div class="info-product">
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      <h4 class="des-font capital title-product mb-0 flex">
+        <a href="#">Example title product</a>
+      </h4>
+      <!--     PRICE -->
+
+      <p class="price-product">
+        <span class="price">$40.00</span>
+        <s class="price-old">$80.00</s>
+      </p>
+    </div>
+  </div>
+</div>  

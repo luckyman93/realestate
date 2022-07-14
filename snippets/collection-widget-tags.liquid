@@ -1,0 +1,14 @@
+<div class="widget widget-tags filter-tag">
+  <div class="widget-title">
+    <h2 class=" mb-0 ">{{settings.shop_by_tag_title}}</h2>
+  </div>
+  <ul class="list-none wg-list-tags list-tag">
+    {% for tag in collection.all_tags %}
+    {% assign tag_value = tag | handleize %}
+    <li>
+      <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+      <a href="javascript:void(0)" title="{{tag}}" class=" {% if current_tags contains tag %}active{% endif %}">{{tag}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

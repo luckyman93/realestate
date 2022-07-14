@@ -1,0 +1,574 @@
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+<div class="prod_sticky sticky_center">
+  
+  <section id="content">
+    <div class="wrap-bread-crumb">
+      <div class="container container-v1">
+        <div class="row">
+          <div class="col-sm-8">
+            {% include 'breadcrumb' %}
+          </div>
+
+          <div class="col-sm-4 justify-content-end align-items-center d-sm-flex d-none">
+            {% assign found_a_collection = false %}
+            {% for c in product.collections %}
+            {% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+            {% assign found_a_collection = true %}
+            {% assign collection = c %}
+            {% endif %}
+            {% endfor %}
+
+            <div class="arrows-product">
+              {% assign current = product.id %}
+              {% if collection and collection.all_products_count >1 %}
+              {% for product in collection.products %}
+              {% assign id = product.id %}
+              {% if id == current %}
+              {% if forloop.last %}
+              {% assign next = 0 %}
+              {% else %}
+              {% assign next = forloop.index %}
+              {% endif %}
+              {% assign prev = forloop.index |minus:2 %}
+              {% endif %}
+              {% endfor %}
+              <div class="prev_prod"  >
+                <a href="{{collection.products[prev].url}}"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'products.product.prev' |t}}</a>
+                <div class="position-absolute img-prev">
+                  <a href="{{collection.products[prev].url}}">
+                    <img data-src="{{collection.products[prev].featured_image.src | img_url:"80x80"}}" class="lazyload" alt>
+                  </a>
+                  <div class="info-prod">
+                    <a href="{{collection.products[prev].url}}">{{collection.products[prev].title}}</a>
+                    <p >{{collection.products[prev].price|money}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="next_prod" >
+                <a href="{{collection.products[next].url}}">
+                  {{'products.product.next' |t}}<i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+                <div class=" img-next">
+                  <a href="{{collection.products[next].url}}">
+                    <img data-src="{{collection.products[next].featured_image.src | img_url:"80x80"}}" class="lazyload" alt>
+                  </a>
+                  <div class="info-prod">
+                    <a href="{{collection.products[next].url}}" >{{collection.products[next].title}}</a>
+                    <p >{{collection.products[next].price|money}}</p>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <a href="#"><i class="prev flaticon-left-arrow position-relative"></i></a>
+              <a href="#"><i class="next flaticon-right-arrow position-relative"></i></a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Bread Crumb -->
+    <div class="">
+      <div class="content-page container container-v1">      
+        <div class="content-page-detail">
+          <div class="row justify-content-center">
+            <div class="col-xl-3 col-lg-6 col-md-6 ">
+              <div class="detail-info pl-0">
+                <div class="relative">
+                  <h2 class="product-title ">{{product.title}}</h2>
+                  <div class="product-price ">                      
+                    {% capture price %}{{ product.price | money }}{% endcapture %}
+                    {% if on_sale %}<del class="enj-product-price-compare">{{ product.compare_at_price | money }}</del> {% endif %}
+                    <ins class="enj-product-price engoj_price_main">{{ price }}</ins>
+
+                  </div>
+                  {% if section.settings.show_rating %}
+                  <div class="wrap-rating">
+                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                  </div>
+                  {% endif %}
+
+                  {% if section.settings.show_sdes %}
+                  {% if product.metafields.engo_summary.summary_content != blank %}
+                  <div class="pd_summary">
+                    <p class=" mb-0">{{product.metafields.engo_summary.summary_content}}</p>
+                  </div>
+                  {% else %}
+                  <div class="pd_summary">
+                    <p class=" mb-0 ">{{product.description| strip_html | truncatewords: 50}}</p>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+
+                  {% if settings.ena_info_sale %}
+                  <div class="list_ul_engo_full">                
+                    {{settings.content_infosale}}
+                  </div>
+                  {% endif %}
+
+                  {% comment %}
+                  Setup MetaFields Editor: https://apps.shopify.com/metafields-editor
+
+                  If you’ve added to a product a metafield with the following attributes to store extra description for your products.
+                  Namespace: shopilaunch_function
+                  Key: countdown_time
+                  Value: 12/12/2019
+                  Value_type: string
+
+                  You can output the value of this metafield in product.liquid with this Liquid tag:
+                  product.metafields.Namespace.Key
+
+                  {{product.metafields.engo_summary.summary_content}}
+                  {{product.metafields.engo_external.external_name}}
+                  {{product.metafields.engo_external.external_url}}
+                  {{product.metafields.engo_video.video_link}}
+
+                  {% endcomment %}
+
+                  {% if settings.ena_random_visit %}
+                  <p class="visitor">Real time <span id="realtime_visit"></span> Visitor right now</p>
+                  {% endif %}
+
+                  {% if settings.enable_catalog_mode == false %}
+                  <div class="btn-addwhlist">
+                    {% include 'add-wishlist' %}
+                    <span class="text_whlist"></span>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+              <div class="gallery-control">     
+                <div class="">
+                  {% if product.metafields.engo_video.video_link != blank   %}
+                  <div class="btn-video" data-fancybox href="{{product.metafields.engo_video.video_link}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512.13 512.13" style="enable-background:new 0 0 512.13 512.13;" xml:space="preserve">
+                      <g>
+                        <g>
+                          <path d="M346.541,221.958l-121.198-87.091c-11.977-8.591-27.338-11.977-39.315-5.077c-11.977,5.077-18.746,18.747-18.746,34.107    v184.335c0,15.361,6.769,27.338,18.746,34.107c5.077,1.692,10.284,3.385,15.361,3.385c8.592,0,17.054-3.385,23.953-10.285    l121.198-87.092c11.977-8.591,18.746-20.439,18.746-34.107C365.286,242.397,358.518,230.42,346.541,221.958z M326.102,262.835    l-121.198,87.091c-1.692,0-3.385,1.692-3.385,1.692s0-1.692,0-3.385V163.899c0-1.692,0-3.385,0-3.385    c1.692,0,1.692,1.692,5.077,3.385l121.197,87.091c1.692,0,3.385,3.385,3.385,5.077S329.487,261.141,326.102,262.835z"/>
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M256.065,0C114.43,0,0,114.298,0,256.065S114.298,512.13,256.065,512.13S512.13,397.832,512.13,256.065    S397.702,0,256.065,0z M256.065,477.892c-122.891,0-221.828-98.937-221.828-221.828S133.175,34.236,256.065,34.236    s221.828,98.937,221.828,221.828S378.956,477.892,256.065,477.892z"/>
+                        </g>
+                      </g>
+                    </svg>
+                    <span class="text_video">{{'products.product.video' | t}}</span>
+                  </div>
+                  {% endif %}
+                  <div class="img_thumb js_prod_detail ">
+                    {% for image in product.images %}
+                    <div class="engoj-nav-item  {% if section.settings.ena_zoom %}js-zoom-img zoom-image {% endif %} {% unless forloop.last %} img_item {% endunless %}">
+                      <img class="{% if forloop.first %} engoj_img_main {% endif %} lazyload w-100 img-fluid img_sticky" data-src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+                    </div> 
+                    {% endfor %}
+                  </div>
+                </div>
+
+              </div>
+            </div>    
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12    ">
+
+              <div class="detail-info pl-0">
+                <div class="relative">
+
+                  {% if settings.trust_badge  %}
+                  <div class="trust_bagde">
+                    <img data-src="{{settings.trust_badge|img_url : 'master'}}" class="lazyload" alt>
+                  </div>
+                  {% endif %}
+
+                  {% if settings.ena_random_sold_item %}
+                  <p class="random_product" ><span id="random_prod"></span>  {{settings.random_text1}}  <span id="random_hour"></span> {{settings.random_text2}}</p>   
+                  {% endif %}
+
+                  {% if settings.ena_countdown %}
+                  <div class="count-down">
+                    <p class="text" >{{settings.countdown_text1}} <span id="random_sold_prod"></span> {{settings.countdown_text2}}</p>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped progress-bar-animated"></div>
+                    </div>
+                    {% if product.metafields.engo_countdown_prod.countdown_datetime != blank %}
+                    <div class="countdown-timer">
+                      <ul data-countdown="countdown-v1" data-date="{{product.metafields.engo_countdown_prod.countdown_datetime}}">
+                      </ul>
+                    </div> 
+                    {% endif %}
+                  </div> 
+                  {% endif %} 
+
+                  {% comment %}
+                  Setup MetaFields Editor: https://apps.shopify.com/metafields-editor
+
+                  If you’ve added to a product a metafield with the following attributes to store extra description for your products.
+                  Namespace: shopilaunch_function
+                  Key: countdown_time
+                  Value: 12/12/2019
+                  Value_type: string
+
+                  You can output the value of this metafield in product.liquid with this Liquid tag:
+                  product.metafields.Namespace.Key
+
+                  {{product.metafields.engo_summary.summary_content}}
+                  {{product.metafields.engo_external.external_name}}
+                  {{product.metafields.engo_external.external_url}}
+                  {{product.metafields.engo_video.video_link}}
+
+                  {% endcomment %}
+                  
+                  {% if settings.show_sizeguide or settings.show_question or settings.show_delivery_return %}
+                  {% include 'size-guide' %}
+                  {% endif %}
+                  
+                  <form  action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" class="cart clearfix mt-3">
+                    {% comment %}
+                    Add product variants as a dropdown.
+                    - By default, each variant (or combination of variants) will display as its own <option>
+                    - To separate these into multiple steps, which we suggest, use option_selection.js (see below)
+
+                    You can leverage jQuery to add a callback on page load and each time the select element changes:
+                    - Include option_selection.js (as seen at the bottom of this file)
+                    - This allows you to use JavaScript anytime the variant dropdown changes
+                    - This also separates out your variant options (ie. size, color, etc.) to separate select elements
+
+                    For more information on products with multiple options, visit:
+                    - http://docs.shopify.com/support/your-website/themes/can-i-make-my-theme-use-products-with-multiple-options#update-product-liquid
+                    {% endcomment %}
+
+                    <select name="id" id="productSelect" class="product-single__variants">
+                      {% for variant in product.variants %}
+                      {% if variant.available %}
+                      {% assign sku = variant.sku %}
+                      {% comment %}
+                      Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
+                      {% endcomment %}
+                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                      {% else %}
+                      <option disabled="disabled">
+                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                      </option>
+                      {% endif %}
+                      {% endfor %}
+                      </select>
+                    </select>
+
+                    {% if product.available and product.variants.size > 1 %}
+                    
+
+                    <!--Swatch Variant -->
+                    {% for option in product.options %}
+                    {% include 'swatch' with option %}
+                    {% endfor %}
+                    {% endif %}
+                    <!--End Swatch Variant -->
+
+                    <!-- Add to cart & quantity -->
+                    {% if settings.enable_catalog_mode == false %}
+                    {% if product.metafields.engo_external.external_name != blank %}
+
+                    <div class=" btn-action">
+                      <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+                    </div>  
+
+                    {% else %}
+                    {% if sold_out %}
+                    <div class="btn-action">
+                      <div class="shop-button-soldout">
+                        {{ 'products.product.out_of_stock' | t }}
+                      </div>
+                    </div>  
+                    {% else %}
+                    <div class="btn-action detail-attr qty-cart">
+                      {% if section.settings.show_quantity %}
+                      <div class="">
+                        <input type="number" size="4" title="Qty" value="1" min="1" id="Quantity" name="quantity" />
+                      </div>
+                      {% endif %}
+                      <button type="submit" class="shop-button enj-add-to-cart-btn engoj-btn-addtocart">
+                        {{settings.pia_addcart_name}}
+                      </button>
+                    </div>
+                    <!-- End add to cart & quantity -->
+                    {% form 'product', product %}
+                    {{ form | payment_button }}
+                    {% endform %}
+
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+                  </form>
+
+                  <ul class="product-meta-info"> 
+                    {% if section.settings.show_sku %}
+                    {% if product.variants.first.sku != blank %}
+                    <li>
+                      <div class="item-product-meta-info product-sku">
+                        <label>{{'products.product.sku' | t}} :</label>
+                        <span class="engoj-variant-sku">{{ current_variant.sku }}</span>
+                      </div>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+
+                    {% if section.settings.show_cate %}
+                    <li>
+                      <div class="item-product-meta-info product-category-info">
+                        <label>{{'blogs.sidebar.categories' | t}} :</label>
+                        {% for collection in product.collections %}
+                        <a href="{{collection.url}}">{{ collection.title }}{% unless forloop.last%},{% endunless %} </a>	
+                        {% endfor %}
+                      </div>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if section.settings.ena_featured_icon %}
+        {% include 'featured-icon' %}
+        {% endif %}
+      </div>
+      {% if section.settings.ena_sticky_addcart %}
+      <div class="sticky_addcart">
+        <div class="container container-v2">
+          <div class="row">
+            <div class="d-flex col-sm-6 align-items-center relative">
+              {% for image in product.images %}
+              {% if forloop.first %}
+              <div class="img_left">
+                <img width="60" height="60" class="lazyload engoj_img_main img-fluid" data-src="{{ image.src | img_url: 'master' }}" alt="{{ image.alt | escape }}" alt="{{product.title}}"/>
+              </div>
+              {% endif %}
+              {% endfor %}
+
+              <div class="info_right">
+                <h2 class="product-title ">{{product.title}}</h2>
+                <div class="product-price ">                      
+                    {% capture price %}{{ product.price | money }}{% endcapture %}
+                    {% if on_sale %}<del class="enj-product-price-compare">{{ product.compare_at_price | money }}</del> {% endif %}
+                    <ins class="enj-product-price engoj_price_main">{{ price }}</ins>
+                </div>
+                {% if section.settings.show_rating %}
+                <div class="wrap-rating">
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                </div>
+                {% endif %}
+              </div>
+
+              <div class="d-sm-none d-block position_add" style="position: absolute;  {% if settings.enable_rtl_mode %} left: 15px {% else %} right: 15px; {% endif %}">
+                {% if settings.enable_catalog_mode == false %}
+                {% if product.metafields.engo_external.external_name != blank %}
+                <div class=" btn-action">
+                  <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+                </div>  
+
+                {% else %}
+                {% if sold_out %}
+                <div class="btn-action">
+                  <div class="shop-button-soldout">
+                    {{ 'products.product.out_of_stock' | t }}
+                  </div>
+                </div>  
+                {% else %}
+                <div class="btn-action detail-attr qty-cart">
+                  <button type="submit" class="shop-button btn-add-stickycart">
+                    {{settings.pia_addcart_name}}
+                  </button>
+                </div>
+                <!-- End add to cart & quantity -->
+                {% endif %}
+                {% endif %}
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-sm-6 d-sm-flex d-none justify-content-sm-end justify-content-start align-items-center">
+              {% if settings.enable_catalog_mode == false %}
+              {% if product.metafields.engo_external.external_name != blank %}
+
+              <div class=" btn-action">
+                <a href="{{product.metafields.engo_external.external_url}}" class="shop-button-amazon" >{{product.metafields.engo_external.external_name}}</a>
+              </div>  
+              {% else %}
+              {% if sold_out %}
+              <div class="btn-action">
+                <div class="shop-button-soldout">
+                  {{ 'products.product.out_of_stock' | t }}
+                </div>
+              </div>  
+              {% else %}
+              <div class="btn-action detail-attr qty-cart">
+                <button type="submit" class="shop-button btn-add-stickycart">
+                  {{settings.pia_addcart_name}}
+                </button>
+              </div>
+              <!-- End add to cart & quantity -->
+              {% endif %}
+              {% endif %}
+              {% endif %}
+
+            </div>
+          </div> 
+        </div>
+      </div>
+      <style>
+        @media(max-width: 576px){
+          .sticky_addcart{
+            {% if section.settings.style_stickyaddcart == "top" %}
+            top:75px;
+            bottom: auto;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: .8s;
+            {% elsif section.settings.style_stickyaddcart == "bottom" %}
+            bottom: 50px;
+            top: auto;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: .8s;
+            {% endif %}
+          }
+        }
+
+      </style>
+
+      {% endif %}
+    </div>  
+  </section>
+  {% include 'tab-product-details' %}
+
+  {% if section.settings.show_social_share %}
+  {% include 'social_share-product' %}
+  {% endif %}
+
+  {% if settings.enable_related_product %}
+  {% include 'related-product-new' %}
+  {% endif %}
+
+</div>
+
+<style>
+  .list_ul_engo_full ul li{
+    color: {{settings.color_content_infosale}}
+  }
+  .list_ul_engo_full ul li:before{
+    border-color: transparent transparent transparent {{settings.color_content_infosale}};
+  }
+  .list_ul_engo_full .title-list{
+    color: {{settings.color_content_infosale}}
+  }
+</style>
+
+
+<script>
+  function random(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+  {% if settings.ena_random_sold_item %}
+  var initial = random({{settings.min_prod1}}, {{settings.max_prod1}});
+  var count = initial;
+  document.getElementById('random_prod').innerHTML = count;
+  setInterval(function() {
+    if (count <= 5) { 
+      count +=5;}
+
+    var variation = random(-5,5);
+    count += variation;
+    if(count>={{settings.max_prod1}}){
+       count ={{settings.max_prod1}};
+       }
+       if(count<=0){
+      count ={{settings.max_prod1}};
+    }
+    document.getElementById('random_prod').innerHTML = count;
+
+  },{% if settings.settime_random_sold != blank %} {{settings.settime_random_sold}}000  {% else %} 5000{% endif %})
+  {% endif %}  
+
+  {% if settings.ena_random_sold_item %}  
+  var initial2 = random({{settings.min_prod2}}, {{settings.max_prod2}});
+  var count2 = initial2;
+  document.getElementById('random_hour').innerHTML = count2;
+  setInterval(function() {
+    if (count2 <= 5) { 
+      count2 +=5;}
+
+    var variation2 = random(-5,5);
+    count2 += variation2;
+    if(count2>={{settings.max_prod2}}){
+       count2 ={{settings.max_prod2}};
+       }
+       if(count2<= 0){
+      count2 ={{settings.max_prod2}};
+    }
+    document.getElementById('random_hour').innerHTML = count2;
+
+  }, {% if settings.settime_random_sold != blank %} {{settings.settime_random_sold}}000  {% else %} 5000{% endif %})  
+  {% endif %}  
+
+  {% if settings.ena_random_visit %}
+  var initial3 = random({{settings.min_visit}}, {{settings.max_visit}});
+  var count3 = initial3;
+  document.getElementById('realtime_visit').innerHTML = count3;
+  setInterval(function() {
+    if (count3 <= 5) { 
+      count3 +=5;}
+
+    var variation3 = random(-5,5);
+    count3 += variation3;
+    if(count3>={{settings.max_visit}}){
+       count3 ={{settings.max_visit}};
+       }
+       if(count3<=0){
+      count3 ={{settings.max_visit}};
+    }
+    document.getElementById('realtime_visit').innerHTML = count3;
+
+  },{% if settings.settime_random_visitor != blank %} {{settings.settime_random_visitor}}000 {% else %} 3000 {% endif %})    
+
+  {% endif %}
+
+  {% if settings.ena_countdown %}
+  jQuery(document).ready(function($) {
+    var intinal4 = random(1, {{settings.max_product}});
+                          var count4 = intinal4;
+                          document.getElementById('random_sold_prod').innerHTML = count4;
+    $('.progress-bar').css('width', function(){
+      return count4/{{settings.max_product}}*100 + '%';
+    });
+    setInterval(function() {
+      count4 -= 1;
+      if(count4 ==0){
+        count4 = {{settings.max_product}};
+      }
+      document.getElementById('random_sold_prod').innerHTML = count4;
+      $('.progress-bar').css('width', function(){
+        return count4/{{settings.max_product}}*100 + '%';
+      });
+    }, {% if settings.settime_hurry_stock != blank %} {{settings.settime_hurry_stock}}000 {% else %}10000 {% endif %})  
+
+  }); 
+  {% endif %}
+
+
+
+  jQuery(document).ready(function($) {
+    $('.btn-add-stickycart').on( 'click', function() {
+      $('.shop-button.enj-add-to-cart-btn.engoj-btn-addtocart').click();
+    });
+  }); 
+
+</script>

@@ -1,0 +1,86 @@
+<div class="article_sidebar"> 
+  {% if section.settings.enable_widget_search %}
+  <div class="widget widget-search">
+    <form class="wg-search-form" action="/search">
+      <input type="hidden" name="type" value="product">
+      <input type="text" placeholder="{{section.settings.shop_by_search_placeholder}}" name="q" value="{{ search.terms | escape }}"  />
+      <button type="submit" value=""><i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
+
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_widget_cate %}
+  <div class="blog_sidebar_cate">
+    <h2 class="widget-title">{{section.settings.widget_cate_title}}</h2>
+    <div class="widget-content">
+      <ul class="list-category-toggle">
+        {% for link in linklists[section.settings.widget_cate_menu].links %}
+        <li class="item-toggle-tab"><a style="padding: 8px 0;display: block;" href="{{ link.url }}">{{link.title | split: '[' | first }}</a></li>
+
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_widget_related %}
+  <div class="blog_sidebar_recent">
+    {%- assign posts_limit = section.settings.blogs_limit -%}
+    {%- assign blog_selected = section.settings.select_blog -%}
+    <h2 class="widget-title ">{{section.settings.widget_related_title}}</h2>
+    <div class="list-posts">
+      {% for article in blogs[blog_selected].articles limit: posts_limit %}
+      <div class="item-post">
+        <div class="post-thumb "><a href="{{ article.url }}" class=""><img src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title }}" /></a></div>
+        <div class="post-info">
+          <span class="date-post">{{ article.published_at | date: "%d.%B.%Y" }}</span>
+          <h3 class="post-title mb-0 "><a href="{{ article.url }}" class="dark">{{ article.title }}</a></h3>
+          <span class="comment-count silver">{{article.comments_count}} Comments</span>
+        </div>
+      </div>
+
+      {% else %}
+      {% for i in (1..5) %}
+      <div class="item-post">
+        <div class="post-thumb ">
+          <a href="/admin/articles" class="adv-thumb-link">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </a>
+        </div>
+        <div class="post-info">
+          <span>30.DEC.2018</span>
+          <h3 class="post-title title14 text-uppercase dosis-font"><a href="/admin/articles" class="dark">Example Blog Post</a></h3>
+          <span class="comment-count silver"><i class="fa fa-comment gray"></i>5 Comments</span>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_widget_tag %}
+  <div class="widget widget-tags">
+    <h2 class="widget-title">{{section.settings.shop_by_tag_title}}</h2>
+    <ul class="list-tag">
+      {% if blog.all_tags.size > 0 %}
+      {% for tag in blog.all_tags %}
+      {% if current_tags contains tag %}
+      <li>{{ tag }}</li>
+      {% else %}
+      <li>{{ tag | link_to_tag: tag }}</li>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+  
+  <div class="banner_sidebar ">
+    <a href="{{section.settings.banner_article_url}}" target="_blank">
+      <img class="w-100" src="{% if section.settings.banner_article_sidebar != blank %} {{section.settings.banner_article_sidebar |img_url :'master'}} {% else %} //via.placeholder.com/320x480{% endif %}">
+    </a>
+  </div>
+</div>

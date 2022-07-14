@@ -1,0 +1,18 @@
+<div class="popup-cookie  jscookie_popup "style="display: none; {% if settings.lr_cookie == "left" %} left: 40px; right: auto{% elsif settings.lr_cookie == "right" %} left: auto ; right: 40px {% endif %}">
+  <div class="cn-notice-text">
+    <p>{{settings.content_cookie}}</p>
+  </div>
+  <a href="{{settings.ulr_cookie1}}" class="policy" href="">{{settings.title_btn_cookie}}</a>
+  <a href="javascript:void(0)" class="jsclose_cookie got_it" href="">{{settings.title_btn_cookie2}}</a>
+</div>
+
+<script>
+
+  jQuery(document).ready(function($) { 
+
+    $('.got_it').on('click', function() {
+      $('.popup-cookie ').addClass('d-none');
+
+    });
+  })  
+</script>

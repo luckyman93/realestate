@@ -1,0 +1,5 @@
+<div class="banner_sidebar ">
+  <a href="{{settings.banner_url}}" target="_blank">
+    <img class="w-100" src="{% if settings.banner_sidebar != blank %} {{settings.banner_sidebar |img_url :'master'}} {% else %} //via.placeholder.com/320x480{% endif %}">
+  </a>
+</div>

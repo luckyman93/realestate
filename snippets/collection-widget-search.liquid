@@ -1,0 +1,10 @@
+<div class="widget widget-search">
+  <div class="widget-title">
+    <h2 class="mb-0 title14 font-bold dosis-font text-uppercase">{{settings.shop_by_search_title}}</h2>
+  </div>
+  <form class="wg-search-form" action="/search">
+    <input type="hidden" name="type" value="product">
+    <input type="text" placeholder="{{settings.shop_by_search_placeholder}}" name="q" value="{{ search.terms | escape }}"  />
+    <input type="submit" value="" />
+  </form>
+</div>

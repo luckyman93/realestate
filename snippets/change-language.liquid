@@ -1,0 +1,14 @@
+<div class="box-change-langue">
+  <div class="top-lanngue">
+    <a class="title-langue" data-toggle="collapse" href="#collapseExample">
+      {{settings.title-change-language}}
+    </a>
+  </div>
+  <div id="collapseExample" class="collapse" style="">
+    <ul class="mb-0 list-unstyled ">
+      {% for link in linklists[settings.menu-change-language].links %}
+      <li><a href="{{link.url}}" title="{{link.title}}" class="text-uppercase">{{link.title}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

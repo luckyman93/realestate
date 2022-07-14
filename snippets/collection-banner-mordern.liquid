@@ -1,0 +1,291 @@
+<section class="collection-page-fullwidth">
+  <div class="filter-to-left">
+    <div class="filter_sidebar">
+      <div class="close_filter">{{'products.product.close' | t}}</div>
+      {% include 'collection-sidebar' %}
+    </div>
+  </div>
+  <div class="content-page container container-v1">
+    {% if section.settings.ena_banner_mordern %}
+    <div class="banner_full" style="margin-top:20px;">
+      <div class="banner_info">
+        <img alt="{{section.settings.bannerfull_img}}" src="{% if section.settings.bannerfull_img != blank %} {{section.settings.bannerfull_img | img_url : 'master'}} {% else %} //via.placeholder.com/1920x414 {% endif %}">
+        <div class="info">
+          <h3 class="big_title mb-0" style="color:{% if section.settings.color_title != blank %}{{section.settings.color_title}}{% endif %}">{{section.settings.big_title}}</h3>
+          <p class="mini_title mb-0" style="color:{% if section.settings.color_title != blank %}{{section.settings.color_title}}{% endif %}">{{section.settings.mini_title}}</p>
+          <a class="btn_shop" href="{{section.settings.bannerfull_url}}">{{section.settings.btn_title}}</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="">
+
+      <div class="row shop_control  " >
+        <div class="col-lg-8 col-md-6">
+          {% if section.settings.filter_layout == 'filter_accordition' %}
+          {% else %}
+          <div class="filter_sortby title_filter pl-0 d-none d-xl-block">
+            <a class="filter cursor-default d-inline-flex {% if section.settings.filter_layout == 'filter_push_left' %} js_filter {% elsif section.settings.filter_layout == 'filter_draw' %} js-draw-filter-btn {% endif %}" {% if section.settings.filter_layout == 'filter_collapse' %} data-toggle="collapse" data-target="#demo" {% endif %}  href="javascript:void(0)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="393pt" viewBox="-4 0 393 393.99003" width="393pt"><path d="m368.3125 0h-351.261719c-6.195312-.0117188-11.875 3.449219-14.707031 8.960938-2.871094 5.585937-2.3671875 12.3125 1.300781 17.414062l128.6875 181.28125c.042969.0625.089844.121094.132813.183594 4.675781 6.3125 7.203125 13.957031 7.21875 21.816406v147.796875c-.027344 4.378906 1.691406 8.582031 4.777344 11.6875 3.085937 3.105469 7.28125 4.847656 11.65625 4.847656 2.226562 0 4.425781-.445312 6.480468-1.296875l72.3125-27.574218c6.480469-1.976563 10.78125-8.089844 10.78125-15.453126v-120.007812c.011719-7.855469 2.542969-15.503906 7.214844-21.816406.042969-.0625.089844-.121094.132812-.183594l128.683594-181.289062c3.667969-5.097657 4.171875-11.820313 1.300782-17.40625-2.832032-5.511719-8.511719-8.9726568-14.710938-8.960938zm-131.53125 195.992188c-7.1875 9.753906-11.074219 21.546874-11.097656 33.664062v117.578125l-66 25.164063v-142.742188c-.023438-12.117188-3.910156-23.910156-11.101563-33.664062l-124.933593-175.992188h338.070312zm0 0"/></svg>
+              <p class="mb-0 d-inline-block">{{'products.product.filter' | t}}</p>
+            </a>
+          </div>
+          {% endif %}
+
+          {% if section.settings.filter_layout == 'filter_accordition' %}
+          <div class="filter-accodition engoj-collection-sidebar d-none d-xl-block">
+            <div class="heading_collapse">
+              {% if section.settings.ena_filter %}
+              <div class="filter_sortby title_filter pl-0">
+                <a class="filter" href="javascript:void(0)">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="393pt" viewBox="-4 0 393 393.99003" width="393pt"><path d="m368.3125 0h-351.261719c-6.195312-.0117188-11.875 3.449219-14.707031 8.960938-2.871094 5.585937-2.3671875 12.3125 1.300781 17.414062l128.6875 181.28125c.042969.0625.089844.121094.132813.183594 4.675781 6.3125 7.203125 13.957031 7.21875 21.816406v147.796875c-.027344 4.378906 1.691406 8.582031 4.777344 11.6875 3.085937 3.105469 7.28125 4.847656 11.65625 4.847656 2.226562 0 4.425781-.445312 6.480468-1.296875l72.3125-27.574218c6.480469-1.976563 10.78125-8.089844 10.78125-15.453126v-120.007812c.011719-7.855469 2.542969-15.503906 7.214844-21.816406.042969-.0625.089844-.121094.132812-.183594l128.683594-181.289062c3.667969-5.097657 4.171875-11.820313 1.300782-17.40625-2.832032-5.511719-8.511719-8.9726568-14.710938-8.960938zm-131.53125 195.992188c-7.1875 9.753906-11.074219 21.546874-11.097656 33.664062v117.578125l-66 25.164063v-142.742188c-.023438-12.117188-3.910156-23.910156-11.101563-33.664062l-124.933593-175.992188h338.070312zm0 0"/></svg>
+                  <p class="mb-0 d-inline-block">{{'products.product.filter' | t}}</p>
+                </a>
+              </div>
+              {% endif %}
+
+              <div class="filter-category title_filter">
+                <div class="widget-title">
+                  <a href="#flt_cate" class="mb-0 collapsed js-check-click-col" data-toggle="collapse" aria-expanded="false">{{settings.widget_cate_title}} <i class="fa fa-angle-down "></i></a>
+                </div>
+
+              </div>
+
+              <div class="filter-color title_filter">
+                <div class="widget-title">
+                  <a href="#flt_color" class="mb-0 collapsed js-check-click-col"  data-toggle="collapse" aria-expanded="false">{{settings.shop_by_color_title}} <i class="fa fa-angle-down "></i></a>
+                </div>
+              </div>
+
+              <div class=" filter-size  title_filter ">
+                <div class="widget-title">
+                  <a href="#flt_size" class="mb-0 collapsed js-check-click-col"  data-toggle="collapse" aria-expanded="false">{{settings.shop_by_size_title}} <i class="fa fa-angle-down "></i></a>
+                </div>
+              </div>
+
+              <div class="filter-price title_filter">
+                <div class="widget-title">
+                  <a href="#flt_price" class="mb-0 collapsed js-check-click-col"  data-toggle="collapse" aria-expanded="false">{{settings.shop_by_price_title}} <i class="fa fa-angle-down "></i></a>
+                </div>
+              </div>
+
+              <div class="all_filter title_filter ">
+                <div class="widget-title">
+                  <a href="javascript:void(0)" class="js_filter"><svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" enable-background="new 0 0 499.999 499.999" height="512" viewBox="0 0 499.999 499.999" width="512"><path d="m265.624 251.581v-251.581h-31.25v251.581c-35.616 7.259-62.5 38.818-62.5 76.544s26.884 69.284 62.5 76.544v95.331h31.25v-95.331c35.616-7.259 62.5-38.818 62.5-76.544s-26.884-69.285-62.5-76.544zm-15.624 123.418c-25.848 0-46.875-21.027-46.875-46.875s21.027-46.875 46.875-46.875 46.875 21.027 46.875 46.875c-.001 25.849-21.027 46.875-46.875 46.875z"/><path d="m93.75 95.331v-95.331h-31.25v95.331c-35.616 7.259-62.5 38.818-62.5 76.544s26.884 69.284 62.5 76.544v251.581h31.25v-251.582c35.616-7.259 62.5-38.818 62.5-76.544s-26.884-69.284-62.5-76.543zm-15.625 123.419c-25.848 0-46.875-21.027-46.875-46.875s21.027-46.875 46.875-46.875 46.875 21.026 46.875 46.875-21.027 46.875-46.875 46.875z"/><path d="m499.999 171.875c0-37.725-26.884-69.284-62.5-76.544v-95.331h-31.25v95.331c-35.616 7.259-62.5 38.818-62.5 76.544s26.884 69.284 62.5 76.544v251.581h31.25v-251.582c35.616-7.259 62.5-38.818 62.5-76.543zm-78.125 46.875c-25.848 0-46.875-21.027-46.875-46.875s21.027-46.875 46.875-46.875 46.875 21.027 46.875 46.875-21.026 46.875-46.875 46.875z"/></svg> 
+                    {{'collections.general.all_filter' | t}}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="content_collapse">
+              <div class="widget-cate collapse" id="flt_cate">
+                <ul class="list-category-toggle toggle-tab list-none">
+                  {% assign n = 1 %}
+                  {% for link in linklists[settings.widget_cate_menu].links %}
+                  {% assign child_list_handle = link.title | handleize %}
+                  {% if linklists[child_list_handle].links != blank %}
+                  <li class="item-toggle-tab">
+                    <a  href="{{ link.url }}">{{link.title | split: '[' | first }}</a>
+                    <a href="#c{{n}}" class="toggle-menumobile  collapsed js-check-click-col  " data-toggle="collapse" aria-expanded="false">
+                      <i class="fa fa-angle-down "></i>
+                    </a>
+                    <div id="c{{n}}" class="collapse " >
+                      <ul class="menu_lv2 px-0">
+                        {% for childlink in linklists[child_list_handle].links %}
+                        <li class="item_menu_lv2 list-unstyled"><a href="{{childlink.url}}">{{childlink.title | split: '[' | first }}</a></li>            
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </li>
+
+
+                  {% assign n = n | plus :1 %}
+                  {% else %}
+                  <li class="item-toggle-tab"><a  href="{{ link.url }}">{{link.title | split: '[' | first }}</a></li>
+
+                  {% endif %}
+
+                  {% endfor %}
+                </ul>
+
+              </div>
+              <ul class="list-none list_color collapse filter-tag"  id="flt_color">
+                {% assign tags = settings.shop_by_color_list_tags | split: ',' %}
+
+                {% for t in tags %}
+                {% assign tag = t | strip %}
+                {% assign tag_value = tag | handleize %}
+                <li class="cat-item{% if current_tags contains tag %} current-cat{% endif %}">
+                  <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+                  <a href="javascript:void(0)" title="{{tag}}" style="background: {{tag}}">
+                  </a>
+                </li>
+                {% endfor %}
+
+              </ul>
+              <ul id="flt_size" class="collapse list-none list-size filter-tag">
+                {% assign tags = settings.shop_by_size_list_tags | split: ',' %}
+
+                {% for t in tags %}
+                {% assign tag = t | strip %}
+                {% assign tag_value = tag | handleize %}
+                <li class="cat-item{% if current_tags contains tag %} current-cat{% endif %}">
+                  <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+                  <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              <ul id="flt_price" class="collapse list-none list-price filter-tag">
+                {% assign tags = settings.shop_by_price_list_tags | split: ',' %}
+
+                {% for t in tags %}
+                {% assign tag = t | strip %}
+                {% assign tag_value = tag | handleize %}
+                <li class="cat-item{% if current_tags contains tag %} current-cat{% endif %}">
+                  <input type="checkbox" value="{{ tag_value | split: '|' | first }}" {% if current_tags contains tag %}checked{% endif %}/>
+                  <a href="javascript:void(0)" title="{{tag}}">{{tag}}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+          {% if section.settings.ena_filter %}
+          <div class="filter_sortby title_filter pl-0 d-flex d-xl-none">
+            <a class="filter d-inline-flex js_filter "  href="javascript:void(0)">
+              <svg xmlns="http://www.w3.org/2000/svg" height="393pt" viewBox="-4 0 393 393.99003" width="393pt"><path d="m368.3125 0h-351.261719c-6.195312-.0117188-11.875 3.449219-14.707031 8.960938-2.871094 5.585937-2.3671875 12.3125 1.300781 17.414062l128.6875 181.28125c.042969.0625.089844.121094.132813.183594 4.675781 6.3125 7.203125 13.957031 7.21875 21.816406v147.796875c-.027344 4.378906 1.691406 8.582031 4.777344 11.6875 3.085937 3.105469 7.28125 4.847656 11.65625 4.847656 2.226562 0 4.425781-.445312 6.480468-1.296875l72.3125-27.574218c6.480469-1.976563 10.78125-8.089844 10.78125-15.453126v-120.007812c.011719-7.855469 2.542969-15.503906 7.214844-21.816406.042969-.0625.089844-.121094.132812-.183594l128.683594-181.289062c3.667969-5.097657 4.171875-11.820313 1.300782-17.40625-2.832032-5.511719-8.511719-8.9726568-14.710938-8.960938zm-131.53125 195.992188c-7.1875 9.753906-11.074219 21.546874-11.097656 33.664062v117.578125l-66 25.164063v-142.742188c-.023438-12.117188-3.910156-23.910156-11.101563-33.664062l-124.933593-175.992188h338.070312zm0 0"/></svg>
+              <p class="mb-0">{{'products.product.filter' | t}}</p>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+
+        {% if section.settings.ena_filter2 %}
+        <div  class="col-lg-4 col-md-6 col-12">
+          {% if section.settings.prod_layout == 'prod_grid' %}
+          <div class="change_prod">
+            <div class="change_collum">
+              <div class="icon_change">
+
+              </div> 
+              <div class="prod_per">
+                <a href="javascript:void(0)" class="size_2">2</a>
+                <a href="javascript:void(0)" class="size_3">3</a>
+                <a href="javascript:void(0)" class="size_4">4</a>
+                <a href="javascript:void(0)" class="size_5 ">5</a>
+              </div>
+            </div>
+            <div class="style_layout_prod  {% if section.settings.ena_filter == false %} justify-content-md-start {% else %}justify-content-md-end{% endif %} justify-content-center ">
+              {% include 'collection-sorting' %}
+            </div> 
+          </div>
+          {% else %}
+          <div class="style_layout_prod  {% if section.settings.ena_filter == false %} justify-content-md-start {% else %}justify-content-md-end{% endif %} justify-content-center ">
+            {% include 'collection-sorting' %}
+          </div> 
+          {% endif %} 
+        </div>
+        {% endif %}
+      </div> 
+
+
+      {% if section.settings.filter_layout == 'filter_collapse' %}
+      <div id="demo" class="collapse filter_ver2">
+        <div class="filter_sidebar2 row engoj-collection-sidebar engoc_sw_filter_tag">
+          {% include 'collection-droplist' %}
+        </div>  
+      </div> 
+      {% endif %}
+
+      <div class="row ">
+        {% if section.settings.filter_layout == 'filter_draw' %}
+        <div class="draw_filter trans_product js-draw-filter ">
+          <div class="filter_sidebar_general d-none d-lg-block ">
+            {% include 'collection-sidebar' %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="col-lg-12 {% if section.settings.filter_layout == 'filter_draw' %} js-draw-filter-2 trans_product {% endif %}">
+          <div class="clearfix relative collection_prod">  
+            {% if section.settings.prod_layout == 'prod_grid' %}
+            <div class="product-grid-view grid-uniform">
+              <div class="row ">
+                {% for product in collection.products %}
+                <div class="col-md-4 js_size_prod {% if section.settings.prod_per_row == 'prod_col_4' %}col-lg-4{% elsif section.settings.prod_per_row == 'prod_col_3' %} col-lg-3 {% elsif section.settings.prod_per_row == 'prod_col_2dot4' %} col-lg-2dot4 {% endif %} col-6 pb-4 trans-product">
+                  {% include 'product-item-v1' %}
+                </div>
+                {% else %}
+                {% if collection.handle == 'all' and current_tags == '' %}
+
+                {% for i in (1..12) %}
+                <div class="col-lg-3 col-md-3">
+                  {% include 'empty-product-item' %}
+                </div>
+                {% endfor %}
+
+                {% else %}
+
+                {% comment %}
+                If collection exists but is empty, display message
+                {% endcomment %}
+                <div class="text-center">
+                  <p>{{ 'collections.general.no_matches' | t }}</p>
+                </div>
+
+                {% endif %}
+                {% endfor %}
+
+              </div>
+
+              {% if paginate.pages > 1 %}
+              <div class="pagi-nav text-right">
+                {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+              </div>
+              {% endif %}
+
+              <!-- End Paginav -->
+            </div>
+            {% elsif section.settings.prod_layout == 'prod_list' %}
+            <div class="product-list-view grid-uniform  ">
+              {% for product in collection.products %}
+              <div class="list_prod">
+                {% include 'product-item-list' %}
+              </div>
+              {% else %}
+              {% if collection.handle == 'all' and current_tags == '' %}
+
+              {% for i in (1..12) %}
+              <div class="col-lg-3">
+                {% include 'empty-product-item' %}
+              </div>
+              {% endfor %}
+
+              {% else %}
+
+              {% comment %}
+              If collection exists but is empty, display message
+              {% endcomment %}
+              <div class="text-center">
+                <p>{{ 'collections.general.no_matches' | t }}</p>
+              </div>
+
+              {% endif %}
+              {% endfor %}
+              {% if paginate.pages > 1 %}
+              <div class="pagi-nav pt-4">
+                {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+              </div>
+              {% endif %}
+
+              <!-- End Paginav -->
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

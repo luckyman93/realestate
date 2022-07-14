@@ -1,0 +1,87 @@
+{% if section.settings.enable_alltab %}
+<div class="detail-tabs">
+  <div class="detail-tab-title">
+    <ul class="list-tag-detail list-none text-uppercase font-bold">
+      {% if section.settings.enable_description_tab %}
+      <li class="active"><a href="#tab1" data-toggle="tab">{{section.settings.destab_title}}</a></li>
+      {% endif %}
+      
+      {% if section.settings.enable_review_tab %}
+      <li><a href="#tab2" data-toggle="tab">{{section.settings.reviewtab_title}}</a></li>
+      {% endif %}
+      
+      {% if section.settings.enable_custom_tab1 %}
+      <li><a href="#tab3" data-toggle="tab">{{section.settings.customtab_title1}}</a></li>
+      {% endif %}
+
+      {% if section.settings.enable_custom_tab2 %}
+      <li><a href="#tab4" data-toggle="tab">video</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div class="detail-tab-content">
+    <div class="tab-content">
+      {% if section.settings.enable_description_tab %}
+      <div id="tab1" class="tab-pane active">
+        <div class="detail-tab-desc clearfix">
+          {{product.description}}
+        </div>
+      </div>
+      {% endif %}
+      
+      {% if section.settings.enable_review_tab %}
+      <div id="tab2" class="tab-pane">
+        <div class="detail-tab-review">
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+        </div>
+      </div>
+      {% endif %}
+      
+      {% if section.settings.enable_custom_tab1 %}
+      <div id="tab3" class="tab-pane">
+        <div class="detail-addition">
+          
+          {% if section.settings.custom_tab_option1 == "ct_ops_image1" %}
+          
+          	{% if section.settings.ct_option_11 != blank %}
+          		<img src="{{ section.settings.ct_option_11 | img_url: "master" }}"/>
+          	{% else %}
+          		{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          	{% endif %}
+
+          {% elsif section.settings.custom_tab_option1 == "ct_ops_html1" %}
+          {{ section.settings.ct_option_21 }}
+
+          {% elsif section.settings.custom_tab_option1 == "ct_ops_page1" %}
+          {% assign page_handle = section.settings.ct_option_31 %}
+          {{ pages[page_handle].content }}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if section.settings.enable_custom_tab2 %}
+      <div id="tab4" class="tab-pane">
+        <div class="detail-tab-video">
+          {% if section.settings.custom_tab_option2 == "ct_ops_image2" %}
+          
+          	{% if section.settings.ct_option_12 != blank %}
+          		<img src="{{ section.settings.ct_option_12 | img_url: "master" }}"/>
+          	{% else %}
+          		{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          	{% endif %}
+
+          {% elsif section.settings.custom_tab_option2 == "ct_ops_html2" %}
+          {{ section.settings.ct_option_22 }}
+
+          {% elsif section.settings.custom_tab_option2 == "ct_ops_page2" %}
+          {% assign page_handle = section.settings.ct_option_32 %}
+          {{ pages[page_handle].content }}
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}

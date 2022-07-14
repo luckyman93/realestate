@@ -1,0 +1,104 @@
+<section class=" recently-viewed-products-sidebar">
+  <div class="lst-seen-widget active">
+    <div class="collapse-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24">
+        <title>ico-collapse</title>
+        <path  d="M1.821 22.676c-.134.151-.301.227-.485.227s-.351-.076-.485-.227a.849.849 0 0 1 0-1.097l8.529-9.647L.851 2.285c-.268-.303-.268-.794 0-1.097s.702-.303.97 0l9.031 10.196a.849.849 0 0 1 0 1.097L1.821 22.677z"></path>
+        <path  d="M12.061 22.676c-.134.151-.301.227-.485.227s-.351-.076-.485-.227a.849.849 0 0 1 0-1.097l8.529-9.647-8.529-9.647c-.268-.303-.268-.794 0-1.097s.702-.303.97 0l9.031 10.196a.849.849 0 0 1 0 1.097l-9.031 10.196z"></path>
+      </svg>
+    </div>
+
+    <div class="top">
+      <div role="link" class="cart-icon with-products js-call-minicart">
+        <span class="cartCount cart-badge enj-cartcount" data-cart-count>{{cart.item_count }}</span>
+        {% if settings.pia_addcart_svg != blank  %}
+        <i class="fsz-unset">{{settings.pia_addcart_svg}}</i>
+        {% else %}
+        <i class="{{settings.pia_addcart}}" style="font-size: 22px;"></i>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="in-content">
+      <div class="title text-center">
+        <span>
+          Recently Viewed
+        </span>
+      </div>
+
+      <div class="products-grid engoj-recently-wrapper" id="recently-viewed-products-list">
+        <div class="have-products engoj-recently-products-container">
+          <div class="js_prod_recent">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="bottom backtoTop"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24">
+      <title>ic-cross-line-top</title>
+      <path  d="M10.889 1.781v20.444a.667.667 0 1 0 1.334 0V1.781a.667.667 0 1 0-1.334 0z"></path>
+      <path  d="M11.556 2.79l9.277 10.542a.667.667 0 0 0 1.001-.881L12.056 1.34a.666.666 0 0 0-1.001 0L1.277 12.451a.667.667 0 0 0 1.001.881L11.555 2.79z"></path>
+      </svg>
+      <div class="title_backtop">
+        <span>
+          Top
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="wrap-icons js-toolbar-icon">
+    <div class="open-recent-view"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24">
+      <title>ic-expand</title>
+      <path d="M6.836 2.266a.632.632 0 0 0 0-1.264H1.635a.632.632 0 0 0-.632.632v5.201a.632.632 0 0 0 1.264 0v-4.57h4.57z"></path>
+      <path d="M1.188 2.081L13.077 13.97a.63.63 0 1 0 .893-.893L2.081 1.188a.63.63 0 1 0-.893.893z"></path>
+      <path d="M10.106 2.8h11.368a3.158 3.158 0 0 1 3.158 3.158v14.253a3.158 3.158 0 0 1-3.158 3.158H7.173a3.158 3.158 0 0 1-3.158-3.158v-7.98h1.263v7.98c0 1.046.848 1.895 1.895 1.895h14.301a1.895 1.895 0 0 0 1.895-1.895V5.958a1.895 1.895 0 0 0-1.895-1.895H10.106V2.8z"></path>
+      </svg></div>
+    <div  class="backtoTop"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="24" viewBox="0 0 23 24">
+      <title>ic-cross-line-top</title>
+      <path d="M10.889 1.781v20.444a.667.667 0 1 0 1.334 0V1.781a.667.667 0 1 0-1.334 0z"></path>
+      <path d="M11.556 2.79l9.277 10.542a.667.667 0 0 0 1.001-.881L12.056 1.34a.666.666 0 0 0-1.001 0L1.277 12.451a.667.667 0 0 0 1.001.881L11.555 2.79z"></path>
+      </svg></div>
+  </div>
+</section>
+
+<script>
+
+  jQuery(document).ready(function($) { 
+
+    $('.collapse-icon').on('click', function() {
+      $('.lst-seen-widget').addClass('active');
+
+    });
+    $('.open-recent-view').on('click', function() {
+      $('.lst-seen-widget').removeClass('active');
+      $('.wrap-icons').removeClass('active');
+    });
+
+  })  
+
+  var backToTop = $('.recently-viewed-products-sidebar .backtoTop');
+  if ($(this).scrollTop() > 220) {
+    $('.recently-viewed-products-sidebar').addClass("slided-up");
+  } else {
+    $('.recently-viewed-products-sidebar').removeClass("slided-up");
+  };
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 220) {
+      $('.top').addClass("active");
+      $('.bottom').addClass("active");
+    } else {
+      $('.top').removeClass("active");
+      $('.bottom').removeClass("active");
+    };
+  });
+
+  backToTop.off('click.scrollTop').on('click.scrollTop', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $('html, body').animate({
+      scrollTop: 0
+    }, 400);
+    return false;
+  });
+</script>

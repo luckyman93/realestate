@@ -1,0 +1,128 @@
+<ul>
+  {% assign main_menu = section.settings.main_menu_store %}
+  {% for link in linklists[main_menu].links %}
+
+  {% assign item = link.title | downcase %}
+  {% assign child_list_handle = link.title | handleize %}
+
+  {% capture megamenu_1 %}megamenu_s1_parent{% endcapture %}
+  {% capture megamenu_2 %}megamenu_s2_parent{% endcapture %}
+  {% capture megamenu_3 %}megamenu_s3_parent{% endcapture %}
+  {% capture megamenu_4 %}megamenu_s4_parent{% endcapture %}
+  {% capture megamenu_5 %}megamenu_s5_parent{% endcapture %}
+  {% capture megamenu_6 %}megamenu_s6_parent{% endcapture %}
+
+
+
+  {% if settings[megamenu_1] == item or settings[megamenu_2] == item  or settings[megamenu_3] == item or settings[megamenu_4] == item or settings[megamenu_5] == item or settings[megamenu_6] == item %}
+  {% for i in (1..6) %}
+
+  {% capture megamenu %}megamenu_s{{i}}_parent{% endcapture %}
+  {% capture _mega_style_select %}ms{{i}}_select{% endcapture %}
+  {% capture _mega_lcol_img_up %}ms{{i}}_lc_img{% endcapture %}
+  {% capture _mega_lcol_img_url %}ms{{i}}_lc_img_url{% endcapture %}
+  {% capture _mega_lcol_product %}ms{{i}}_lc_product{% endcapture %}
+
+  {% if settings[megamenu] == item %}
+  <li class="menu-item-has-children has-mega-menu">
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    <div class="mega-menu full-mega-menu">
+      <div class="content-mega-menu">
+
+        {% unless settings[_mega_style_select] == "m_s3" %}
+        <div class="row">
+          <div class="col-md-9">
+            {% endunless %}
+
+            <div class="engoc-row-equal">
+              {% for childlink in linklists[child_list_handle].links %}
+              {% assign grand_child_list_handle = childlink.title | handle %}
+
+              <div class="col-md-{% if settings[_mega_style_select] == "m_s3" %}3{% else %}4{% endif %} col-sm-{% if settings[_mega_style_select] == "m_s3" %}3{% else %}4{% endif %} col-xs-12">
+                {% if linklists[grand_child_list_handle].links != blank %}
+                <div class="mega-list-cat">
+                  <h2 class="title18 font-bold text-uppercase mt-15"><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></h2>
+                  <ul class="list-none">
+                    {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                    <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title | escape }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% else %}
+                <div class="mega-list-cat">
+                  <h2 class="title18 font-bold text-uppercase"><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></h2>
+                </div>
+                {% endif %}
+              </div>
+              {% endfor %}
+
+              {% unless settings[_mega_style_select] == "m_s3" %}
+            </div>
+          </div>
+          {% endunless %}
+
+          {% unless settings[_mega_style_select] == "m_s3" %}
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            {% if settings[_mega_style_select] == "m_s1" %}
+            <div class="mega-menu-thumb banner-adv zoom-image line-scale">
+              <a href="{{settings[_mega_lcol_img_url]}}" class="adv-thumb-link">
+                {% if settings[_mega_lcol_img_up] == blank %}
+                {{ 'image' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                {% else %}
+                <img src="{{settings[_mega_lcol_img_up] | img_url: "master"}}" alt="">
+                {% endif %}
+              </a>
+            </div>
+            {% elsif settings[_mega_style_select] == "m_s2" %}
+            {% if settings[_mega_lcol_product] != blank %}
+            {% assign product = all_products[settings[_mega_lcol_product]] %}
+            {% include 'product-item-grid' %}
+            {% else %}
+            {% include 'empty-product-item-grid' %}
+            {% endif %}
+            {% endif %}
+          </div>
+          {% endunless %}
+
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endif %}
+  {% endfor %}
+
+  {% else %}
+  {% if linklists[child_list_handle].links != blank %}
+  <li class="menu-item-has-children">
+    <a href="{{ link.url }}">{{ link.title }}</a>
+    <ul class="sub-menu">
+      {% for childlink in linklists[child_list_handle].links %}
+
+      {% assign grand_child_list_handle = childlink.title | handle %}
+      {% if linklists[grand_child_list_handle].links != blank %}
+
+      <li class="menu-item-has-children">
+        <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+        <ul class="sub-menu">
+          {% for grandchildlink in linklists[grand_child_list_handle].links %}
+          <li><a href="{{ grandchildlink.url }}">{{ grandchildlink.title | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+
+      {% else %}
+      <li><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+      {% endif %}
+
+      {% endfor %}
+    </ul>
+  </li>
+
+  {% else %}
+  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+  {% endif %}
+
+  {% endif %}
+
+  {% endfor %}
+</ul>
