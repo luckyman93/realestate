@@ -1,0 +1,400 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-v4" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-slideshow-v4 " style="background: {{section.settings.bg_section}}">
+    <div class="container container-v2">
+      <div class="slick-side-h4">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "slideshow" %}
+        <div class="item-slide ">
+          <div class="img-slide">
+            <div class="d-none d-md-block">
+              <a href="{{block.settings.url_btn}}" class="d-block"> 
+                <img data-src="{% if block.settings.img_slide != blank %} {{block.settings.img_slide | img_url : 'master'}} {% else %}  //via.placeholder.com/1920x900 {% endif %}" class="lazyload img_desktop img-fluid w-100" alt="_img_slide_">
+              </a>
+            </div>
+            <div class="d-block d-md-none">
+              <a href="{{block.settings.url_btn}}">
+                {% if block.settings.img_slide_mb != blank %}
+                <img data-src="{{block.settings.img_slide_mb | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="_img_slide">
+                {% else %}
+                <img data-src="{{block.settings.img_slide | img_url : 'master'}}" class="lazyload img_desktop img-fluid w-100" alt="_img_slide">
+                {% endif %}
+              </a>
+            </div>
+          </div>
+          <div class=" {% if block.settings.select_position_content == 'left' %} slide-content {% elsif  block.settings.select_position_content == 'right' %} slide-right {% endif %} {% if block.settings.select_textalign_content == 'left' %} text-left {%  elsif block.settings.select_textalign_content == 'right' %} text-right {% endif %}">
+
+            {% if block.settings.content_top != blank %}
+            <p class="title-top" style="color: {{block.settings.color_content_top}}">{{block.settings.content_top}}</p>
+            {% endif %}
+
+            {%  if block.settings.title_slide != blank %}
+            <h3 class="title-slide" style="color: {{block.settings.color_title}}">{{block.settings.title_slide}}</h3>
+            {% endif %}
+
+            {%  if block.settings.content != blank %}
+            <p class="content" style="color: {{block.settings.color_content}}">{{block.settings.content}}</p>
+            {% endif %}
+
+            {% if block.settings.btn_slide != blank %}
+            <div class="box-btn">
+              <a href="{{block.settings.url_btn}}" class="btn-slide btn-slide-{{ block.id }}">{{block.settings.btn_slide}}</a>
+
+              {% if block.settings.btn_slide2 != blank %}
+              <a href="{{block.settings.url_btn2}}" class ="btn-slide btn-slide2-{{ block.id }}">{{block.settings.btn_slide2}}</a>
+              {% endif %}
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+      <div class="info-bottom">
+        <div class="info-social">
+          <ul>
+            <li><a href="{{section.settings.url_link1}}"><i class="{{section.settings.icon_link1}}"></i>{{section.settings.item_link1}}</a></li>
+            <li><a href="{{section.settings.url_link2}}"><i class="{{section.settings.icon_link2}}"></i>{{section.settings.item_link2}}</a></li>
+            <li><a href="{{section.settings.url_link3}}"><i class="{{section.settings.icon_link3}}"></i>{{section.settings.item_link3}}</a></li>
+          </ul>
+        </div>
+        <div class="info-video">
+          <div class="button-video">
+            <span class="content">{{section.settings.content_video}}</span>
+            <a data-fancybox href="{{section.settings.section_video_url}}">    
+              <span class="box-btn">
+                <span class="btn-banner">
+                  <i class="fa fa-play"></i>
+                  <span class="line-video line-1"></span>
+                  <span class="line-video line-2"></span>
+                  <span class="line-video line-3"></span>
+                </span>
+              </span>
+            </a>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  @media (max-width: 576px) {
+    .section-slideshow-v4 .container {
+      padding: 0;
+    }
+  }
+  {% for block in section.blocks %}
+  {% if block.type == 'slideshow' %}
+  .section-slideshow-v4 .slick-side-h4 .item-slide  .box-btn .btn-slide-{{ block.id }} {
+    color: {{block.settings.color_btn}};
+    background: {{block.settings.bg_btn}};
+  } 
+  .section-slideshow-v4 .slick-side-h4 .item-slide  .box-btn .btn-slide-{{ block.id }}:hover {
+    color: {{block.settings.color_btn_hover}};	
+    background: {{block.settings.bg_btn_hover}};
+  }
+  .section-slideshow-v4 .slick-side-h4 .item-slide  .box-btn .btn-slide2-{{ block.id }} {
+    color: {{block.settings.color_btn2}};
+    background: {{block.settings.bg_btn2}};
+  }
+  .section-slideshow-v4 .slick-side-h4 .item-slide  .box-btn .btn-slide2-{{ block.id }}:hover {
+    color: {{block.settings.color_btn_hover2}};	
+    background: {{block.settings.bg_btn_hover2}};
+  }
+  {% endif %}
+  {% endfor %}
+</style>
+
+{% schema %}
+{
+  "name": "SLIDESHOW V4",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Background Slide"
+    },
+    {		
+    "type": "color",
+    "id": "bg_section",
+    "label": "Background Section",
+    "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Content Bottom"
+    },
+    {
+      "type": "text",
+      "id": "icon_link1",
+      "label": "Icon link 1",
+      "default": "fa fa-facebook",
+      "info": "[Get icon in here](https:\/\/fontawesome.com\/v4.7.0\/icons)"
+    },
+    {
+      "type": "text",
+      "id": "item_link1",
+      "label": "Item link 1",
+      "default": "FACEBOOK"
+    },
+    {
+      "type": "url",
+      "id": "url_link1",
+      "label": "URL Link 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "icon_link2",
+      "label": "Icon link 2",
+      "default": "fa fa-twitter",
+      "info": "[Get icon in here](https:\/\/fontawesome.com\/v4.7.0\/icons)"
+    },
+    {
+      "type": "text",
+      "id": "item_link2",
+      "label": "Item link 2",
+      "default": "TWITTER"
+    },
+    {
+      "type": "url",
+      "id": "url_link2",
+      "label": "URL Link 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "icon_link3",
+      "label": "Icon link 3",
+      "default": "fa fa-youtube",
+      "info": "[Get icon in here](https:\/\/fontawesome.com\/v4.7.0\/icons)"
+    },
+    {
+      "type": "text",
+      "id": "item_link3",
+      "label": "Item link 3",
+      "default": "YOUTUBE"
+    },
+    {
+      "type": "url",
+      "id": "url_link3",
+      "label": "URL Link 3",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "content_video",
+      "label": "Content VIdeo",
+      "default": "PLAY VIDEO"
+    },
+    {
+      "type": "url",
+      "id": "section_video_url",
+      "label": "URL Video",
+      "info": "[Upload video .mp4 in here](/admin/settings/files)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slideshow",
+      "name": "slideshow",
+      "settings": [
+        {
+          "type": "select",
+          "id": "select_position_content",
+          "label": "Choose The Position Content",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "select",
+          "id": "select_textalign_content",
+          "label": "Text Align Content",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+		{
+          "type": "image_picker",
+          "id": "img_slide",
+          "label": "Image slideshow for destop",
+          "info": "1920 x 900px recommended"
+        },
+		{
+          "type": "image_picker",
+          "id": "img_slide_mb",
+          "label": "Image slideshow for mobile",
+          "info": "500 x 600px recommended"
+        },
+        {
+          "type": "text",
+          "id": "content_top",
+          "label": "Sub Title Top",
+          "default": "WE ARE LARINE"
+        },
+		{		
+           "type": "color",
+           "id": "color_content_top",
+           "label": "Color Content Top",
+           "default": "#666"
+        },
+        {
+          "type": "text",
+          "id": "title_slide",
+          "label": "Title",
+          "default": "We are the Best <br>service provider"
+        },
+		{		
+           "type": "color",
+           "id": "color_title",
+           "label": "Color Title",
+           "default": "#000"
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Sub Title ",
+          "default": "Organic food is at the heart of what we do. Our organic <br>whole foods are high quality. "
+        },
+		{		
+           "type": "color",
+           "id": "color_content",
+           "label": "Color Sub Title",
+           "default": "#666"
+        },
+        {
+          "type": "text",
+          "id": "btn_slide",
+          "label": "Button",
+          "default": "SHOP NOW"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn",
+           "label": "Color Button",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn",
+           "label": "Background Color",
+           "default": "#fe7250"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn_hover",
+           "label": "Color Button Hover",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn_hover",
+           "label": "Background Color Hover",
+           "default": "#fe7250"
+        },
+        {
+          "type": "url",
+          "id": "url_btn",
+          "label": "URL Button",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "btn_slide2",
+          "label": "Button",
+          "default": "ABOUT US"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn2",
+           "label": "Color Button",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn2",
+           "label": "Background Color",
+           "default": "#000"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn_hover2",
+           "label": "Color Button Hover",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn_hover2",
+           "label": "Background Color Hover",
+           "default": "#fe7250"
+        },
+        {
+          "type": "url",
+          "id": "url_btn2",
+          "label": "URL Button",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SLIDESHOW V4",
+      "category": "HOME",
+	  "blocks": [
+        {
+          "type": "slideshow",
+          "settings": {
+            "content_top": "WE ARE LARINE",
+            "title_slide": "We are the Best <br>service provider",
+            "content": "Organic food is at the heart of what we do. Our organic <br> whole foods are high quality.",
+			"btn_slide": "Shop now"
+          }
+        }	
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

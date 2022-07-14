@@ -1,0 +1,29 @@
+<div class="wrap-bread-crumb breadcrumb_collection3 banner_abbout">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    <div class="title-page">
+
+      <h2 class="">{{page.title}}</h2>
+
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Background BreadCrumb",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

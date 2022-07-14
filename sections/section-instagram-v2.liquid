@@ -1,0 +1,156 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-instagram-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-instagram-v2 mt-all">
+    <div class="container container-v2 p-0">
+      <div class="">
+        {% assign instafeed_img = '{{image}}' %}
+        {% assign instafeed_link = '{{link}}' %}
+
+        {% if section.settings.ins_userid != blank and section.settings.ins_access_token != blank %}
+        <script>
+          jQuery(document).ready(function($) {
+            var feed = new Instafeed({
+              get: 'user',
+              userId: '{{section.settings.ins_userid}}',
+              accessToken: '{{section.settings.ins_access_token}}',
+              template: '<div class="instagram-item"> <div class="content"> <img src="{{ 'instagram' | append: i | append: '.jpg' | file_img_url: 'master' }}" class="img-responsive" alt="instagram" /> <div class="absolute content_text flex center"> <a href="{{instafeed_link}}" class="delay03 inline-block" target="_blank"><i class="{{section.settings.item_icon}}"></i></a> </div> </div> </div>',
+              target: 'engoj_instagramv1',
+              resolution: 'standard_resolution',
+              limit: {{section.settings.ins_limit_number}}
+            });
+            feed.run();
+          });
+        </script>
+        {% endif %}
+
+        <div class="text-center box-sextion-top" >
+          <div>
+            {% if section.settings.img_icon != blank %}
+            <img class="mb-3" src="{{section.settings.img_icon |img_url : 'master'}}">
+            {% endif %}
+          </div>
+          {% if section.settings.section_title_big != blank %}
+          <h3 class="title_heading text-center mb-0">{{section.settings.section_title_big}}</h3>
+          {% endif %}
+        </div>   
+        <div class="instagram-content row no-gutters" id="engoj_instagramv1">
+          {% if section.settings.ins_userid == blank or section.settings.ins_access_token == blank %}
+          {% if shop.permanent_domain == "herbyo-store-demo.myshopify.com" %}
+          {% for i in (1..section.settings.ins_limit_number) %}
+          <div class="instagram-item">
+            <div class="content">
+              <img src="{{ 'instagram' | append: i | append: '.jpg' | file_img_url: 'master' }}" class="img-responsive" alt="instagram" />
+              <div class="absolute content_text flex center">
+                <a href="https://www.instagram.com/" class="delay03 inline-block" target="_blank"><i class="{{section.settings.item_icon}}"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <div class="instagram-item">
+            <div class="content">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              <div class="absolute content_text flex center">
+                <a href="https://www.instagram.com/" class="delay03 inline-block" target="_blank"><i class="{{section.settings.item_icon}}"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .instagram-content .instagram-item a img:hover {
+    filter: brightness(0.3);
+    transition: .3s;
+  }
+  .instagram-content .instagram-item a img {
+    transition: .3s;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "INSTAGRAM V2",
+  "class": "index-section",
+  "settings": [
+	{
+      "type": "header",
+      "content": "Setting Intagram"
+    },
+    {
+    "type": "image_picker",
+    "id": "img_icon",
+    "label": "Icon Image",
+    "info": "70 x 70px recommended"
+    },
+	{
+      "type": "text",
+      "id": "section_title_big",
+      "label": "Title Section",
+      "default": "Instagram Shop"
+    },
+    {
+      "type": "text",
+      "id": "item_icon",
+      "label": "Icon",
+      "default": "fa fa-instagram",
+      "info": "[Get icon here](https:\/\/fontawesome.com\/v4.7.0\/icons\/)"
+    },
+    {
+      "type": "header",
+      "content": "Info Intagram"
+    },
+    {
+      "type": "text",
+      "id": "ins_userid",
+      "label": "User ID Instagram",
+      "default": "3672948962"
+    },
+    {
+      "type": "text",
+      "id": "ins_access_token",
+      "label": "Access Token Instagram",
+      "default": "3672948962.0f64772.430edb7f711e4665b59777c54d1ed9ce"
+    },
+    {
+      "type": "text",
+      "id": "ins_limit_number",
+      "label": "Limit Image",
+      "default": "10"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "INSTAGRAM V2",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

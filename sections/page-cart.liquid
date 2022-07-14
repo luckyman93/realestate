@@ -1,0 +1,120 @@
+<!-- /templates/cart.liquid -->
+{% comment %}
+
+For info on test orders:
+- General http://docs.shopify.com/manual/your-store/orders/test-orders
+- Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+<div class="wrap-bread-crumb breadcrumb_cart">
+  <div class="container container-v1" >
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+<section class="page-cart">
+  <div class="content-pages">
+    <div class="container container-v1">
+      <div class="content-about content-cart-page">
+        {% if cart.item_count > 0 %}
+        <form action="/cart" method="post" novalidate>
+          <div class="table-responsive">
+            <table class="shop_table table--responsive cart table">
+              <thead>
+                <tr class="cart-title">
+
+                  <th colspan="2" class="product-thumbnail"> {{ 'cart.label.product' | t }}</th>
+                  <th class="product-price">{{ 'cart.label.price' | t }}</th>
+                  <th class="product-quantity">{{ 'cart.label.quantity' | t }}</th>
+                  <th class="product-subtotal">{{ 'cart.label.total' | t }}</th>
+                  <th class="product-remove">&nbsp;</th>
+                </tr>
+              </thead>
+              {% if cart.item_count > 0 %}
+              <form action="/cart" method="post" novalidate>
+                <tbody>
+                  {% for item in cart.items %}
+                  <tr class="cart_item">
+                    <td data-label="Product Name" class="product-thumbnail">
+                      <a href="{{ item.url }}"><img  src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}"/></a>           
+                    </td>
+                    <td class="product-name-thumb" data-title="Product">
+                      <a href="{{ item.url }}">{{ item.product.title }}</a> 
+                      {% unless item.variant.title contains 'Default' %}
+                      <small style="display: block; color: #959595;">{{ item.variant.title }}</small>
+                      {% endunless %}
+                      {% if settings.cart_vendor_enable %}
+                      <p>{{ item.vendor }}</p>
+                      {% endif %}           
+
+                    </td>
+                    <td data-label="Product Price" class="product-price" data-title="Price">
+                      <span class="amount">{{ item.price | money }}</span>          
+                    </td>
+                    <td data-label="Quantity" class="product-quantity" data-title="Quantity">
+                      <input type="number" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" min="0">
+                    </td>
+                    <td data-label="Sub Total" class="product-subtotal" data-title="Total">
+                      <span class="amount">{{ item.line_price | money }}</span> 
+                    </td>
+                    <td  class="product-remove">
+                      <a class="remove set-12-svg" href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve"> <g> <g> <polygon points="298.667,30.187 268.48,0 149.333,119.147 30.187,0 0,30.187 119.147,149.333 0,268.48 30.187,298.667     149.333,179.52 268.48,298.667 298.667,268.48 179.52,149.333   "></polygon> </g> </g> </svg></a>
+                    </td>
+                  </tr>
+                  {% endfor %}            
+
+                </tbody>
+              </form>
+              {% endif %}
+            </table>
+          </div>
+
+          <div class="cart_totals ">
+            <div class="cart-update">
+              <input type="submit" value="{{ 'cart.general.update' | t }}" name="update_cart" class="button bg-color">      
+            </div>
+            <div class="continue-shopping-1">
+              <a href="/collections/all">{{'cart.general.continue' | t}}</a>
+            </div>
+
+            <div class="cart-check">
+              <h2 class="cart-title">{{'cart.label.cart_total' | t}}</h2>
+              <table class="total-checkout">
+                <tbody>
+                  <tr>
+                    <th class="cart-label"><span >{{ 'cart.label.total' | t }}</span></th>
+                    <td class="cart-amount"><span ><strong><span class="amount">{{ cart.total_price | money }}</span></strong> </span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="wc-proceed-to-checkout clearfix">
+                <a class="checkout-button button alt wc-forward bg-color" href="/checkout">{{ 'cart.general.checkout' | t }}</a>
+              </div>
+            </div>  
+          </div>
+        </form>
+        {% else %}
+        {% comment %}
+        The cart is empty
+        {% endcomment %}
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+        {% endif %}
+      </div>  
+    </div>
+  </div>
+  <!-- End Content Pages -->
+</section>
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": [
+    
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

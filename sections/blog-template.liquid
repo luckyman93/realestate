@@ -1,0 +1,407 @@
+{% paginate blog.articles by {{section.settings.posts_limit}} %}
+
+<section>
+  <div class="wrap-bread-crumb breadcrumb_collection2">
+    <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+      <div class="title-page">
+
+        <h2 class="">{{blog.title}}</h2>
+
+      </div>
+      {% include 'breadcrumb' %}
+    </div>
+  </div>
+  <!-- End Bread Crumb -->
+  <div class="content-page blog-page">
+    <div class="container container-v2">
+      <div class="content-blog-page row">
+        {% if section.settings.blog_layout == "blog_layo_left" %}
+        <div class="col-lg-4 col-xl-3 ">
+          {% include 'blog-sidebar' %}
+        </div>
+        {% endif %}
+
+
+        <div style="{% if section.settings.blog_layout == "blog_layo_none" and section.settings.blog_template == "blog_standar" or section.settings.blog_template == "blog_classic"  %} max-width: 1040px; margin: 0 auto {% endif %}" class="blog-list-view {% if section.settings.blog_layout == "blog_layo_none" %} col-lg-12 {% else %} col-lg-8 col-xl-9 {% endif %}">
+          <div class="row" {% if section.settings.blog_template == "blog_masonry" %}data-masonry='{"percentPosition":true}'{% endif %}>       
+            {% if section.settings.blog_template == "blog_standar" %}
+            {% for article in blog.articles %}
+            <div class="col-md-12">
+              <div class="blog_standar">
+                <div class="">
+                  <div class="article_img">
+                    <a href="{{ article.url }}" ><img class="w-100 lazyload" data-src="{{ article.image.src | img_url: 'original' }}"  alt="{{ article.title }}"></a>
+                  </div>
+                </div>
+                <div class="post-info">
+                  {% if section.settings.show_datetime %}
+                  <div class="single-post-date">
+                    <span class="date">{{ article.published_at | date: "%d" }}</span>
+                    <span class="month">{{ article.published_at | date: "%b" }}</span>
+                  </div>
+                  {% endif %}
+                  <div class="title_info">
+                    {% if section.settings.show_cate %}  
+                    <h4 class="blog-title mb-0">{{blog.title}}</h4>
+                    {% endif %}
+                    <h3 class="post-title mb-0"><a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a></h3>
+                  </div>
+                  {% if section.settings.show_summary %}
+                  <p class="des_article">{{ article.content | strip_html | truncatewords: 100 }}</p>
+                  {% endif %}
+
+                  {% if section.settings.show_author %}
+                  <span class="author"><i class="fa fa-user"></i><a href="{{ article.url }}">{{ article.author }}</a></span>
+                  {% endif %}
+                  {% if section.settings.show_comment %}
+                  <span class="comment_count"><i class="fa fa-comment"></i> <a href="{{ article.url }}/#comments" class="silver">{{ article.comments_count }}</a> {{'blogs.comments.comment' | t}}</span>
+                  {% endif %}
+                  {% if section.settings.show_btn %}
+                  <div>
+                    <a class="btn_readmore" href="{{article.url}}"><span>{{'blogs.article.read_more' | t}} </span></a>
+                  </div> 
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            {% elsif section.settings.blog_template == "blog_classic" %}
+            {% for article in blog.articles %}
+            <div class="col-md-12">
+              <div class="blog_classic">
+                <div class="image_blog">
+                  <div class="article_img">
+                    <a href="{{ article.url }}" ><img class="w-100" src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title }}"></a>
+                  </div>
+                </div>
+                <div class="post-info">
+
+                  <div class="title_info">
+                    {% if section.settings.show_cate %}  
+                    <h4 class="blog-title mb-0">{{blog.title}}</h4>
+                    {% endif %}
+                    <h3 class="post-title mb-0"><a href="{{ article.url }}" title="{{ article.title }}">{{ article.title }}</a></h3>
+                  </div>
+                  {% if section.settings.show_summary %}
+                  <p class="des_article">{{ article.content | strip_html | truncatewords: 18 }}</p>
+                  {% endif %}
+
+
+                  {% if section.settings.show_datetime %}
+                  <span class="date">{{ article.published_at | date: "%b %d,%Y" }}</span>
+                  {% endif %}
+
+                  {% if section.settings.show_btn %}
+                  <div>
+                    <a class="btn_readmore" href="{{article.url}}"><span>{{'blogs.article.read_more' | t}} </span></a>
+                  </div> 
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            {% elsif section.settings.blog_template == "blog_grid" %}
+            {% for article in blog.articles %}
+            <div class="{% if section.settings.blog_layout == "blog_layo_left" or section.settings.blog_layout == "blog_layo_right" %} col-lg-6 {% else %}col-lg-4 {% endif %}col-md-6 col-12">
+              <div class="blog_grid">
+                <div class="post-thumb">
+                  <a href="{{ article.url }}" class="article_img"><img src="{{ article.image.src | img_url: 'original' }}" alt=""></a>
+                  {% if section.settings.show_datetime %}
+                  <div class="single-post-date">
+                    <span class="date">{{ article.published_at | date: "%d" }}</span>
+                    <span class="month">{{ article.published_at | date: "%b" }}</span>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="post-info">
+                  {% if section.settings.show_cate %}
+                  <h4 class="blog-title mb-0">{{blog.title}}</h4>
+                  {% endif %}
+                  <h3 class="post-title mb-0"><a href="{{ article.url }}" class="dark" title="{{ article.title }}">{{ article.title }}</a></h3>
+                  {% if section.settings.show_summary %}
+                  <p class="desc mb-0">{{ article.content | strip_html | truncate: 142 }}</p>
+                  {% endif %}
+                  {% if section.settings.show_btn %}
+                  <a class="btn_readmore" href="{{article.url}}"><span>{{'blogs.article.read_more' | t}} </span></a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            {% elsif section.settings.blog_template == "blog_masonry" %}
+            {% for article in blog.articles %}
+            <div class="{% if section.settings.blog_layout == "blog_layo_left" or section.settings.blog_layout == "blog_layo_right" %} col-lg-6 {% else %}col-lg-4 {% endif %}col-md-6 col-12">
+              <div class="blog_masonry blog_grid">
+                <div class="post-thumb">
+                  <a href="{{ article.url }}" class="article_img"><img src="{{ article.image.src | img_url: 'original' }}" alt=""></a>
+                  {% if section.settings.show_datetime %}
+                  <div class="single-post-date">
+                    <span class="date">{{ article.published_at | date: "%d" }}</span>
+                    <span class="month">{{ article.published_at | date: "%b" }}</span>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="post-info">
+                  {% if section.settings.show_cate %}
+                  <h4 class="blog-title mb-0">{{blog.title}}</h4>
+                  {% endif %}
+                  <h3 class="post-title mb-0"><a href="{{ article.url }}" class="dark" title="{{ article.title }}">{{ article.title }}</a></h3>
+                  {% if section.settings.show_summary %}
+                  <p class="desc mb-0">{{ article.content | strip_html | truncate: 142 }}</p>
+                  {% endif %}
+                  {% if section.settings.show_btn %}
+                  <a class="btn_readmore" href="{{article.url}}"><span>{{'blogs.article.read_more' | t}} </span></a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          {% if paginate.pages > 1 %}
+          <div style=" {% if section.settings.blog_template == "blog_standar" or section.settings.blog_template == "blog_classic" %} padding-top: 48px; {% elsif section.settings.blog_template == "blog_grid" %} padding-top: 20px {% endif %}" class="pagi-nav {% if section.settings.blog_template == "blog_standar" %} justify-content-start {% elsif section.settings.blog_template == "blog_grid" %} justify-content-center {% endif %} ">
+            {% if settings.enable_rtl_mode %}
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-right"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-left"></i>' }}
+            {% else %}
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+            {% endif %}
+          </div>
+          {% endif %}
+
+        </div>
+
+        {% if section.settings.blog_layout == "blog_layo_right" %}
+        <div class="col-lg-4 col-xl-3">
+          {% include 'blog-sidebar' %}
+        </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Blog page",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "select",
+      "id": "blog_layout",
+      "options": [
+        {
+          "value": "blog_layo_left",
+          "label": "Sidebar Left"
+        },
+        {
+          "value": "blog_layo_right",
+          "label": "Sidebar Right"
+        },
+        {
+          "value": "blog_layo_none",
+          "label": "Without Sidebar"
+        }
+      ],
+      "label": "Select Layout",
+      "default": "blog_layo_left"
+    },
+    {
+      "type": "select",
+      "id": "blog_template",
+      "options": [
+        {
+          "value": "blog_standar",
+          "label": "Blog Standar"
+        },
+        {
+          "value": "blog_classic",
+          "label": "Blog List"
+        },
+        {
+          "value": "blog_grid",
+          "label": "Blog Grid"
+        },
+        {
+          "value": "blog_masonry",
+          "label": "Blog Masonry"
+        }
+      ],
+      "label": "Select Template",
+      "default": "blog_grid"
+    },
+    {
+      "type": "header",
+      "content": "Limit posts per page"
+    },
+    {
+      "type": "range",
+      "id": "posts_limit",
+      "label": "Limit Post",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Blog posts"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comment",
+      "label": "Show comment",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_datetime",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cate",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Show summary",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_btn",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Config"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_search",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_search_title",
+      "label": "Title Widget",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "shop_by_search_placeholder",
+      "label": "Input placeholder",
+      "default": "Search..."
+    },
+    {
+      "type": "header",
+      "content": "Widget Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_cate",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_cate_title",
+      "label": "Title Widget",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "widget_cate_menu",
+      "label": "Menu for Categories"
+    },
+    {
+      "type": "header",
+      "content": "Widget Related Post"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_related",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_related_title",
+      "label": "Title Widget",
+      "default": "RECENT POSTS"
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_tag",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_by_tag_title",
+      "label": "Widget Title",
+      "default": "Tags"
+    },
+    {
+      "type": "header",
+      "content": "Widget Banner"
+    },
+    {
+      "type": "url",
+      "id": "banner_blog_url",
+      "label": "Banner Sidebar Url"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_blog_sidebar",
+      "label": "Banner Widget Image",
+      "info": "320x480px recommended"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,84 @@
+<div class="aboutus-pages">
+  {% if section.settings.enable_s_servicebox %}
+  <div class="about-servicebox" style="background-image: url({% if section.settings.bg_image != blank %}{{section.settings.bg_image | img_url : 'master' }} {%else%} //via.placeholder.com/1920x650 {% endif %})">
+    <div class="container container-v4">
+      {% if section.settings.title_servicebox != blank %}
+      <h2 class="title-servicebox">{{section.settings.title_servicebox}}</h2>
+      {% endif %}
+      <div class="row slickjs-services-v1">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "service" %}
+        <div class="text-center itemtservice justify-content-center">
+          <div class="box-service col-lg-12">
+            {% if block.settings.block_icon_svg != blank %}
+            <div class="icon-box-icon">
+              <span class="shpi-icon">{{block.settings.block_icon_svg}}</span>
+            </div>
+            {% endif %}
+            {% if block.settings.block_title != blank %}
+            <h4 class="title"><span>{{block.settings.block_title}}</span></h4>
+            {% endif %}
+            {% if block.settings.block_content != blank %}            
+            <p class="content">{{block.settings.block_content}}</p>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+  "name": "About Servicebox",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_s_servicebox",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image ServiceBox",
+      "info": "1920x650px recommended"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service V1",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "block_icon_svg",
+          "label": "Icon Svg"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": "Design"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "Praesent metus tellus, elementum eu, semper Vestibulum volutpat pretium libero"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,1487 @@
+<section>
+  <div class="lookbook-pages1">
+    <div class="container js_slide_lookbook">
+      {% for block in section.blocks %}
+      {% if block.type == 'slide_lookbook' %}
+      <div class="slide_lookbook text-center ">
+        <img src="{% if block.settings.bg_breadcrumb != blank %} {{block.settings.bg_breadcrumb |img_url : 'master'}} {% else %} //via.placeholder.com/1170x670 {% endif %}">
+
+        <div class="pin_lookbook pin_lookbook1-{{block.id}}" style="top:{{block.settings.top_position1}}%; left: {{block.settings.left_position1}}%">
+          <div class="pin_button">
+            <span class="icon" style="background-color : {{block.settings.bg_pin1}}">
+
+            </span>
+
+            <div style="top: {{block.settings.top_popup1}}px; left: {{block.settings.left_popup1}}px ;right: {{block.settings.right_popup1}}px; bottom: {{block.settings.bottom_popup1}}px" class="product_lookbook product_lookbook1-{{block.id}}">
+              {% assign product = all_products[block.settings.select_product1] %}
+              {% if block.settings.select_product1 != blank %}
+              <div class="product_item">
+                <div class="close_popup"><i class="ti-close"></i></div>
+                {% assign product_label_new = false %}
+                {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+                {% assign time = _time|plus:0 %}
+                {% assign now = 'now' | date: '%s'|plus:0 %}
+
+                {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+                {% assign value = _value|plus:0 %}
+
+                {% if now < value %}
+                {% assign product_label_new = true %}
+                {% endif %}
+
+
+                {% assign label_popular = false %}
+                {% if product.tags contains "popular" %}
+                {% assign label_popular = true %}
+                {% endif %} 
+
+                {% assign label_hot = false %}
+                {% if product.tags contains "hot" %}
+                {% assign label_hot = true %}
+                {% endif %}
+
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                <div class="engoj_grid_parent">
+                  <div class="img-product">
+                    <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                      <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+
+                    <!--     ICON PRODUCT -->
+
+                    {% assign sold_out = true %}
+                    {% if product.available %}
+                    {% assign sold_out = false %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <div class="product-icon-action">
+                      <div class="add-to-cart">
+                        {% if sold_out %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <i class="{{settings.pia_sold}}"></i>
+                        </a>
+                        {% else %}
+                        {% if product.variants.size > 1 %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <span>Select Option</span>
+                        </a>
+                        {% else %}
+                        <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                          <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                            <span>Buy Now</span>
+                          </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!--     END ICON -->
+                  </div>
+                  <div class="info-product">
+                    <h4 class="title-product mb-0">
+                      <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                    </h4>
+                    <!--     PRICE -->
+                    {% assign on_sale = false %}
+                    {% if product.compare_at_price > product.price %}
+                    {% assign on_sale = true %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <p class="price-product">
+                      <span class="price">{{ product.price | money }}</span>
+                      {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                    </p>
+                    {% endif %}
+                    <!-- END PRODUCT     -->
+                    <div class="text-left">
+                      <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="pin_lookbook pin_lookbook2-{{block.id}}" style="top:{{block.settings.top_position2}}%; left: {{block.settings.left_position2}}%">
+          <div class="pin_button">
+            <span class="icon" style="background-color : {{block.settings.bg_pin2}}">
+
+            </span>
+
+            <div style="top: {{block.settings.top_popup2}}px; left: {{block.settings.left_popup2}}px ;right: {{block.settings.right_popup2}}px; bottom: {{block.settings.bottom_popup2}}px" class="product_lookbook product_lookbook2-{{block.id}} ">
+              {% assign product = all_products[block.settings.select_product2] %}
+              {% if block.settings.select_product2 != blank %}
+              <div class="product_item">
+                <div class="close_popup"><i class="ti-close"></i></div>
+                {% assign product_label_new = false %}
+                {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+                {% assign time = _time|plus:0 %}
+                {% assign now = 'now' | date: '%s'|plus:0 %}
+
+                {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+                {% assign value = _value|plus:0 %}
+
+                {% if now < value %}
+                {% assign product_label_new = true %}
+                {% endif %}
+
+
+                {% assign label_popular = false %}
+                {% if product.tags contains "popular" %}
+                {% assign label_popular = true %}
+                {% endif %} 
+
+                {% assign label_hot = false %}
+                {% if product.tags contains "hot" %}
+                {% assign label_hot = true %}
+                {% endif %}
+
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                <div class="engoj_grid_parent">
+                  <div class="img-product">
+                    <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                      <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+
+                    <!--     ICON PRODUCT -->
+
+                    {% assign sold_out = true %}
+                    {% if product.available %}
+                    {% assign sold_out = false %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <div class="product-icon-action">
+                      <div class="add-to-cart">
+                        {% if sold_out %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <i class="{{settings.pia_sold}}"></i>
+                        </a>
+                        {% else %}
+                        {% if product.variants.size > 1 %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <span>Select Option</span>
+                        </a>
+                        {% else %}
+                        <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                          <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                            <span>Buy Now</span>
+                          </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!--     END ICON -->
+                  </div>
+                  <div class="info-product">
+                    <h4 class="title-product mb-0">
+                      <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                    </h4>
+                    <!--     PRICE -->
+                    {% assign on_sale = false %}
+                    {% if product.compare_at_price > product.price %}
+                    {% assign on_sale = true %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <p class="price-product">
+                      <span class="price">{{ product.price | money }}</span>
+                      {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                    </p>
+                    {% endif %}
+                    <!-- END PRODUCT     -->
+                    <div class="text-left">
+                      <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="pin_lookbook pin_lookbook3-{{block.id}}" style="top:{{block.settings.top_position3}}%; left: {{block.settings.left_position3}}%">
+          <div class="pin_button">
+            <span class="icon" style="background-color : {{block.settings.bg_pin3}}">
+
+            </span>
+
+            <div style="top: {{block.settings.top_popup3}}px; left: {{block.settings.left_popup3}}px;right: {{block.settings.right_popup3}}px; bottom: {{block.settings.bottom_popup3}}px" class="product_lookbook product_lookbook3-{{block.id}} ">
+              {% assign product = all_products[block.settings.select_product3] %}
+              {% if block.settings.select_product3 != blank %}
+              <div class="product_item">
+                <div class="close_popup"><i class="ti-close"></i></div>
+                {% assign product_label_new = false %}
+                {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+                {% assign time = _time|plus:0 %}
+                {% assign now = 'now' | date: '%s'|plus:0 %}
+
+                {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+                {% assign value = _value|plus:0 %}
+
+                {% if now < value %}
+                {% assign product_label_new = true %}
+                {% endif %}
+
+
+                {% assign label_popular = false %}
+                {% if product.tags contains "popular" %}
+                {% assign label_popular = true %}
+                {% endif %} 
+
+                {% assign label_hot = false %}
+                {% if product.tags contains "hot" %}
+                {% assign label_hot = true %}
+                {% endif %}
+
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                <div class="engoj_grid_parent">
+                  <div class="img-product">
+                    <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                      <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+
+                    <!--     ICON PRODUCT -->
+
+                    {% assign sold_out = true %}
+                    {% if product.available %}
+                    {% assign sold_out = false %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <div class="product-icon-action">
+                      <div class="add-to-cart">
+                        {% if sold_out %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <i class="{{settings.pia_sold}}"></i>
+                        </a>
+                        {% else %}
+                        {% if product.variants.size > 1 %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <span>Select Option</span>
+                        </a>
+                        {% else %}
+                        <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                          <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                            <span>Buy Now</span>
+                          </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!--     END ICON -->
+                  </div>
+                  <div class="info-product">
+                    <h4 class="title-product mb-0">
+                      <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                    </h4>
+                    <!--     PRICE -->
+                    {% assign on_sale = false %}
+                    {% if product.compare_at_price > product.price %}
+                    {% assign on_sale = true %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <p class="price-product">
+                      <span class="price">{{ product.price | money }}</span>
+                      {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                    </p>
+                    {% endif %}
+                    <!-- END PRODUCT     -->
+                    <div class="text-left">
+                      <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="pin_lookbook pin_lookbook4-{{block.id}}" style="top:{{block.settings.top_position4}}%; left: {{block.settings.left_position4}}%">
+          <div class="pin_button">
+            <span class="icon" style="background-color : {{block.settings.bg_pin4}}">
+
+            </span>
+
+            <div style="top: {{block.settings.top_popup4}}px; left: {{block.settings.left_popup4}}px ;right: {{block.settings.right_popup4}}px; bottom: {{block.settings.bottom_popup4}}px" class="product_lookbook product_lookbook4-{{block.id}} ">
+              {% assign product = all_products[block.settings.select_product4] %}
+              {% if block.settings.select_product4 != blank %}
+              <div class="product_item">
+                <div class="close_popup"><i class="ti-close"></i></div>
+                {% assign product_label_new = false %}
+                {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+                {% assign time = _time|plus:0 %}
+                {% assign now = 'now' | date: '%s'|plus:0 %}
+
+                {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+                {% assign value = _value|plus:0 %}
+
+                {% if now < value %}
+                {% assign product_label_new = true %}
+                {% endif %}
+
+
+                {% assign label_popular = false %}
+                {% if product.tags contains "popular" %}
+                {% assign label_popular = true %}
+                {% endif %} 
+
+                {% assign label_hot = false %}
+                {% if product.tags contains "hot" %}
+                {% assign label_hot = true %}
+                {% endif %}
+
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                <div class="engoj_grid_parent">
+                  <div class="img-product">
+                    <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                      <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+
+                    <!--     ICON PRODUCT -->
+
+                    {% assign sold_out = true %}
+                    {% if product.available %}
+                    {% assign sold_out = false %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <div class="product-icon-action">
+                      <div class="add-to-cart">
+                        {% if sold_out %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <i class="{{settings.pia_sold}}"></i>
+                        </a>
+                        {% else %}
+                        {% if product.variants.size > 1 %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <span>Select Option</span>
+                        </a>
+                        {% else %}
+                        <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                          <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                            <span>Buy Now</span>
+                          </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!--     END ICON -->
+                  </div>
+                  <div class="info-product">
+                    <h4 class="title-product mb-0">
+                      <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                    </h4>
+                    <!--     PRICE -->
+                    {% assign on_sale = false %}
+                    {% if product.compare_at_price > product.price %}
+                    {% assign on_sale = true %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <p class="price-product">
+                      <span class="price">{{ product.price | money }}</span>
+                      {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                    </p>
+                    {% endif %}
+                    <!-- END PRODUCT     -->
+                    <div class="text-left">
+                      <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="pin_lookbook pin_lookbook5-{{block.id}}" style="top:{{block.settings.top_position5}}%; left: {{block.settings.left_position5}}%">
+          <div class="pin_button">
+            <span class="icon" style="background-color : {{block.settings.bg_pin5}}">
+
+            </span>
+
+            <div style="top: {{block.settings.top_popup5}}px; left: {{block.settings.left_popup5}}px ;right: {{block.settings.right_popup5}}px; bottom: {{block.settings.bottom_popup5}}px" class="product_lookbook product_lookbook5-{{block.id}} ">
+              {% assign product = all_products[block.settings.select_product5] %}
+              {% if block.settings.select_product5 != blank %}
+              <div class="product_item">
+                <div class="close_popup"><i class="ti-close"></i></div>
+                {% assign product_label_new = false %}
+                {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+                {% assign time = _time|plus:0 %}
+                {% assign now = 'now' | date: '%s'|plus:0 %}
+
+                {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+                {% assign value = _value|plus:0 %}
+
+                {% if now < value %}
+                {% assign product_label_new = true %}
+                {% endif %}
+
+
+                {% assign label_popular = false %}
+                {% if product.tags contains "popular" %}
+                {% assign label_popular = true %}
+                {% endif %} 
+
+                {% assign label_hot = false %}
+                {% if product.tags contains "hot" %}
+                {% assign label_hot = true %}
+                {% endif %}
+
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                <div class="engoj_grid_parent">
+                  <div class="img-product">
+                    <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                      <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                    </a>
+
+                    <!--     ICON PRODUCT -->
+
+                    {% assign sold_out = true %}
+                    {% if product.available %}
+                    {% assign sold_out = false %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <div class="product-icon-action">
+                      <div class="add-to-cart">
+                        {% if sold_out %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <i class="{{settings.pia_sold}}"></i>
+                        </a>
+                        {% else %}
+                        {% if product.variants.size > 1 %}
+                        <a href="{{ product.url | within: collection }}" class="" >
+                          <span>Select Option</span>
+                        </a>
+                        {% else %}
+                        <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                          <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                          <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                            <span>Buy Now</span>
+                          </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    <!--     END ICON -->
+                  </div>
+                  <div class="info-product">
+                    <h4 class="title-product mb-0">
+                      <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                    </h4>
+                    <!--     PRICE -->
+                    {% assign on_sale = false %}
+                    {% if product.compare_at_price > product.price %}
+                    {% assign on_sale = true %}
+                    {% endif %}
+                    {% if settings.enable_catalog_mode == false%}
+                    <p class="price-product">
+                      <span class="price">{{ product.price | money }}</span>
+                      {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                    </p>
+                    {% endif %}
+                    <!-- END PRODUCT     -->
+                    <div class="text-left">
+                      <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="popup_lookbook">
+      <div class="content-popup-lookbook">
+        {% for block in section.blocks %}
+        {% if block.type == 'slide_lookbook' %}
+
+        <div class="product_lookbook product_lookbook1-{{block.id}}">
+          {% assign product = all_products[block.settings.select_product1] %}
+          {% if block.settings.select_product1 != blank %}
+          <div class="product_item">
+            <div class="close_popup2"><i class="ti-close"></i></div>
+            {% assign product_label_new = false %}
+            {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+            {% assign time = _time|plus:0 %}
+            {% assign now = 'now' | date: '%s'|plus:0 %}
+
+            {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+            {% assign value = _value|plus:0 %}
+
+            {% if now < value %}
+            {% assign product_label_new = true %}
+            {% endif %}
+
+
+            {% assign label_popular = false %}
+            {% if product.tags contains "popular" %}
+            {% assign label_popular = true %}
+            {% endif %} 
+
+            {% assign label_hot = false %}
+            {% if product.tags contains "hot" %}
+            {% assign label_hot = true %}
+            {% endif %}
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+            {% endif %}
+
+            {% assign sold_out = true %}
+            {% if product.available %}
+            {% assign sold_out = false %}
+            {% endif %}
+            <div class="engoj_grid_parent">
+              <div class="img-product">
+                <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                  <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+
+                <!--     ICON PRODUCT -->
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <div class="product-icon-action">
+                  <div class="add-to-cart">
+                    {% if sold_out %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <i class="{{settings.pia_sold}}"></i>
+                    </a>
+                    {% else %}
+                    {% if product.variants.size > 1 %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <span>Select Option</span>
+                    </a>
+                    {% else %}
+                    <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                      <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                        <span>Buy Now</span>
+                      </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                <!--     END ICON -->
+              </div>
+              <div class="info-product">
+                <h4 class="title-product mb-0">
+                  <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                </h4>
+                <!--     PRICE -->
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <p class="price-product">
+                  <span class="price">{{ product.price | money }}</span>
+                  {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+                {% endif %}
+                <!-- END PRODUCT     -->
+                <div class="text-left">
+                  <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                </div>
+              </div>
+            </div>
+
+          </div>  
+
+          {% endif %}
+        </div>
+
+
+        <div class="product_lookbook product_lookbook2-{{block.id}} ">
+          {% assign product = all_products[block.settings.select_product2] %}
+          {% if block.settings.select_product2 != blank %}
+          <div class="product_item">
+            <div class="close_popup2"><i class="ti-close"></i></div>
+            {% assign product_label_new = false %}
+            {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+            {% assign time = _time|plus:0 %}
+            {% assign now = 'now' | date: '%s'|plus:0 %}
+
+            {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+            {% assign value = _value|plus:0 %}
+
+            {% if now < value %}
+            {% assign product_label_new = true %}
+            {% endif %}
+
+
+            {% assign label_popular = false %}
+            {% if product.tags contains "popular" %}
+            {% assign label_popular = true %}
+            {% endif %} 
+
+            {% assign label_hot = false %}
+            {% if product.tags contains "hot" %}
+            {% assign label_hot = true %}
+            {% endif %}
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+            {% endif %}
+
+            {% assign sold_out = true %}
+            {% if product.available %}
+            {% assign sold_out = false %}
+            {% endif %}
+            <div class="engoj_grid_parent">
+              <div class="img-product">
+                <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                  <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+
+                <!--     ICON PRODUCT -->
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <div class="product-icon-action">
+                  <div class="add-to-cart">
+                    {% if sold_out %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <i class="{{settings.pia_sold}}"></i>
+                    </a>
+                    {% else %}
+                    {% if product.variants.size > 1 %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <span>Select Option</span>
+                    </a>
+                    {% else %}
+                    <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                      <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                        <span>Buy Now</span>
+                      </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                <!--     END ICON -->
+              </div>
+              <div class="info-product">
+                <h4 class="title-product mb-0">
+                  <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                </h4>
+                <!--     PRICE -->
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <p class="price-product">
+                  <span class="price">{{ product.price | money }}</span>
+                  {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+                {% endif %}
+                <!-- END PRODUCT     -->
+                <div class="text-left">
+                  <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                </div>
+              </div>
+            </div>
+
+          </div>  
+
+          {% endif %}
+        </div>
+
+        <div class="product_lookbook product_lookbook3-{{block.id}} ">
+          {% assign product = all_products[block.settings.select_product3] %}
+          {% if block.settings.select_product3 != blank %}
+          <div class="product_item">
+            <div class="close_popup2"><i class="ti-close"></i></div>
+            {% assign product_label_new = false %}
+            {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+            {% assign time = _time|plus:0 %}
+            {% assign now = 'now' | date: '%s'|plus:0 %}
+
+            {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+            {% assign value = _value|plus:0 %}
+
+            {% if now < value %}
+            {% assign product_label_new = true %}
+            {% endif %}
+
+
+            {% assign label_popular = false %}
+            {% if product.tags contains "popular" %}
+            {% assign label_popular = true %}
+            {% endif %} 
+
+            {% assign label_hot = false %}
+            {% if product.tags contains "hot" %}
+            {% assign label_hot = true %}
+            {% endif %}
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+            {% endif %}
+
+            {% assign sold_out = true %}
+            {% if product.available %}
+            {% assign sold_out = false %}
+            {% endif %}
+            <div class="engoj_grid_parent">
+              <div class="img-product">
+                <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                  <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+
+                <!--     ICON PRODUCT -->
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <div class="product-icon-action">
+                  <div class="add-to-cart">
+                    {% if sold_out %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <i class="{{settings.pia_sold}}"></i>
+                    </a>
+                    {% else %}
+                    {% if product.variants.size > 1 %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <span>Select Option</span>
+                    </a>
+                    {% else %}
+                    <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                      <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                        <span>Buy Now</span>
+                      </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                <!--     END ICON -->
+              </div>
+              <div class="info-product">
+                <h4 class="title-product mb-0">
+                  <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                </h4>
+                <!--     PRICE -->
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <p class="price-product">
+                  <span class="price">{{ product.price | money }}</span>
+                  {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+                {% endif %}
+                <!-- END PRODUCT     -->
+                <div class="text-left">
+                  <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                </div>
+              </div>
+            </div>
+
+          </div>  
+
+          {% endif %}
+        </div>
+
+
+        <div class="product_lookbook product_lookbook4-{{block.id}} ">
+          {% assign product = all_products[block.settings.select_product4] %}
+          {% if block.settings.select_product4 != blank %}
+          <div class="product_item">
+            <div class="close_popup2"><i class="ti-close"></i></div>
+            {% assign product_label_new = false %}
+            {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+            {% assign time = _time|plus:0 %}
+            {% assign now = 'now' | date: '%s'|plus:0 %}
+
+            {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+            {% assign value = _value|plus:0 %}
+
+            {% if now < value %}
+            {% assign product_label_new = true %}
+            {% endif %}
+
+
+            {% assign label_popular = false %}
+            {% if product.tags contains "popular" %}
+            {% assign label_popular = true %}
+            {% endif %} 
+
+            {% assign label_hot = false %}
+            {% if product.tags contains "hot" %}
+            {% assign label_hot = true %}
+            {% endif %}
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+            {% endif %}
+
+            {% assign sold_out = true %}
+            {% if product.available %}
+            {% assign sold_out = false %}
+            {% endif %}
+            <div class="engoj_grid_parent">
+              <div class="img-product">
+                <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                  <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+
+                <!--     ICON PRODUCT -->
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <div class="product-icon-action">
+                  <div class="add-to-cart">
+                    {% if sold_out %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <i class="{{settings.pia_sold}}"></i>
+                    </a>
+                    {% else %}
+                    {% if product.variants.size > 1 %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <span>Select Option</span>
+                    </a>
+                    {% else %}
+                    <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                      <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                        <span>Buy Now</span>
+                      </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                <!--     END ICON -->
+              </div>
+              <div class="info-product">
+                <h4 class="title-product mb-0">
+                  <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                </h4>
+                <!--     PRICE -->
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <p class="price-product">
+                  <span class="price">{{ product.price | money }}</span>
+                  {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+                {% endif %}
+                <!-- END PRODUCT     -->
+                <div class="text-left">
+                  <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                </div>
+              </div>
+            </div>
+
+          </div>  
+
+          {% endif %}
+        </div>
+
+
+        <div class="product_lookbook product_lookbook5-{{block.id}} ">
+          {% assign product = all_products[block.settings.select_product5] %}
+          {% if block.settings.select_product5 != blank %}
+          <div class="product_item">
+            <div class="close_popup2"><i class="ti-close"></i></div>
+            {% assign product_label_new = false %}
+            {% capture _time %}{{settings.product_new_time | times:86400}}{% endcapture %} 
+            {% assign time = _time|plus:0 %}
+            {% assign now = 'now' | date: '%s'|plus:0 %}
+
+            {% capture _value %}{{product.published_at | date: "%s" | plus : time }}{% endcapture %} 
+            {% assign value = _value|plus:0 %}
+
+            {% if now < value %}
+            {% assign product_label_new = true %}
+            {% endif %}
+
+
+            {% assign label_popular = false %}
+            {% if product.tags contains "popular" %}
+            {% assign label_popular = true %}
+            {% endif %} 
+
+            {% assign label_hot = false %}
+            {% if product.tags contains "hot" %}
+            {% assign label_hot = true %}
+            {% endif %}
+
+            {% assign on_sale = false %}
+            {% if product.compare_at_price > product.price %}
+            {% assign on_sale = true %}
+            {% endif %}
+
+            {% assign sold_out = true %}
+            {% if product.available %}
+            {% assign sold_out = false %}
+            {% endif %}
+            <div class="engoj_grid_parent">
+              <div class="img-product">
+                <a style="{% if sold_out %} opacity: 0.3 {% endif %}" href="{{ product.url | within: collection }}" class="engoj_find_img">
+                  <img style="width: 100%" src="{{ product.featured_image.src | img_url: 'master' }}" class="img-responsive" alt="{{ product.featured_image.alt | escape }}">
+                </a>
+
+                <!--     ICON PRODUCT -->
+
+                {% assign sold_out = true %}
+                {% if product.available %}
+                {% assign sold_out = false %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <div class="product-icon-action">
+                  <div class="add-to-cart">
+                    {% if sold_out %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <i class="{{settings.pia_sold}}"></i>
+                    </a>
+                    {% else %}
+                    {% if product.variants.size > 1 %}
+                    <a href="{{ product.url | within: collection }}" class="" >
+                      <span>Select Option</span>
+                    </a>
+                    {% else %}
+                    <form method="post" action="/cart/add" enctype="multipart/form-data" class="" >
+                      <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                      <button type="submit" name="add" class="enj-add-to-cart-btn ">
+                        <span>Buy Now</span>
+                      </button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                <!--     END ICON -->
+              </div>
+              <div class="info-product">
+                <h4 class="title-product mb-0">
+                  <a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+
+                </h4>
+                <!--     PRICE -->
+                {% assign on_sale = false %}
+                {% if product.compare_at_price > product.price %}
+                {% assign on_sale = true %}
+                {% endif %}
+                {% if settings.enable_catalog_mode == false%}
+                <p class="price-product">
+                  <span class="price">{{ product.price | money }}</span>
+                  {% if on_sale %}<s class="price-old">{{ product.compare_at_price | money }}</s>{% endif %}
+                </p>
+                {% endif %}
+                <!-- END PRODUCT     -->
+                <div class="text-left">
+                  <a class="details" href="{{ product.url | within: collection }}">Details</a>
+                </div>
+              </div>
+            </div>
+
+          </div>  
+
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+  <div class="bg_overlay_lookbook"></div>
+
+
+
+  {% for block in section.blocks %}
+  {% if block.type == 'slide_lookbook' %}
+  <script>
+    $('.pin_lookbook').each(function(){
+      $(this).on('click',function(){
+        $(this).find('.product_lookbook').addClass('active')
+        $(this).find('.close_popup').addClass('tokuda')
+        $('.tokuda').on('click',function(){
+          setTimeout(function(){
+            $('.tokuda').parent().parent().removeClass('active')
+          },500)
+        })
+      })
+    })
+
+    $('.pin_lookbook1-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook1-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+    $('.pin_lookbook1-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook1-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+    $('.pin_lookbook2-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook2-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+    $('.pin_lookbook3-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook3-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+    $('.pin_lookbook4-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook4-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+    $('.pin_lookbook5-{{block.id}}').each(function(){
+      $(this).on('click',function(){
+      $('.product_lookbook5-{{block.id}}').addClass('active');
+        $('.popup_lookbook').addClass('active');
+      $('.bg_overlay_lookbook').addClass('active');
+
+
+      $('.close_popup2').addClass('tokuda')
+      $('.tokuda').on('click',function(){
+        setTimeout(function(){
+          $('.tokuda').parent().parent().removeClass('active')
+          $('.popup_lookbook').removeClass('active');
+          $('.bg_overlay_lookbook').removeClass('active');
+        },500)
+      })
+    })
+    })
+
+
+
+  </script>
+  {% endif %}
+  {% endfor %}
+</section>
+
+
+{% schema %}
+{
+  "name": "LookBook Page 1",
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "type": "slide_lookbook",
+      "name": "Slide LookBook",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_breadcrumb",
+          "label": "Image LookBook",
+          "info": "1920x510px recommended"
+        },
+        {
+          "type": "header",
+          "content": "Pin Product 1"
+        },
+        {
+          "type": "color",
+          "id": "bg_pin1",
+          "label": "Background Color Pin 1"
+        },
+        {
+          "type": "text",
+          "id": "top_position1",
+          "label": "Top Position Pin 1"
+        },
+        {
+          "type": "text",
+          "id": "left_position1",
+          "label": "Left Position Pin 1"
+        },
+        {
+          "type": "product",
+          "id": "select_product1",
+          "label": "Select Product 1"
+        },
+        {
+          "type": "text",
+          "id": "top_popup1",
+          "label": "Top PopUp Product 1"
+        },
+        {
+          "type": "text",
+          "id": "left_popup1",
+          "label": "Left PopUp Product 1"
+        },
+        {
+          "type": "text",
+          "id": "right_popup1",
+          "label": "Right PopUp Product 1"
+        },
+        {
+          "type": "text",
+          "id": "bottom_popup1",
+          "label": "Bottom PopUp Product 1"
+        },
+        {
+          "type": "header",
+          "content": "Pin Product 2"
+        },
+        {
+          "type": "color",
+          "id": "bg_pin2",
+          "label": "Background Color Pin 2"
+        },
+        {
+          "type": "text",
+          "id": "top_position2",
+          "label": "Top Position Pin 2"
+        },
+        {
+          "type": "text",
+          "id": "left_position2",
+          "label": "Left Position Pin 2"
+        },
+        {
+          "type": "product",
+          "id": "select_product2",
+          "label": "Select Product 2"
+        },
+        {
+          "type": "text",
+          "id": "top_popup2",
+          "label": "Top PopUp Product 2"
+        },
+        {
+          "type": "text",
+          "id": "left_popup2",
+          "label": "Left PopUp Product 2"
+        },
+        {
+          "type": "text",
+          "id": "right_popup2",
+          "label": "Right PopUp Product 2"
+        },
+        {
+          "type": "text",
+          "id": "bottom_popup2",
+          "label": "Bottom PopUp Product 2"
+        },
+        {
+          "type": "header",
+          "content": "Pin Product 3"
+        },
+        {
+          "type": "color",
+          "id": "bg_pin3",
+          "label": "Background Color Pin 3"
+        },
+        {
+          "type": "text",
+          "id": "top_position3",
+          "label": "Top Position Pin 3"
+        },
+        {
+          "type": "text",
+          "id": "left_position3",
+          "label": "Left Position Pin 3"
+        },
+        {
+          "type": "product",
+          "id": "select_product3",
+          "label": "Select Product 3"
+        },
+        {
+          "type": "text",
+          "id": "top_popup3",
+          "label": "Top PopUp Product 3"
+        },
+        {
+          "type": "text",
+          "id": "left_popup3",
+          "label": "Left PopUp Product 3"
+        },
+        {
+          "type": "text",
+          "id": "right_popup3",
+          "label": "Right PopUp Product 3"
+        },
+        {
+          "type": "text",
+          "id": "bottom_popup3",
+          "label": "Bottom PopUp Product 3"
+        },
+        {
+          "type": "header",
+          "content": "Pin Product 4"
+        },
+        {
+          "type": "color",
+          "id": "bg_pin4",
+          "label": "Background Color Pin 4"
+        },
+        {
+          "type": "text",
+          "id": "top_position4",
+          "label": "Top Position Pin 4"
+        },
+        {
+          "type": "text",
+          "id": "left_position4",
+          "label": "Left Position Pin 4"
+        },
+        {
+          "type": "product",
+          "id": "select_product4",
+          "label": "Select Product 4"
+        },
+        {
+          "type": "text",
+          "id": "top_popup4",
+          "label": "Top PopUp Product 4"
+        },
+        {
+          "type": "text",
+          "id": "left_popup4",
+          "label": "Left PopUp Product 4"
+        },
+        {
+          "type": "text",
+          "id": "right_popup4",
+          "label": "Right PopUp Product 4"
+        },
+        {
+          "type": "text",
+          "id": "bottom_popup4",
+          "label": "Bottom PopUp Product 4"
+        },
+        {
+          "type": "header",
+          "content": "Pin Product 5"
+        },
+        {
+          "type": "color",
+          "id": "bg_pin5",
+          "label": "Background Color Pin 5"
+        },
+        {
+          "type": "text",
+          "id": "top_position5",
+          "label": "Top Position Pin 5"
+        },
+        {
+          "type": "text",
+          "id": "left_position5",
+          "label": "Left Position Pin 5"
+        },
+        {
+          "type": "product",
+          "id": "select_product5",
+          "label": "Select Product 5"
+        },
+        {
+          "type": "text",
+          "id": "top_popup5",
+          "label": "Top PopUp Product 5"
+        },
+        {
+          "type": "text",
+          "id": "left_popup5",
+          "label": "Left PopUp Product 5"
+        },
+        {
+          "type": "text",
+          "id": "right_popup5",
+          "label": "Right PopUp Product 5"
+        },
+        {
+          "type": "text",
+          "id": "bottom_popup5",
+          "label": "Bottom PopUp Product 5"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "LookBook Page 1",
+      "blocks": [
+        
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

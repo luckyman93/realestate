@@ -1,0 +1,531 @@
+<!-- collection-template.liquid -->
+{% comment %}
+For more information on collection tags:
+- http://docs.shopify.com/themes/liquid-variables/collection
+{% endcomment %}
+{% if template contains 'collection.list' %}
+{%- assign per_page = settings.nb_per_page -%}
+{% elsif template contains 'collection.24' %}
+{%- assign per_page = 24 -%}
+{% elsif template contains 'collection.48' %}
+{%- assign per_page = 48 -%}
+{% else %}
+{%- assign per_page = settings.nb_per_page -%}
+{% endif %}
+
+{% paginate collection.products by {{section.settings.prod_per_page}} %}
+
+{% comment %}
+Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+{% if section.settings.select_style_bread == 'style_1' %}
+<div class="wrap-bread-crumb breadcrumb_collection style1">
+  <div class="text-center bg_bread " {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% elsif section.settings.select_style_bread == 'style_2' %}
+<div class="wrap-bread-crumb breadcrumb_collection style2">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% elsif section.settings.select_style_bread == 'style_3'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style3">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="img_banner">
+                <a href="{{settings[url_collection]}}">
+                  <img class="w-100" alt="section.settings.img_banner" src="{% if settings[img_collection] != blank %} {{settings[img_collection] |img_url : 'master'}} {% else %} //via.placeholder.com/110x110 {% endif %}">
+                </a>
+              </div>
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_4' %}
+<div class="wrap-bread-crumb breadcrumb_collection style4">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+<div class="list-collection " style="background-color: {{settings.bg_color_listcol}}">
+  <div class="container container-v2">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 mx-0">
+        <ul class=" js_list_col mb-0">
+          {% for i in (1..10) %}
+          {% capture title_col %}banner_title_{{i}}{% endcapture %}
+          {% capture link_col %}url_collection_{{i}}{% endcapture %}
+          {% capture color_title %}color_title_{{i}}{% endcapture %}
+          {% if settings[title_col] != blank %}
+          <li class="title-collection  {% if settings[link_col] == collection.url %} active {% endif %}"><a href="{% if settings[link_col] == blank %}#{% else %}{{settings[link_col]}}{% endif %}" style="color : {{settings[color_title]}}">{{settings[title_col]}}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul> 
+      </div>
+    </div>
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_5'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style5">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_6'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style6">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="img_banner">
+                <a href="{{settings[url_collection]}}">
+                  <img class="w-100" alt="section.settings.img_banner" src="{% if settings[img_collection] != blank %} {{settings[img_collection] |img_url : 'master'}} {% else %} //via.placeholder.com/110x110 {% endif %}">
+                </a>
+              </div>
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+{% endif %}
+
+<style>
+  .breadcrumb_collection .title-page h2{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb a{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb a i{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb strong{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  {% if section.settings.collection_layout == "bg_mordern" %}
+  {% unless section.settings.select_style_bread == 'style_4' %}
+  @media(min-width : 992px){
+    .breadcrumb_collection .bg-breadcrumb{
+      padding: 170px 0 190px
+    }
+  }
+  {% endunless %}
+  {% endif %}
+</style>
+
+
+{% if section.settings.collection_layout == "full_width" %}
+{% if section.settings.filter_layout == "filter_dropdown" %}
+{% include 'collection-fullwidth3' %}
+{% else %}
+{% include 'collection-fullwidth' %}
+{% endif %}
+
+{% elsif section.settings.collection_layout == "sidebar" %}
+{% include 'collection-layout-sidebar' %}
+
+{% elsif section.settings.collection_layout == "infinity_scroll" %}
+{% include 'collection-infinity-scroll' %}
+
+{% elsif section.settings.collection_layout == "bg_mordern" %}
+{% include 'collection-background-mordern' %}
+
+{% elsif section.settings.collection_layout == "bg_banner_mordern" %}
+{% include 'collection-banner-mordern2' %}
+{% endif %}
+
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumb Config"
+    },
+    {
+      "type": "select",
+      "id": "select_style_bread",
+      "label": "Select Style",
+      "info": "[View Samples](https://cdn.shopify.com/s/files/1/0579/5568/0414/files/view_samples_breadcrumb.jpg?v=1627286577)",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style_2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style_3",
+          "label": "Style 3"
+        },
+        {
+          "value": "style_4",
+          "label": "Style 4"
+        },
+        {
+          "value": "style_5",
+          "label": "Style 5"
+        },
+        {
+          "value": "style_6",
+          "label": "Style 6"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_bg_img",
+      "label": "Show Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_breadcrumb",
+      "label": "Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_breadcrumb",
+      "label": "Links Breadcrumb Color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Collection Layout"
+    },
+    {
+      "type": "select",
+      "id": "collection_layout",
+      "label": "Select Layout",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "1.Collection Full Width"
+        },
+        {
+          "value": "sidebar",
+          "label": "2.Collection Sidebar"
+        },
+        {
+          "value": "infinity_scroll",
+          "label": "3.Collection Infinity Scroll"
+        },
+        {
+          "value": "bg_mordern",
+          "label": "4.Collection Background Mordern"
+        },
+        {
+          "value": "bg_banner_mordern",
+          "label": "5.Collection Banner Mordern"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "prod_per_page",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "label": "Products Per Page",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "prod_layout",
+      "label": "Product Layout",
+      "options": [
+        {
+          "value": "prod_grid",
+          "label": "Product Grid View"
+        },
+        {
+          "value": "prod_list",
+          "label": "Product List View"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "prod_per_row",
+      "label": "Product Per Row(Only *Grid View)",
+      "options": [
+        {
+          "value": "prod_col_4",
+          "label": "3 Product Per Row"
+        },
+        {
+          "value": "prod_col_3",
+          "label": "4 Product Per Row"
+        },
+        {
+          "value": "prod_col_2dot4",
+          "label": "5 Product Per Row"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "filter_layout",
+      "label": "Filter Layout",
+      "info": "*Unless Collection Layout Sidebar",
+      "options": [
+        {
+          "value": "filter_draw",
+          "label": "Filter Drawer"
+        },
+        {
+          "value": "filter_push_left",
+          "label": "Filter Off Canvas"
+        },
+        {
+          "value": "filter_dropdown",
+          "label": "Filter Dropdown"
+        },
+        {
+          "value": "filter_collapse",
+          "label": "Filter Dropdown 2"
+        },
+        {
+          "value": "filter_accordition",
+          "label": "Filter Accordition"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Collection Sidebar",
+      "info": "Only Collection Layout 2"
+    },
+    {
+      "type": "select",
+      "id": "sidebar_layout",
+      "label": "Sidebar Layout",
+      "options": [
+        {
+          "value": "sidebar_left",
+          "label": "Sidebar Left"
+        },
+        {
+          "value": "sidebar_right",
+          "label": "Sidebar Right"
+        }
+      ],
+      "default": "sidebar_left"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_sticky_sidebar",
+      "label": "Enable Sticky",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Collection Banner Mordern",
+      "info": "Only Collection Layout 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_banner_mordern",
+      "label": "Show Banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "bannerfull_img",
+      "info": "980 x 355px recommended",
+      "label": "Image Banner"
+    },
+    {
+      "type": "text",
+      "id": "big_title",
+      "label": "Big Heading",
+      "default": "A NEW COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "mini_title",
+      "label": "Mini Subheading",
+      "default": "SALE UP TO 30%"
+    },
+    {
+      "type": "text",
+      "id": "btn_title",
+      "label": "Button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "bannerfull_url",
+      "label": "Url collection"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Best Sellers Product",
+      "info": "Only Collection Layout 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_best_seller",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title_heading",
+      "label": "Heading",
+      "default": "BEST SELLERS"
+    },
+    {
+      "type": "collection",
+      "id": "select_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Limit products",
+      "min": 3,
+      "max": 50,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Config"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_filter",
+      "label": "Enable Filter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_filter2",
+      "label": "Enable SortBy",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+<div class="aboutus-pages page_aboutus_v4">
+  {% if section.settings.enable_intro %}
+  <div class="container container-v1">  
+    <div class="about-introduce">
+      <div class="row">
+        <div class="col-md-6 intro_detail d-flex align-items-center order-md-1 order-2">
+          <div class="info-intro ">
+            <h3 class="spf-heading-title">{{section.settings.title_intro}}</h3>
+            <p class="spf-sub-des">{{section.settings.des_intro}}</p>
+
+            <div class="content_intro">{{section.settings.content_intro}}</div>
+
+          </div>
+        </div>
+        <div class="col-md-6 intro_image order-md-2 order-1">
+          <img class="w-100" src="{% if section.settings.image_intro != blank %} {{section.settings.image_intro | img_url : 'master'}} {% else %}//via.placeholder.com/660x600{% endif %}">
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+  "name": "About Introduce",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_intro",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image_intro",
+      "label": "Image Introduce",
+      "info": "670x600px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_intro",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "des_intro",
+      "label": "Description"
+    },
+    {
+      "type": "html",
+      "id": "content_intro",
+      "label": "Content"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

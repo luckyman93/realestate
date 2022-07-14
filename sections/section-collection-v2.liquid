@@ -1,0 +1,167 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-collection-v2 mt-all">
+    <div class="container container-v2">
+      <div class="text-center">
+        
+        {% if section.settings.title_heading != blank %}
+        <h3 class="title_heading" style="color : {{section.settings.color_title}}">{{section.settings.title_heading}}</h3>
+        {% endif %}
+
+        {% if section.settings.sub_heading != blank %}
+        <p class="sub_heading" style="color: {{section.settings.color_sub_heading}}">{{section.settings.sub_heading}}</p>
+        {% endif %}
+
+      </div>
+      <div class="row no-gutters js-collection-v2">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == 'colection' %}
+        <div class="col-lg-3 col-md-3 col-sm-6 col-12 col-item">
+          <div class="item">
+            <div class="box-img">
+              <a href="{{block.settings.brand_url}}" title="{{block.settings.title_collection}}">
+                {% if block.settings.brand_img != blank %}
+                <img data-src="{{block.settings.brand_img | img_url:'master'}}" class="lazyload img-fluid w-100" alt="_img_collection">
+                {% else %}
+                <img data-src="//via.placeholder.com/456x456" class="lazyload img-fluid w-100" alt="_img_collection">
+                {% endif %}
+              </a>
+            </div>
+            <div class="category-info">
+              <div class="box-info">
+                {% if block.settings.title_collection != blank %}
+                <a href="{{block.settings.brand_url}}" class="title-collection">{{block.settings.title_collection}}</a>
+                {% endif %}
+
+                {% if block.settings.sub_title != blank %}
+                <p class="sub-title mb-0" style="color: {{block.settings.color_subtitle}}">{{block.settings.sub_title}}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+<style></style>
+{% schema %}
+{
+  "name": "COLLECTION V2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Settings Collection v2"
+    },
+    {
+      "type": "text",
+      "id": "title_heading",
+      "label": "Title heading",
+      "default": "Get 20% Off"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color Title",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Title Heading",
+      "default": "Our purpose is to build solutions that remove barriers preventing people<br> from doing their best work, and this is at the heart."
+    },
+    {
+      "type": "color",
+      "id": "color_sub_heading",
+      "label": "Color",
+      "default": "#666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "colection",
+      "name": "Item Collection v2",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_img",
+          "info": "456 x 456px recommended",
+          "label": "Collection 1"
+        },
+        {
+          "type": "text",
+          "id": "title_collection",
+          "label": "Label Collection",
+          "default": "New Collection"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "Fresh and healthy"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "URL collection",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "COLLECTION V2",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Porcelain"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Bone China"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Earthenware"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

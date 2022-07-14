@@ -1,0 +1,555 @@
+{% if section.settings.enable_slide %}
+<div class="wrap-bread-crumb breadcrumb_collection2">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    <div class="title-page">
+
+      <h2 class="">{{page.title}}</h2>
+
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% endif %}
+<section class="page_aboutus_v1 page_aboutus_v2">
+  {% if section.settings.enable_about_top %}
+  <div class="about_top">
+    <div class="container">
+      <div class="row">        
+        <div class="col-lg-12 paddingright">          
+          {% if section.settings.title_abouttop != blank %}
+          <h2>
+            {{ section.settings.title_abouttop }}
+          </h2>
+          {% endif %}
+
+          {% if section.settings.description_abouttop %}
+          <p>
+            {{section.settings.description_abouttop}}
+          </p>
+          {% endif %}
+
+          {% if section.settings.button_about_top != blank %}
+          <a class="link_active" href="{{section.settings.link_abouttop}}">
+            {{section.settings.button_about_top}}
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_video %}
+  <div class="video">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-12">        
+          <div class= "box-video"> 
+            <a data-fancybox href="{{ section.settings.url_section_video }} ">              
+              {% if section.settings.image_video != blank %}
+              <img src="{{section.settings.image_video|img_url:'master'}}" class="img-fluid" alt="">
+              {% else %}
+              <img src="//via.placeholder.com/1170x500" class="img-fluid" alt="">
+              {% endif %}
+              <i class="fa fa-play"></i>
+            </a>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_teams %}
+  <div class="teams">
+    <div class="container">
+      <div class="text-center title_general">
+        {% if section.settings.title_teams != blank %}
+        <h3>
+          {{section.settings.title_teams}}
+        </h3>
+        {% endif %}
+        {% if section.settings.description_teams != blank %}
+        <p>{{section.settings.description_teams}}</p>
+        {% endif %}
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="slick_teams">
+            {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+            {% if block.type == "teams" %}
+            <div class="box_teams text-center">
+              <div class="img_teams">
+
+                <a href="{{block.settings.link_people_teams}}" title="">
+                  {% if block.settings.people_teams_image != blank %}
+                  <img src="{{block.settings.people_teams_image|img_url:'master'}}" class="img-fluid" alt="banner">
+                  {% else %}
+                  <img src="//via.placeholder.com/300x370" alt="" class="img-fluid">
+                  {%  endif %}
+                </a>
+              </div>
+              <div class="info_teams">
+                <h4 class="text-uppercase">
+                  {% if block.settings.block_people_teams != blank %}
+                  <a href="{{block.settings.link_people_teams}}" title="">{{block.settings.block_people_teams}}</a>
+                  {% endif %}
+                </h4>
+                {% if block.settings.block_position_teams != blank %}
+                <p class="mb-0">{{block.settings.block_position_teams}}</p>
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_store %}
+  <div class="store">
+    <div class="container">
+      <div class="text-center title_general">
+        {% if section.settings.title_store != blank %}
+        <h3>{{section.settings.title_store}}</h3>
+        {% endif %}
+        {% if section.settings.description_store !=blank %}
+        <p>{{section.settings.description_store}}</p>
+        {% endif %}
+      </div>
+      <div class="row thumnail_store">
+        <div class="col-lg-6 col-sm-6">
+          <div class="box_img_store">
+            <a href="{{section.settings.urlimage_store1}}">
+              {% if section.settings.image_store1 != blank %}
+              <img src="{{section.settings.image_store1|img_url:'master'}}" class="img-fluid" alt="store">
+              {% else %}
+              <img src="//via.placeholder.com/570x830" class="img-fluid" alt="store">
+              {% endif %}
+            </a>            
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+          <div class="box_img_store one">
+            <a href="{{section.settings.urlimage_store2}}">
+              {% if section.settings.image_store2 != blank %}
+              <img src="{{section.settings.image_store2|img_url:'master'}}" class="img-fluid" alt="store">
+              {% else %}
+              <img src="//via.placeholder.com/570x400" class="img-fluid" alt="store">
+              {% endif %}
+            </a>
+          </div>
+          <div class="box_img_store two">
+            <a href="{{section.settings.urlimage_store3}}">
+              {% if section.settings.image_store3 != blank %}
+              <img src="{{section.settings.image_store3|img_url:'master'}}" class="img-fluid" alt="store">
+              {% else %}
+              <img src="//via.placeholder.com/570x400" class="img-fluid" alt="store">
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if section.settings.enable_address %}
+  <div class="address">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="address_pagev2  d-flex justify-content-between">
+
+            {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+            {% if block.type == "address" %}
+
+            <div class="newyork">
+              {% if block.settings.block_title_address != blank %}
+              <h5 class="title_address_page">{{block.settings.block_title_address}}</h5>
+              {% endif %}
+              {% if block.settings.block_p_address != blank %}
+              <p>{{ block.settings.block_p_address}}</p>
+              {% endif %}
+              {% if block.settings.block_time_address != blank %}
+              <p>{{ block.settings.block_time_address}}</p>
+              {% endif %}
+              {% if block.settings.block_email_address != blank %}
+              <p class="mbend">{{block.settings.block_email_address}}</p>
+              {% endif %}
+            </div>
+
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+<script>
+  jQuery(document).ready(function($) {
+
+    $('.slick_teams').slick({
+      dots: false,
+      arrows:false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 3000,
+      {% if settings.enable_rtl_mode %}rtl: true,{% endif %}
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: false,
+            arrows:false
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            arrows:false
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            arrows:false
+          }
+        }
+      ]
+    });
+  })
+</script>
+
+
+{% schema %}
+{
+  "name": "About Us page v2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slide",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_about_top",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_abouttop",
+      "label": "Title About Top",
+      "default": "Unique & Stylist Fashion<br> We Are An Awesome Agency."
+    },
+    {
+      "type": "textarea",
+      "id": "description_abouttop",
+      "label": "Description About Top",
+      "default": "I am a highly organised and motivated professional Fashion Designer with a wealth of experience in a range of photographic styles and services. Just run your Fashion Store which will be a reflection of you a sexy and confident woman that shines with her unique style. Our goal is to make fashion as easy possible. We bring you the best of glam and sexy clothes while keeping in mind that high quality things arent always too expensive. Our goal is to make fashion as easy as possible, that is why we add carefully selected products on a daily basis, and this is essential for us. This is how you keep up with the times in style! We ship worldwide & space!"
+    },
+    {
+      "type": "text",
+      "id": "button_about_top",
+      "label": "Button About Top",
+      "default": "EXPLORE MORE"
+    },
+    {
+      "type": "url",
+      "id": "link_abouttop",
+      "label": "URL bannner_image",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Section Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "image_video",
+      "label": "Image video",
+      "info": "1170 x 500px recommended"
+    },
+    {
+      "type": "url",
+      "id": "url_section_video",
+      "label": "URL Video",
+      "info": "[Upload video .mp4 in here](/admin/settings/files)"
+    },
+    {
+      "type": "header",
+      "content": "Section Teams"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_teams",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_teams",
+      "label": "Title Teams",
+      "default": "Meet Our Teams"
+    },
+    {
+      "type": "textarea",
+      "id": "description_teams",
+      "label": "Description Teams",
+      "default": "Donec sed odio dui. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, <br> ut fermentum massa justo. condimentum nibh."
+    },
+    {
+      "type": "header",
+      "content": "Section Store"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_store",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_store",
+      "label": "Title Store",
+      "default": "Store in the world"
+    },
+    {
+      "type": "text",
+      "id": "description_store",
+      "label": "Title Store",
+      "default": "Quisque vitae nibh iaculis neque blandit hendrerit euismod.Maecenas sit amet purus eget ipsum elementum<br> venenatis. Aenean maximus urna magna, quis rutrum mi semper non. Cras rhoncus elit non arcu hendrerit rhoncus sit<br> amet purus eget ipsum."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_store1",
+      "label": "Image store 1",
+      "info": "570 x 830px recommended"
+    },
+    {
+      "type": "url",
+      "id": "urlimage_store1",
+      "label": "URL image store1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_store2",
+      "label": "Image store 2",
+      "info": "570 x 400px recommended"
+    },
+    {
+      "type": "url",
+      "id": "urlimage_store2",
+      "label": "URL image store 2",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_store3",
+      "label": "Image store 3",
+      "info": "570 x 400px recommended"
+    },
+    {
+      "type": "url",
+      "id": "urlimage_store3",
+      "label": "URL image store3",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Section Address"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_address",
+      "label": "Enable",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "teams",
+      "name": "People In Teams",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "people_teams_image",
+          "label": "Image People Teams",
+          "info": "300 x 370 px recommended"
+        },
+        {
+          "type": "text",
+          "id": "block_people_teams",
+          "label": "People Teams",
+          "default": "Karen Ryan"
+        },
+        {
+          "type": "text",
+          "id": "block_position_teams",
+          "label": "Position Teams",
+          "default": "Chief"
+        },
+        {
+          "type": "url",
+          "id": "link_people_teams",
+          "label": "URL People Teams",
+          "default": "/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "address",
+      "name": "Address",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title_address",
+          "label": "Title address",
+          "default": "NEWYORK STORE"
+        },
+        {
+          "type": "text",
+          "id": "block_p_address",
+          "label": "Address",
+          "default": "Brooklyn Law School. 250 Joralemon"
+        },
+        {
+          "type": "text",
+          "id": "block_time_address",
+          "label": "Working time ",
+          "default": "Monday to Friday : 9am to 8pm"
+        },
+        {
+          "type": "text",
+          "id": "block_email_address",
+          "label": "Email ",
+          "default": "creativewithjoy@gmail.com"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "People In Teams",
+      "blocks": [
+        {
+          "type": "teams",
+          "settings": {
+            "block_people_teams": "Karen Ryan",
+            "block_position_teams": "Chief",
+            "link_people_teams": "/collections/all"
+          }
+        },
+        {
+          "type": "teams",
+          "settings": {
+            "block_people_teams": "Paul Green",
+            "block_position_teams": "Graphic Design",
+            "link_people_teams": "/collections/all"
+          }
+        },
+        {
+          "type": "teams",
+          "settings": {
+            "block_people_teams": "Jack Sanchez",
+            "block_position_teams": "Main Developer",
+            "link_people_teams": "/collections/all"
+          }
+        },
+        {
+          "type": "teams",
+          "settings": {
+            "block_people_teams": "Sebastian Reave",
+            "block_position_teams": "Art Director",
+            "link_people_teams": "/collections/all"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Address",
+      "blocks": [
+        {
+          "type": "address",
+          "settings": {
+            "block_title_address": "NEWYORK STORE",
+            "block_p_address": "Brooklyn Law School. 250 Joralemon",
+            "block_time_address": "Monday to Friday : 9am to 8pm",
+            "block_email_address": "example@gmail.com"
+          }
+        },
+        {
+          "type": "address",
+          "settings": {
+            "block_title_address": "AMSTERDAM STORE",
+            "block_p_address": "Roeterseiland Campus Building E, 10th Amsterdam",
+            "block_time_address": "Monday to Friday : 9am to 8pm",
+            "block_email_address": "example@gmail.com"
+          }
+        },
+        {
+          "type": "address",
+          "settings": {
+            "block_title_address": "LONDON STORE",
+            "block_p_address": "15-17 Charlotte Street, London",
+            "block_time_address": "Monday to Friday : 9am to 8pm",
+            "block_email_address": "example@gmail.com"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

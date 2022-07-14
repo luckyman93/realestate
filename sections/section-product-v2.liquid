@@ -1,0 +1,143 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-product-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-product-v2 mt-all">
+    <div class="container container-v2">
+      {% if section.settings.title_heading != blank %}
+      <div class="text-center">
+        <h3 class="title_heading text-center mb-4" style="color: {{section.settings.color_title}}">{{section.settings.title_heading}}</h3>
+      </div>
+      {% endif %}
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <ul class="nav nav-tabs title-tab justify-content-center">
+            {% if section.blocks.size > 0 %}
+            {%- assign i = 1 -%}
+            {% for block in section.blocks %}
+            <li>
+              <a href="#a{{i}}" data-toggle="tab" class="{% if forloop.first %}active{% endif %} ds-prod-1">{{block.settings.tab_title}}</a>
+            </li>
+            {%- assign i = i | plus : 1 -%}
+
+            {% endfor %}
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="tab-content">
+        {% if section.blocks.size > 0 %}
+        {%- assign i = 1 -%}
+        {% for block in section.blocks %}
+        {% assign products_limit = block.settings.tab_limit %}
+        {% assign col = block.settings.tab_collection %}
+
+        <div id="a{{i}}" class="tab-pane fade {% if forloop.first %}show active{% endif %}">
+          <div class="row">
+            {% for product in collections[col].products limit: products_limit %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-6 product-tab-pd ">
+              {% include 'product-item-v1' %}
+            </div>
+            {% else %}
+            {% for i in (1..8) %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-6 product-tab-pd">
+              {% include 'empty-product-item' %}
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+        {%- assign i = i | plus : 1 -%}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PRODUCT V2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "title_heading",
+      "label": "Title Section",
+      "default": "Our Best Seller"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#222"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Title Tab",
+          "default": "NEW ARRIVALS"
+        },
+        {
+          "type": "collection",
+          "id": "tab_collection",
+          "label": "Chose Collection"
+        },
+        {
+          "type": "range",
+          "id": "tab_limit",
+          "min": 2,
+          "max": 50,
+          "step": 1,
+          "label": "Limit Products",
+          "default": 8
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PRODUCT V2",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "NEW ARRIVALS"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "BEST SELLERS"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "TOP RATES"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

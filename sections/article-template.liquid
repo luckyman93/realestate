@@ -1,0 +1,337 @@
+<!-- /sections/article-template.liquid -->
+<section id="content">
+  <div class="breadcrumb-noheading">
+    <div class="container container-v2">
+      {% include 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="content-page article-page">
+    <div class="container container-v2">
+      <div class="row">
+        {% if section.settings.blog_layout == "blog_layo_left" %}
+        <div class="col-lg-4 col-xl-3 ">
+          {% include 'article-sidebar' %}
+        </div>
+        {% endif %}
+        <div style="{% if section.settings.blog_layout == "blog_layo_none" %} max-width: 1440px; margin: 0 auto {% endif %}" class="{% if section.settings.blog_layout == "blog_layo_none" %} col-lg-12 {% else %} col-lg-8 col-xl-9{% endif %}">
+
+          <div class="content-single-blog">
+            <div class="post-details">
+              <div class="content-image-single">
+                <div class="content-info"> 
+                  <h2 class="article_title">{{article.title}}</h2>
+                  <div class="cmt-author">
+                    {% if section.settings.show_author %}
+                    {% if settings.enable_rtl_mode %}
+                    <span class="author"><a href="{{ article.url }}">{{ article.author }}</a> <i class="fa fa-user"></i> </span>
+                    {% else %}
+                    <span class="author"><i class="fa fa-user"></i><a href="{{ article.url }}">{{ article.author }}</a></span>
+                    {% endif %}
+
+                    {% endif %}
+
+
+                    {% if settings.enable_rtl_mode %}
+                    <span class="date-post"><a href="{{ article.url }}">{{ article.published_at | date: "%d.%B.%Y" }}</a><i class="fa fa-clock-o"></i></span>
+                    {% else %}
+                    <span class="date-post"><i class="fa fa-clock-o"></i><a href="{{ article.url }}">{{ article.published_at | date: "%d.%B.%Y" }}</a></span>
+                    {% endif %}
+
+
+                    {% if section.settings.show_comment %}
+                    {% if settings.enable_rtl_mode %}
+                    <span class="comment_count"> {{'blogs.comments.comment' | t}} <a href="{{ article.url }}/#comments" class="silver">{{ article.comments_count }}</a></span>
+                    {% else %}
+                    <span class="comment_count"><i class="fa fa-comment"></i><a href="{{ article.url }}/#comments" class="silver">{{ article.comments_count }}</a> {{'blogs.comments.comment' | t}}</span>
+                    {% endif %}
+                    {% endif %}
+                  </div> 
+                </div>
+                <div class="single-post-thumb">
+                  <img src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title }}" />
+                </div>
+              </div>
+              <!-- End Single Post Thumb -->
+
+              <div class="content-post-default">
+                {{article.content}}
+              </div>
+
+              <div class="row cate-tags">
+                {% if section.settings.show_tag %}
+                <div class="col-md-6 col-12 tags ">
+                  <span class="title_tag">{{'blogs.sidebar.tags' | t}} : </span>
+                  {% for tag in article.tags %}
+                  <a href="{{ blog.url }}/tagged/{{ tag | handle }}" >{{ tag }}{% unless forloop.last %}{% endunless %}</a> 
+                  {% endfor %}
+                </div>
+                {% endif %}
+                {% if section.settings.enable_social_share %}
+                <div style="align-items: center" class="cate col-md-6 col-12 justify-content-md-end justify-content-start d-flex">
+                  {% include 'social_share_blog' %}
+                </div>
+                {% endif %}
+              </div>  
+            </div>
+            <div class="row next_prev_post">
+              {% if settings.enable_rtl_mode %}
+              <div class="col-6  tags ">
+                <a href="{{blog.previous_article}}">{{'blogs.article.prev_post' | t}}</a>
+              </div>
+              <div style="align-items: center" class="col-6 justify-content-end d-flex"> 
+                <a href="{{blog.next_article}}" class=""> {{'blogs.article.next_post' | t}} </a>
+              </div>
+              {% else %}
+              <div class="col-6  tags ">
+                <a href="{{blog.previous_article}}">{{'blogs.article.prev_post' | t}}</a>
+              </div>
+              <div style="align-items: center" class="col-6 justify-content-end d-flex"> 
+                <a href="{{blog.next_article}}" class="">{{'blogs.article.next_post' | t}}</a>
+              </div>
+              {% endif %}
+            </div>
+            {% if blog.comments_enabled? %}
+            {% include 'comment-article' %}
+            {% endif %}
+
+            {% if section.settings.show_related_post %}
+
+            {%- assign related_posts_limit = section.settings.related_post_blogs_limit -%}
+            {%- assign related_blog_selected = section.settings.related_post_select_blog -%}
+
+            <div class="single-related-post ">
+              <h2 class="title-single-related-post">{{section.settings.related_post_title}}</h2>
+              <div class="row js_relate_post">
+                {% for article in blogs[related_blog_selected].articles limit: related_posts_limit %}
+                <div class="blog_grid col-12">
+                  <div class="post-thumb">
+                    <a href="{{ article.url }}" class="article_img"><img src="{{ article.image.src | img_url: 'original' }}" alt=""></a>
+                    <div class="single-post-date">
+                      <span class="date">{{ article.published_at | date: "%d" }}</span>
+                      <span class="month">{{ article.published_at | date: "%b" }}</span>
+                    </div>
+                  </div>
+                  <div class="post-info">
+                    <h4 class="blog-title mb-0">{{blog.title}}</h4>
+                    <h3 class="post-title mb-0"><a href="{{ article.url }}" class="dark" title="{{ article.title }}">{{ article.title }}</a></h3>
+                    <a class="btn_readmore" href="{{article.url}}"><span>{{'blogs.article.read_more' | t}} </span></a>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <!-- End Post Slider -->
+            </div>
+
+            {% endif %}
+          </div>
+        </div>  
+        {% if section.settings.blog_layout == "blog_layo_right" %}
+        <div class="col-lg-4 col-xl-3">
+          {% include 'article-sidebar' %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "Article page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "blog_layout",
+      "options": [
+        {
+          "value": "blog_layo_left",
+          "label": "Sidebar Left"
+        },
+        {
+          "value": "blog_layo_right",
+          "label": "Sidebar Right"
+        },
+        {
+          "value": "blog_layo_none",
+          "label": "Without Sidebar"
+        }
+      ],
+      "label": "Select Layout",
+      "default": "blog_layo_left"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comment",
+      "label": "Show comment",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cate",
+      "label": "Show category",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Related post"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_post",
+      "label": "Show related post",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_post_title",
+      "label": "Title Widget",
+      "default": "Related post"
+    },
+    {
+      "type": "blog",
+      "id": "related_post_select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "related_post_blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Config"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_search",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_search_title",
+      "label": "Title Widget",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "shop_by_search_placeholder",
+      "label": "Input placeholder",
+      "default": "Search..."
+    },
+    {
+      "type": "header",
+      "content": "Widget Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_cate",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_cate_title",
+      "label": "Title Widget",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "widget_cate_menu",
+      "label": "Menu for Categories"
+    },
+    {
+      "type": "header",
+      "content": "Widget Related Post"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_related",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "widget_related_title",
+      "label": "Title Widget",
+      "default": "RECENT POSTS"
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_widget_tag",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_by_tag_title",
+      "label": "Widget Title",
+      "default": "Tags"
+    },
+	{
+      "type": "header",
+      "content": "Widget Banner"
+    },
+    {
+      "type": "url",
+      "id": "banner_article_url",
+      "label": "Banner Sidebar Url"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_article_sidebar",
+      "label": "Banner Widget Image",
+      "info": "320x480px recommended"
+    },
+	{
+      "type": "header",
+      "content": "Social Share"
+    },
+	{
+      "type": "checkbox",
+      "id": "enable_social_share",
+      "label": "Enable",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

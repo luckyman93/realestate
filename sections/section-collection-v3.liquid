@@ -1,0 +1,129 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-collection-v3">
+    <div class="container container-v2">
+      <div class="row js-collection-v3">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == 'colection' %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 col-item">
+          <div class="item">
+            <div class="box-img">
+              <a href="{{block.settings.brand_url}}" title="{{block.settings.title_collection}}">
+                {% if block.settings.brand_img != blank %}
+                <img data-src="{{block.settings.brand_img | img_url:'master'}}" class="lazyload img-fluid w-100" alt="_img_collection">
+                {% else %}
+                <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img_collection">
+                {% endif %}
+              </a>
+            </div>
+            <div class="category-info">
+              <div class="box-info">
+                {% if block.settings.title_collection != blank %}
+                <a href="{{block.settings.brand_url}}" class="title-collection">{{block.settings.title_collection}}</a>
+                {% endif %}
+                {% if block.settings.block_content != blank %}
+                <p class="content-box mb-0">{{block.settings.block_content}}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "COLLECTION V3",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "colection",
+      "name": "Item Collection v3",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_img",
+          "info": "720 x 600px recommended",
+          "label": "Collection 1"
+        },
+        {
+          "type": "text",
+          "id": "title_collection",
+          "label": "Label Collection",
+          "default": "New Collection"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "URL collection",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": "What sets FarmFresh varieties apart are their fresh, home-grown flavor, exceptional fruit quality."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "COLLECTION V3",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Porcelain",
+            "block_content": "An ancient type of ceramics that developed in China as early as the Shang dynasty of 1600–1046 BC."
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Bone China",
+            "block_content": "A type of porcelain made with bone ash as an key ingredient. This is a British innovation."
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "Earthenware",
+            "block_content": "The earliest form of human produced ceramics that was created in fire pits as early as 29,000 BC."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

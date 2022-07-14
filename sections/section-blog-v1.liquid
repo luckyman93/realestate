@@ -1,0 +1,194 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-blog-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-blog-v1" style="background: {{section.settings.bg_section}}">
+    <div class="container container-v2">
+      {% if section.settings.section_title != blank %}
+      <div class="text-center ">            
+        <h3 class="title_heading mb-0" style="color: {{section.settings.color_title}}">{{section.settings.section_title}}</h3>            
+      </div>
+      {% endif %}
+      <div class="row js-blog-v1 content-blog-v1">
+        {%- assign posts_limit = section.settings.blogs_limit -%}
+        {%- assign blog_selected = section.settings.select_blog -%}
+        {% if section.settings.select_blog != blank%}
+        {% for article in blogs[blog_selected].articles limit: posts_limit %}
+
+        <div class="col-12">
+          <div class="content-section-blog-v1">
+            <div class="picrure">
+              <a href="{{ article.url }}"  class="image_url">
+                <img data-src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title  }}" class="lazyload img-fluid">
+              </a>
+              {% if section.settings.enable_date %}
+              <div class="date">
+                <span class="day">{{article.published_at | date: " %d" }}</span>
+                <span class="month">{{article.published_at | date: "%b" }}</span>
+                <span class="year">{{article.published_at | date: "%Y" }}</span>
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="info_blog">
+              {% if section.settings.enable_category %}
+              <a class="blog_cate" href="{{blogs[blog_selected].url}}">{{blogs[blog_selected].title}}</a>
+              {% endif %}
+              {% if section.settings.enable_title %}
+              <h4 class="mb-0 title-blog"><a href="{{ article.url }}">{{ article.title  }}</a></h4>
+              {% endif %}
+              {% if section.settings.enable_excerpt %}
+              <p class="content mb-0">
+                {{ article.content | strip_html | truncatewords: 22 }}
+              </p>
+              {% endif %}
+
+
+              {% if section.settings.ena_btn_readmore %}
+              <div class="btn_readmore">
+                <a class="" href="{{article.url}}">{{section.settings.text_btn}}</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>                
+        {% endfor %}
+        {% else %}
+        {% for i in (1..6) %}
+        <div class="col-12">
+          <div class="content-section-blog-v1">
+            <div class="picrure">
+              <a href="/admin/articles"  class="image_url">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </a>
+              <div class="date">
+                <span class="day">{{ 'now' | date: " %d" }}</span>
+                <span class="month">{{ 'now' | date: "%b" }}</span>
+              </div>
+            </div>
+            <div class="info_blog">
+              <h4 class="mb-0 title-blog"><a href="/admin/articles">Example Blog Post</a></h4>
+              <p class="content mb-0">
+                Rapidiously monetize resource sucking main tainable catalysts for change. Conveniently productivate researched action items via go...
+              </p>
+            </div>
+          </div>
+        </div>
+        {% endfor %} 
+        {% endif %}
+      </div> 
+    </div>
+  </div>
+</div>
+{% schema %}{
+  "name": "BLOG V1",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Settings Blog"
+    },
+    {
+      "type": "color",
+      "id": "bg_section",
+      "label": "Background Section",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Our Blogs"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#222"
+    },
+    {
+      "type": "header",
+      "content": "Setting Blog"
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "header",
+      "content": "Info Blogs"
+    },
+    {
+      "type": "range",
+      "id": "blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_category",
+      "label": "Show Category",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_date",
+      "label": "Show Date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_title",
+      "label": "Show Title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_excerpt",
+      "label": "Show Excerpt",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_btn_readmore",
+      "label": "Show Button",
+      "default": true
+    },
+	{
+      "type": "text",
+      "id": "text_btn",
+      "label": "Text Button",
+      "default": "READ MORE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BLOG",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

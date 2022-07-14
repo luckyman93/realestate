@@ -1,0 +1,68 @@
+<!-- /templates/search.liquid -->
+{% comment %}
+
+To return only products or pages in results:
+- http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+- Or manually add type=product or type=page to the search URL as a parameter
+
+{% endcomment %}
+
+{% comment %}
+Set grid_results to true and set search results as a grid instead of a list.
+This works well when your search is only for products.
+{% endcomment %}
+{% assign grid_results = true %}
+
+{% comment %}
+Check to enforce respond.js
+{% endcomment %}
+{% assign respond_js_secret_key = shop.domain | md5 %}
+{% unless search.terms == respond_js_secret_key %}
+
+{% comment %}
+Avoid accessing search.results before the opening paginate tag.
+If you do, the pagination of results will be broken.
+{% endcomment %}
+{% paginate search.results by 12 %}
+
+
+<h1 class="sr-only mt-5">{{page.title}}</h1>
+<section>
+  <div class="container py-5">
+    <div class="text-center">
+      {% if search.performed %}
+      {% if search.results_count == 0 %}
+      <h3 class="text-uppercase h5">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h3>
+      {% else %}
+      <h3 class="text-uppercase h5">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h3>
+      {% endif %}
+      {% else %}
+      <h3 class="text-uppercase h5">{{ 'general.search.title' | t }}</h3>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if search.performed and grid_results == true %}
+<div class="container container-v1 my-3 my-lg-5">
+  <div class="row">
+    {% for product in search.results %}
+    <div class="col-md-3 col-sm-6 col-6">
+      {% include 'product-item-v1' %}
+    </div>
+    {% endfor %}
+  </div>
+  {% if paginate.pages > 1 %}
+  <div class="pagi-nav">
+    {{ paginate | default_pagination | replace: '&laquo; Previous', '<i class="fa fa-angle-left"></i>' | replace: 'Next &raquo;', '<i class="fa fa-angle-right"></i>' }}
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{% endpaginate %}
+
+{% else %}
+{% include 'respond' %}
+{% layout none %}
+{% endunless %}

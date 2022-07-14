@@ -1,0 +1,312 @@
+<div class="wrap-bread-crumb breadcrumb_collection3">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    <div class="title-page">
+
+      <h2 class="">{{page.title}}</h2>
+
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+<section class="page_aboutus_v1 page_contact page_contact2">
+  
+  <!-- End Google Map -->
+
+  {% if section.settings.enable_get_find %}
+  <div class="get_find">
+    <div class="container container-v1">
+      <div class="row">
+        {% if section.settings.enable_find_left %}
+        <div class="col-lg-6 col-md-6">
+          <div class="box_getin box_find">
+            {% if section.settings.title_find_left != blank%}
+            <h5>{{section.settings.title_find_left}}</h5>
+            {% endif %}
+            {% if section.settings.description_find_left != blank%}
+            <p>{{section.settings.description_find_left}}</p>
+            {% endif %}
+            <div class="info_find">
+              {% if section.blocks.size > 0 %}
+                  {% for block in section.blocks %}
+                      {% if block.type == "findget" %}
+                        {% if block.settings.block_texticon != blank%}
+                        <div class="icon-box-wrapper">
+                          <div class="icon-box-icon"> 
+							<span class="icon-svg">{{block.settings.icon_office}}</span>
+                          </div>
+                          <div class="icon-box-content">
+                            <p class="icon-box-title">{{block.settings.block_textheading}}</p>
+                            <p class="icon-box-description">{{block.settings.block_texticon}}</p>
+                          </div>
+                        </div>
+                          {% endif %}
+
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="col-lg-6 col-md-6">
+          {% if section.settings.select_style_map == 'style_map' %}
+            {% if section.settings.enable_map %}
+            <div class="">
+              <div class="">
+                <div class="">
+                  <div class="contact-google-map">
+                    <div id="map" class="map-custom"></div>
+                    <script>
+                      function initMap() {
+                        var myLatLng = {lat: {{settings.gmap_latitude}}, lng: {{settings.gmap_longitude}}};
+
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                          zoom: 12,
+                          center: myLatLng
+                        });
+
+                        var marker = new google.maps.Marker({
+                          position: myLatLng,
+                          map: map,
+                        });
+                      }
+                    </script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key={{settings.gmap_key}}&callback=initMap" async defer></script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% elsif section.settings.select_style_map == 'style_image' %}
+          	{% if section.settings.enable_map %}	
+            <a class="image_map d-block" target="_blank" href="{{section.settings.link_map}}">
+              <img src="{% if section.settings.image_map != blank %} {{section.settings.image_map | img_url : 'master'}} {% else %}//via.placeholder.com/690x750 {% endif %}">
+            </a>
+            {% endif %}
+          {% endif %}
+        </div>
+        
+      </div>
+      <div class="contact-form">
+        <div class="row">
+        	<div class="col-lg-12 col-md-12">
+          <div class="box_getin">
+            {% if section.settings.title_get_right != blank %}
+            <h5>{{section.settings.title_get_right}}</h5>
+            {% endif %}
+            {% if section.settings.description_get_right != blank %}
+            <p>{{section.settings.description_get_right}}</p>
+            {%  endif %}
+            {% if section.settings.enable_email%}
+            <div class=" box-email">
+
+              {% form 'contact' %}
+              {% if form.posted_successfully? %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p style="margin-bottom: 5px;">
+                  {{ 'contact.form.post_success' | t }}
+                </p>
+              </div>
+              {% endif %}
+              {% if form.errors %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+                <p style="margin-bottom: 5px;">Your contact form has {{ form.errors | size | pluralize: "an error", "a few errors" }}. To submit your form, make the following changes and try again:</p>
+                {% for field in form.errors %}
+                <p style="margin-bottom: 5px;">The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+				
+              <div class="row">
+                <div class="col-lg-6 col-md-6">
+                  <input type="text" class="form-control" id="name" placeholder="{{section.settings.placeholder_input_name}}" name="contact[name]" required>
+                </div>
+                 <div class="col-lg-6 col-md-6">
+                   <input type="Email" class="form-control" id="mail" placeholder="{{section.settings.placeholder_input_mail}}" name="contact[email]" required>
+                </div>
+                 <div class="col-lg-12 col-md-12">
+                   <textarea class="border_bottomform" rows="4" cols="100" placeholder="{{section.settings.placeholder_input_message}}" name="contact[Message]" required>
+                   </textarea>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" type="submit"  value="{{section.settings.button_sunmit_mail}}">{{section.settings.button_sunmit_mail}}</button>
+
+              {% endform %}
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  {% endif %}
+
+</section>
+
+{% schema %}
+{
+  "name": "Contact Us",
+  "settings": [
+	{
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image Breadcrumb",
+      "info": "690x510px recommended"
+    },
+    {
+      "type": "header",
+      "info": "Google Map: Setting in Login Store > Customize theme > Theme settings tab > Google Maps",
+      "content": "Section Map"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_map",
+      "label": "Enable",
+      "default": true
+    },
+	{
+      "type": "select",
+      "id": "select_style_map",
+      "label": "Select Style Map",
+      "options": [
+          {
+          "value": "style_map",
+          "label": "Style Map"
+          },
+          {
+          "value": "style_image",
+          "label": "Style Image"
+          }
+        ]
+    },
+	{
+      "type": "image_picker",
+      "id": "image_map",
+      "label": "Image Map",
+      "info": "690x750px recommended"
+    },
+    {
+      "type": "url",
+      "id": "link_map",
+      "label": "Link Map"
+    },
+    {
+      "type": "header",
+      "content": "Contact from"
+    },
+    
+    {
+      "type": "text",
+      "id": "title_get_right",
+      "label": "Title",
+      "default": "Send Us An Message"
+    },
+    {
+      "type": "text",
+      "id": "description_get_right",
+      "label": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_email",
+      "label": "Enable Mail",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "placeholder_input_name",
+      "label": "Placeholder input Name",
+      "default": "Your name..."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_input_mail",
+      "label": "Placeholder input Mail",
+      "default": "Your mail..."
+    },
+    {
+      "type": "textarea",
+      "id": "placeholder_input_message",
+      "label": "Placeholder input Message",
+      "default": "Your message..."
+    },
+    {
+      "type": "text",
+      "id": "iconmail",
+      "label": "Icon mail right",
+      "default": "ti-email",
+      "info": "[Get icon in here](https://themify.me/themify-icons)"
+    },
+    {
+      "type": "text",
+      "id": "button_sunmit_mail",
+      "label": "Button Submit Mail",
+      "default": "SEND "
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_find_left",
+      "label": "Enable find_left",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_find_left",
+      "label": "Title Find Left",
+      "default": "Find Our Office"
+    },
+	{
+      "type": "checkbox",
+      "id": "enable_get_find",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "description_find_left",
+      "label": "Description Find Left",
+      "default": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras mattis consectetur purus sit amet fermentum. Sed posuere est at lobortis."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "findget",
+      "name": "Find - Get",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "icon_office",
+          "label": "Icon SVG",
+          "info": "[Get icon in here](https://www.flaticon.com/)"
+        },
+		{
+          "type": "text",
+          "id": "block_textheading",
+          "label": "Heading Office"
+        },
+        {
+          "type": "text",
+          "id": "block_texticon",
+          "label": "Description Office",
+          "default": "Call us on (+0123) 456 789"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

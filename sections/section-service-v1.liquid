@@ -1,0 +1,145 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-service-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-service-v1" style="background-color: {{section.settings.bg_section}}">
+    <div class="container container-v1">
+      <div class="row justify-content-center js-services-v1">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "service" %}
+        <div class="itemtservice col-lg-3 col-md-6 mb-3 mb-lg-0 ">
+          <div class="box-service" >
+            <div class="number">
+              {% if block.settings.img_icon != blank %}
+              <img data-src="{{block.settings.img_icon |img_url : 'master'}}" class="lazyload" alt="_img">
+              {% endif %}
+            </div>
+            <div class="info">
+              {% if block.settings.block_title != blank %}
+              <h4 class="title" style="color: {{block.settings.color_title}}">{{block.settings.block_title}}</h4>
+              {% endif %}
+              {% if block.settings.block_content != blank %}          	
+              <p class="content" style="color: {{block.settings.color_content}}">{{block.settings.block_content}}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "SERVICE BOX",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Background Section"
+    },
+    {
+      "type": "color",
+      "id": "bg_section",
+      "label": "Background Section",
+      "default": "#ff0000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img_icon",
+          "label": "Image Icon"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": " SHIPPING & RETURN"
+        },
+        {
+          "type": "color",
+          "id": "color_title",
+          "label": "Color Title",
+          "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": " If your product aren't perfect, return<br> them for a full refund"
+        },
+        {
+          "type": "color",
+          "id": "color_content",
+          "label": "Color Content",
+          "default": "#fff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SERVICE BOX",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "service",
+          "settings": {
+            "block_title": "24/7 FRIENDLY SUPPORT",
+            "block_content": "Our support team always ready for you<br> to 7 days a week"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "block_title": "FREE SHIPPING",
+            "block_content": "Free worldwide shipping on all area <br>order above $100"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "block_title": "7 DAYS EASY RETURN",
+            "block_content": "Product any fault within 7 days for an<br> immediately exchange."
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "block_title": "QUALITY GUARANTEED",
+            "block_content": "If your product aren't perfect, return<br> them for a full refund"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

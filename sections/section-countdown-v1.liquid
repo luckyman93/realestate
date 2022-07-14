@@ -1,0 +1,183 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-countdown-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-countdown-v1 mt-all" style="background-image: url( {%if section.settings.img_banner1 != blank %}{{section.settings.img_banner1 | img_url: 'master'}} {% else %}///via.placeholder.com/1920x750 {% endif %})">
+    <div class="container container-v2">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-lg-12">
+          <div class="box-info-content">
+            <div class=" content-section">
+              <div class=" info-deal">
+                <div class="m-auto">
+                  {% if section.settings.title-deal != blank %}
+                  <div class="title-deal" style="color : {{section.settings.color_title}}">{{section.settings.title-deal}}</div>
+                  {% endif %}
+
+                  {% if section.settings.deal-to != blank %}
+                  <div class="deal-to" style="color : {{section.settings.color_sub_title}}">{{section.settings.deal-to}}</div>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="countdown-timer">
+                <ul class="mb-0" data-countdown="countdown-v1" data-date="{{section.settings.countdown-date}}">
+
+                </ul>
+              </div>
+
+              {% if section.settings.buttom_banner != blank %}
+              <div class="div-button">
+                <a class="button " href="{{section.settings.button_banner_url}}" style="color: {{section.settings.color_buttom_banner}}; background:{{section.settings.bgcolor_buttom_banner}};">
+                  {{section.settings.buttom_banner}}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .section-countdown-v1 .button:hover {
+    color : {{section.settings.hovercolor_buttom_banner}} !important;
+    background : {{section.settings.hoverbgcolor_buttom_banner}} !important;
+  }
+  .section-countdown-v1 .countdown-timer li span
+  {
+    color: {{section.settings.color_countdown}} !important;
+
+  }
+  .section-countdown-v1 .countdown-timer li{
+    color: {{section.settings.color_subcountdown}} !important;
+  }
+</style>  
+
+
+{% schema %}
+{
+  "name": "COUNTDOWN V1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Info Left"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_banner1",
+      "label": "Background Image",
+      "info": "1920 x 750px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Info Content"
+    },
+    {
+      "type": "text",
+      "id": "title-deal",
+      "label": "Sub Title",
+      "default": "Hot deal of the day"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color Title"
+    },
+    {
+      "type": "text",
+      "id": "deal-to",
+      "label": "Title",
+      "default": "Organic Goods 50% Off"
+    },
+    {
+      "type": "color",
+      "id": "color_sub_title",
+      "label": "Color sub Title"
+    },
+    {
+      "type": "header",
+      "content": "Countdown Date"
+    },
+    {
+      "type": "text",
+      "id": "countdown-date",
+      "label": "Enter the date you want",
+      "info": "Format: Year-Month-Day-Hour-Minute-Second"
+    },
+    {
+      "type": "color",
+      "id": "color_countdown",
+      "label": "Color time"
+    },
+    {
+      "type": "color",
+      "id": "color_subcountdown",
+      "label": "Color sub time"
+    },
+    {
+      "type": "text",
+      "id": "buttom_banner",
+      "label": "Button name",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "color",
+      "id": "color_buttom_banner",
+      "label": "Color Button"
+    },
+    {
+      "type": "color",
+      "id": "hovercolor_buttom_banner",
+      "label": "Color hover Button"
+    },
+    {
+      "type": "color",
+      "id": "bgcolor_buttom_banner",
+      "label": "Background Color Button"
+    },
+    {
+      "type": "color",
+      "id": "hoverbgcolor_buttom_banner",
+      "label": "Background Color hover  Button"
+    },
+    {
+      "type": "url",
+      "id": "button_banner_url",
+      "label": "URL button",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "COUNTDOWN V1",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

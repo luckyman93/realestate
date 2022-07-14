@@ -1,0 +1,231 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-slideshow-v2">
+    <div class="slick-side-h2">       
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+      {% if block.type == "slideshow" %}
+      <div class="itemv-slide-h2">
+        <div class="info-sideh1">
+          <div class="picture-slideshow d-none d-md-block">
+            {% if block.settings.block_banerimage != blank %}
+            <a href="{{block.settings.block_url}}">
+              <img data-src="{{block.settings.block_banerimage | img_url: 'master'}}" class="lazyload img_desktop img-fluid w-100" alt="slideshow">
+            </a>
+            {% else %}
+            <a href="">
+              <img data-src="//via.placeholder.com/1920x900" class="lazyload img-fluid w-100 img_desktop" alt="slideshow">
+            </a>
+            {% endif %}
+          </div> 
+          <div class="picture-slideshow d-block d-md-none">
+            {% if block.settings.block_banerimage_mb != blank %}
+            <a href="{{block.settings.block_url}}">
+              <img data-src="{{block.settings.block_banerimage_mb | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="slideshow">
+            </a>
+            {% else %}
+            <a href="{{block.settings.block_url}}">
+              <img data-src="{{block.settings.block_banerimage | img_url: 'master'}}" class="lazyload img-fluid w-100 img_desktop" alt="slideshow">
+            </a>
+            {% endif %}
+          </div>
+          <div class="box-content">
+            {% if block.settings.block_title_top and block.settings.block_title_top2 and block.settings.block_buton != blank %}
+            <div class="box-info box-info-{{block.id}}">
+              <div class="sub-title">
+                {% if block.settings.sub_title != blank %}
+                <h3 class="" style="color: {{block.settings.color_sub_title}}">{{block.settings.sub_title}}</h3>
+                {% endif %}
+              </div>
+              <div class="box-title">
+                {% if block.settings.block_title_top != blank %}
+                <h3 class="titlebig mb-0" style="color:{{block.settings.color_block_title_top}};">{{ block.settings.block_title_top }}</h3>
+                {% endif %} 
+              </div>
+              <div class="box-title2">
+                {% if block.settings.block_title_top2 != blank %}
+                <h3 class="title-small mb-0" style="color:{{block.settings.color_block_title_top2}};">{{ block.settings.block_title_top2 }}</h3>
+                {% endif %}
+              </div>
+              <div class="button-main">
+                {% if block.settings.block_buton != blank %}
+                <a class="button-shop button-shop-{{section.id}}-{{block.id}} " href="{{block.settings.block_url}}">
+                  <span style="color:{{block.settings.color_block_button}}">{{ block.settings.block_buton }}</span>
+                </a>
+                {% endif %}
+              </div>              
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+  {% for block in section.blocks %}
+  {% if block.type == 'slideshow' %}
+  .section-slideshow-v2 .slick-side-h2 .itemv-slide-h2 .info-sideh1 .box-content .box-info .button-main .button-shop-{{section.id}}-{{block.id}} {
+    background: {{block.settings.bg_button}};
+  }
+  .section-slideshow-v2 .slick-side-h2 .itemv-slide-h2 .info-sideh1 .box-content .box-info .button-main .button-shop-{{section.id}}-{{block.id}}:hover{
+    background: {{block.settings.bg_button_hover}};
+  }
+  .section-slideshow-v2 .slick-side-h2 .itemv-slide-h2 .info-sideh1 .box-content .box-info .button-main .button-shop-{{section.id}}-{{block.id}}:hover span{
+    color: {{block.settings.color_block_button_hover}} !important;
+  }
+  {% endif %}
+  {% endfor %}
+</style>
+
+{% schema %}
+{
+  "name": "SLIDESHOW V2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slideshow",
+      "name": "slideshow",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "block_banerimage",
+          "label": "Image slideshow",
+          "info": "1881 x 967px recommended"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_banerimage_mb",
+          "label": "Image On Mobile",
+          "info": " 500x 600px recommended"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "Basic Collection"
+        },
+		{		
+           "type": "color",
+           "id": "color_sub_title",
+           "label": "Color Sub Title",
+           "default": "#010101"
+        },
+        {
+          "type": "text",
+          "id": "block_title_top",
+          "label": "Title sideshow top",
+          "default": "Basic Collection"
+        },
+		{		
+           "type": "color",
+           "id": "color_block_title_top",
+           "label": "Color Title sideshow top 1",
+           "default": "#010101"
+        },
+		{
+          "type": "text",
+          "id": "block_title_top2",
+          "label": "Title sideshow top 2",
+          "default": "Style Destination"
+        },
+		{		
+           "type": "color",
+           "id": "color_block_title_top2",
+           "label": "Color Title sideshow top 2",
+           "default": "#010101"
+        },
+        {
+          "type": "text",
+          "id": "block_buton",
+          "label": "Button slideshow",
+          "default": "Shop now"
+        },
+		{
+           "type": "color",
+           "id": "color_block_button",
+           "label": "Color button",
+           "default": "#fff"
+        },
+		{
+           "type": "color",
+           "id": "bg_button",
+           "label": "Background button",
+           "default": "#7FA15A"
+        },
+		{
+           "type": "color",
+           "id": "color_block_button_hover",
+           "label": "Color button hover",
+           "default": "#fff"
+        },
+		{
+           "type": "color",
+           "id": "bg_button_hover",
+           "label": "Background button",
+           "default": "#222"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL slideshow",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SLIDESHOW V2",
+      "category": "HOME",
+	  "blocks": [
+		 {
+          "type": "slideshow",
+          "settings": {
+			"sub_title": "Discover beautiful plants",
+            "block_title_top": "Shade Loving Plants",
+			"block_title_top2": "Plants for your office",
+			"block_buton": "SHOP NOW"
+          }
+        },
+		 {
+          "type": "slideshow",
+          "settings": {
+			"sub_title": "Discover beautiful plants",
+            "block_title_top": "Sun Loving Plants",
+			"block_title_top2": "Plants for your garden",
+			"block_buton": "SHOP NOW"
+          }
+        }		
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

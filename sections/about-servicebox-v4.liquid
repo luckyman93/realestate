@@ -1,0 +1,72 @@
+<div class="aboutus-pages page_aboutus_v4">
+  {% if section.settings.enable_s_servicebox %}
+  <div class="about-servicebox_v4">    
+    <div class="container container-v1">
+      <div class="featured-icon">
+        <div class="block-top-link">
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "service" %}
+
+
+          <div class="textwidget custom-html-widget">
+            <div class="sp-iconfeatured">
+              <div class="iconbox-inner">
+                <div class="icon">
+                  {% if block.settings.block_icon_svg != blank %}{{block.settings.block_icon_svg}}{% endif %}
+                </div>
+                {% if block.settings.block_title != blank %}
+                <h4 class="title"><span>{{block.settings.block_title}}</span></h4>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+  "name": "About Servicebox",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_s_servicebox",
+      "label": "Enable",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service V1",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "block_icon_svg",
+          "label": "Icon Svg"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": "Design"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

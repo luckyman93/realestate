@@ -1,0 +1,44 @@
+<div class="wrap-bread-crumb breadcrumb_collection4 banner_abbout">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    <div class="title-page">
+      {% if section.settings.heading_title != blank  %}
+      <h2 class="title_page">{{section.settings.heading_title}}</h2>
+      {% endif %}
+      {% if section.settings.sub_title != blank  %}
+      <p class="subtitle">{{section.settings.sub_title}}</p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Background BreadCrumb",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "text",
+      "id": "heading_title",
+      "label": "Title Page",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "Cenean imperdiet. Fusce vel dui Praesent adipiscing."
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

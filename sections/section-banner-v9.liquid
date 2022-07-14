@@ -1,0 +1,213 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v9" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v9 {% if section.settings.enable_margin_all %} mt-all {% endif %} section-banner-v9-{{ section.id }}">
+    <div class="row no-gutters">
+      <div class="col-md-6">
+        <div class="item-banner">
+          <div class="box-img">
+            <a href="{{section.settings.url_banner1}}">
+              <img data-src="{% if section.settings.img_banner1 != blank %} {{section.settings.img_banner1 | img_url : 'master'}} {% else %} //via.placeholder.com/960x800 {% endif %}" class="lazyload img-fluid w-100" alt="_img_banner">
+            </a>
+          </div>
+          <div class="content-banner">
+            {% if section.settings.title_banner1 != blank %}
+            <h3 class="title-banner"><a href="{{section.settings.url_banner1}}" class="title" style="color: {{section.settings.color_title1}};">{{section.settings.title_banner1}}</a> <span class="bg_title" style="background: {{section.settings.bg_title1}}"></span></h3>
+            {% endif %}
+
+            {% if section.settings.btn_banner1 != blank %}
+            <div class="box-button">
+              <a href="{{section.settings.url_banner1}}" class="button-banner" style="color: {{section.settings.color_btn1}}; background: {{section.settings.bg_btn1}}">{{section.settings.btn_banner1}}</a>
+
+              <div class="btn-top-line btn-top-line-{{section.id}}" style="background-color: {{block.settings.bg_btn1}}"></div>
+              <div class="btn-right-line btn-right-line-{{section.id}}" style="background-color: {{block.settings.bg_btn1}}"></div>
+              <div class="btn-bottom-line btn-bottom-line-{{section.id}}" style="background-color: {{block.settings.bg_btn1}}"></div>
+              <div class="btn-left-line btn-left-line-{{section.id}}" style="background-color: {{block.settings.bg_btn1}}"></div>
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="item-banner">
+          <div class="box-img">
+            <a href="{{section.settings.url_banner2}}">
+              <img data-src="{% if section.settings.img_banner2 != blank %} {{section.settings.img_banner2 | img_url : 'master'}} {% else %} //via.placeholder.com/960x800 {% endif %}" class="lazyload img-fluid w100" alt="_img_banner">
+            </a>
+          </div>
+          <div class="content-banner">
+            {% if section.settings.title_banner2 != blank %}
+            <h3 class="title-banner"><a href="{{section.settings.url_banner2}}" class="title" style="color: {{section.settings.color_title2}};">{{section.settings.title_banner2}}</a><span class="bg_title" style="background: {{section.settings.bg_title2}}"></span></h3>
+            {% endif %}
+
+            {% if section.settings.btn_banner2 != blank %}
+            <div class="box-button">
+              <a href="{{section.settings.url_banner2}}" class="button-banner" style="color: {{section.settings.color_btn2}}; background: {{section.settings.bg_btn2}}">{{section.settings.btn_banner2}}</a>
+
+              <div class="btn-top-line btn-top-line-{{section.id}}" style="background-color: {{block.settings.bg_btn2}}"></div>
+              <div class="btn-right-line btn-right-line-{{section.id}}" style="background-color: {{block.settings.bg_btn2}}"></div>
+              <div class="btn-bottom-line btn-bottom-line-{{section.id}}" style="background-color: {{block.settings.bg_btn2}}"></div>
+              <div class="btn-left-line btn-left-line-{{section.id}}" style="background-color: {{block.settings.bg_btn2}}"></div>
+
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-banner-v9 .item-banner .content-banner .box-button  .button-banner {
+    border: 1px solid transparent;
+  }
+</style>
+{% schema %}
+{
+"name": "BANNER V9",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_margin_all",
+      "label": "Enable Add Margin Top",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_banner1",
+      "label": "Image Banner 1",
+      "info": "960 x 800px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_banner1",
+      "label": "Title Banner 1",
+      "default": "MEN'S"
+    },
+    {
+      "type": "color",
+      "id": "color_title1",
+      "label": "Color Title 1",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_title1",
+      "label": "Background Title 1",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "btn_banner1",
+      "label": "Button Banner 1",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "color",
+      "id": "color_btn1",
+      "label": "Color Button 1",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn1",
+      "label": "Background Button 1",
+      "default": "#000"
+    },
+    {
+      "type": "url",
+      "id": "url_banner1",
+      "label": "URL Banner 1",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_banner2",
+      "label": "Image Banner 2",
+      "info": "960 x 800px recommended"
+    },
+    {
+      "type": "text",
+      "id": "title_banner2",
+      "label": "Title Banner 2",
+      "default": "WOMEN'S"
+    },
+    {
+      "type": "color",
+      "id": "color_title2",
+      "label": "Color Title 2",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_title2",
+      "label": "Background Title 2",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "btn_banner2",
+      "label": "Button Banner 2",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "color",
+      "id": "color_btn2",
+      "label": "Color Button 2",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn2",
+      "label": "Background Button 2",
+      "default": "#000"
+    },
+    {
+      "type": "url",
+      "id": "url_banner2",
+      "label": "URL Banner 2",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BANNER V9",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

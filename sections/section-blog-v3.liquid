@@ -1,0 +1,178 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-blog-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-blog-v3">
+    <div class="container container-v2">
+      <div class="title-section text-center">
+        {% if section.settings.section_title != blank %}
+        <h3 class="title_heading" style="color: {{section.settings.color_title}}">{{ section.settings.section_title }}</h3>
+        {% endif %}
+      </div>
+      <div class="blog-content row">
+        {%- assign posts_limit = section.settings.blogs_limit -%}
+        {%- assign blog_selected = section.settings.select_blog -%}
+        {% for article in blogs[blog_selected].articles limit: posts_limit %}
+        {% assign check = forloop.index | modulo:2 %}
+        {% if check != 0 %}
+        <div class="blog-item col-lg-12 left">
+          <div class="row align-items-center justify-content-center">
+            <div class="post col-12 col-md-5 order-2 order-sm-2 order-md-1 order-lg-1">
+              <h4 class="article-title">
+                <a href="{{ article.url }}" class="d-block">{{article.title}}</a>
+              </h4>
+              {% if section.settings.enable_description %}
+              <p class="article-des">{{ article.content | strip_html | truncatewords: 30}}</p>
+              {% endif %}
+              {% if section.settings.button_name != blank %}
+              <a href="{{article.url}}" class="btn-readmore">{{section.settings.button_name}}</a>
+              {% endif %}
+            </div>
+
+            <div class="col-12 image col-md-7 order-1 order-lg-2">
+              <a href="{{ article.url }}" class="d-block">
+                <img src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title  }}" class="img-fluid w-100">
+              </a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="blog-item col-lg-12 right">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-12 col-md-7 image">
+              <a href="{{ article.url }}" class="d-block">
+                <img src="{{ article.image.src | img_url: 'original' }}" alt="{{ article.title  }}" class="img-fluid w-100">
+              </a>
+            </div>
+            <div class="post post2 col-12 col-md-5 ">
+              <h4 class="article-title title2">
+                <a href="{{ article.url }}" class="d-block">{{article.title}}</a>
+              </h4>
+              {% if section.settings.enable_description %}
+              <p class="article-des">{{ article.content | strip_html | truncatewords: 30}}</p>
+              {% endif %}
+              {% if section.settings.button_name != blank %}
+              <a href="{{article.url}}" class="btn-readmore">{{section.settings.button_name}}</a>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+        {% else %}
+
+        {% for i in (1..2) %}
+        {% if i == 1 %}
+        <div class="blog-content col-12">
+          <div class="row">
+            <div class="post col-12 col-md-7 left">
+              <h4 class="article-title"><a href="/admin/articles">Example Blog Post</a></h4>
+              <p class="article-des">The perfect class for your child with the best staff and best teachers...</p>
+              <a href="#" class="btn-readmore"><i>read more</i></a>
+            </div>
+            <div class="col-12 col-md-5 image">
+              <a href="/admin/articles" class="d-block">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </a>
+            </div>
+
+          </div>
+        </div>
+        {% else %}
+        <div class="blog-content col-12 right">
+          <div class="row">
+            <div class="col-12 col-md-5 image">
+              <a href="/admin/articles" class="d-block">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </a>
+            </div>
+            <div class="post col-12 col-md-7 right">
+              <h4 class="article-title"><a href="/admin/articles">Example Blog Post</a></h4>
+              <p class="article-des">The perfect class for your child with the best staff and best teachers...</p>
+              <a href="#" class="btn-readmore"><i>read more</i></a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% endfor %}
+      </div>
+    </div>  
+  </div>
+</div>
+{% schema %}
+{
+  "name": "BLOG V3",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Our Blog"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "blog",
+      "id": "select_blog",
+      "label": "Select Blog"
+    },
+	{
+      "type": "range",
+      "id": "blogs_limit",
+      "label": "Limit blogs",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_name",
+      "label": "Button name",
+      "default": "Read More"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+	"presets": [
+    {
+      "name": "BLOG V3",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+
+
+

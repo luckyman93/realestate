@@ -1,0 +1,197 @@
+<div class="aboutus-pages">
+<div data-section-id="{{ section.id }}" data-section-type="section-newsletter-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  {% if settings.newsletter_form_action != blank %}
+  {% assign form_action = settings.newsletter_form_action %}
+  {% else %}
+  {% assign form_action = '#' %}
+  {% endif %}
+  
+  <div class="{% if section.settings.select_width == 'full' %} {% else %} container container-v1 {% endif %} ">
+    {% if section.settings.select_style == 'style_1' %}
+    <div class="section-newsletter-v1 {% if section.settings.enable-pd-small %}pd-small{% endif %}" style="{% if section.settings.style_bg == 'color' %}background: {{section.settings.bg_color}}{% else %}background-image : url({% if section.settings.bg_newsletters != blank %} {{section.settings.bg_newsletters |img_url : 'master'}} {% else %} //via.placeholder.com/1920x350 {% endif %}){% endif %};">
+      <div class="container container-v4">
+        <div class="row align-items-center"> 
+          <div class="col-lg-6 col-md-12">
+			<div class="newsletter_left">
+              <div class="newsletter_content">
+                {% if section.settings.title_newletter != blank %}
+                <div class="title_newletter">
+                  <h3 class="title_heading mb-0" style="color: {{section.settings.color_title}}">{{section.settings.title_newletter}}</h3>
+                </div>
+                {% endif %}
+
+                {% if section.settings.content_newletter != blank %}
+                <p class="mb-0 content"  style="color: {{section.settings.color_content}}">{{section.settings.content_newletter}}</p>
+                {% endif %} 
+				</div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+            <div class="newletter_email">          
+              <form class="needs-validation form-inline" action="{{form_action}}" method="post">
+                <div class="form-group">                           
+                  <input type="email" name="EMAIL" class="form-control" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required >                 
+                </div>
+                <button class="btn" type="submit">Submit</button>
+              </form>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    {% elsif section.settings.select_style == 'style_2' %}
+    <div class="section-newsletter-v1 mt-all {% if section.settings.enable-pd-small %}pd-small{% endif %}" style="{% if section.settings.style_bg == 'color' %}background: {{section.settings.bg_color}}{% else %}background-image : url({% if section.settings.bg_newsletters != blank %} {{section.settings.bg_newsletters |img_url : 'master'}} {% else %} //via.placeholder.com/1920x350 {% endif %}){% endif %};">
+      <div class="text-center"> 
+        {% if section.settings.title_newletter != blank %}
+        <div class="title_newletter">
+          <h3 class="title_heading mb-0" style="color: {{section.settings.color_title}}">{{section.settings.title_newletter}}</h3>
+        </div>
+        {% endif %}
+
+        {% if section.settings.content_newletter != blank %}
+        <p class="mb-3 content"  style="color: {{section.settings.color_content}}">{{section.settings.content_newletter}}</p>
+        {% endif %}      
+
+        <div class="newletter_email">          
+          <form class="needs-validation form-inline" action="{{form_action}}" method="post">
+            <div class="form-group">                           
+              <input type="email" name="EMAIL" class="form-control" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" required >                 
+            </div>
+            <button class="btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="512" viewBox="0 0 24 24" width="512"><path d="m8.75 17.612v4.638c0 .324.208.611.516.713.077.025.156.037.234.037.234 0 .46-.11.604-.306l2.713-3.692z"/><path d="m23.685.139c-.23-.163-.532-.185-.782-.054l-22.5 11.75c-.266.139-.423.423-.401.722.023.3.222.556.505.653l6.255 2.138 13.321-11.39-10.308 12.419 10.483 3.583c.078.026.16.04.242.04.136 0 .271-.037.39-.109.19-.116.319-.311.352-.53l2.75-18.5c.041-.28-.077-.558-.307-.722z"/></svg></button>
+          </form>
+        </div> 
+      </div>
+    </div>
+    
+    {% endif %}
+  </div>
+</div>
+</div>
+<style>
+  .section-newsletter-v1 .newletter_email form .form-group .form-control{
+    background-color:{{section.settings.bg_color_inputnewletter}};
+  }
+</style>
+
+
+{% schema %}
+{
+  "name": "NEWSLETTER CONTACT V1",
+  "settings": [
+  {
+      "type": "select",
+      "id": "select_style",
+      "label": "Select Style",
+    "options": [
+        {
+          "value": "style_1",
+          "label": "#1"
+        },
+        {
+          "value": "style_2",
+          "label": "#2"
+        }
+      ],
+      "default": "style_1"
+    },
+
+  {
+      "type": "select",
+      "id": "select_width",
+      "label": "Select width",
+    "options": [
+        {
+          "value": "full",
+          "label": "Width Full"
+        },
+        {
+          "value": "container",
+          "label": "Width Container"
+        }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "radio",
+      "id": "style_bg",
+      "label": "Style Background only style 1 and 2",
+      "options": [
+        {
+          "value": "color",
+          "label": "Color"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#f2f2f2"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_newsletters",
+      "label": "Background Image Section only style 1 and 2"
+    },
+  
+    {
+      "type": "text",
+      "id": "title_newletter",
+      "label": "Title Newletter",
+      "default": "Our <br><strong>NEWSLETTER!</strong>"
+    },
+  {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color Title"
+    },
+
+  {
+      "type": "textarea",
+      "id": "content_newletter",
+      "label": "Content Newletter",
+      "default": "It only takes a second to be the first to find<br>out about our latest news"
+    },
+  {
+      "type": "color",
+      "id": "color_content",
+      "label": "Color Content"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "presets": [
+    {
+      "name": "NEWSLETTER CONTACT V1",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

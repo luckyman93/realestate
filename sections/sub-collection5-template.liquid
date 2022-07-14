@@ -1,0 +1,154 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-sub5" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="wrap-bread-crumb breadcrumb_collection">
+    <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+      <div class="title-page">
+
+        <h2 class="">{{collection.title}}</h2>
+
+      </div>
+      {% include 'breadcrumb' %}
+    </div>
+  </div> 
+
+  <div class="section-collection-sub1">
+    <div class="container container-v2">
+      <div class="row justify-content-center banner_cate">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "collection" %}
+
+
+        <div class="{% if section.settings.prod_per_row == "prod_col_12" %}col-md-12{% elsif section.settings.prod_per_row == "prod_col_6"  %} col-md-6{% elsif section.settings.prod_per_row == "prod_col_4"  %}col-md-4{% elsif section.settings.prod_per_row == "prod_col_3"  %}col-md-3 {% endif %} mb-4">
+          <div class="img_banner">
+            <a href="{{ collections[block.settings.block_collection].url }}">
+              {% if collections[block.settings.block_collection].image != blank %}
+              <img class="w-100" src="{{ collections[block.settings.block_collection].image | img_url: 'master' }}" class="img-fluid">
+              {% else %}
+              <img class="w-100" src="//via.placeholder.com/558x700" class="img-fluid" alt="collection">
+              {% endif %}
+            </a>
+          </div>
+          {% if section.settings.enable_info_collection %}
+          <div class="banner_title text-center">
+            {% if  collections[block.settings.block_collection].title != blank  %}
+            <a href="{{ collections[block.settings.block_collection].url }}">{{ collections[block.settings.block_collection].title }}</a>
+            {% else %}
+            <a href="">Example Title</a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+        </div>
+
+        {% endif %}
+        {% endfor %}
+        {% endif %} 
+      </div>               
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Collection sub 5",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image BreadCrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_info_collection",
+      "label": "Show Info Collection",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "prod_per_row",
+      "label": "Product Per Row",
+      "options": [
+        {
+          "value": "prod_col_12",
+          "label": "1 Collection Per Row"
+        },
+        {
+          "value": "prod_col_6",
+          "label": "2 Collection Per Row"
+        },
+        {
+          "value": "prod_col_4",
+          "label": "3 Collection Per Row"
+        },
+        {
+          "value": "prod_col_3",
+          "label": "4 Collection Per Row"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "block_collection",
+          "label": "Select Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection sub 5",
+      "category": "Collection",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,250 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-v5" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-slideshow-v5">
+    <div class="slick-side-h5">       
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+      {% if block.type == "slideshow" %}
+      <div class="item-slide">
+        <div class="img-slide">
+          <div class="d-none d-md-block">
+
+            <img data-src="{% if block.settings.img_slide != blank %} {{block.settings.img_slide | img_url : 'master'}} {% else %}  //via.placeholder.com/1920x900 {% endif %}" class="lazyload img_desktop img-fluid w-100" alt="_img_slide_">
+
+          </div>
+          <div class="d-block d-md-none">
+
+            {% if block.settings.img_slide_mb != blank %}
+            <img data-src="{{block.settings.img_slide_mb | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="_img_slide">
+            {% else %}
+            <img data-src="{{block.settings.img_slide | img_url : 'master'}}" class="lazyload img_desktop img-fluid w-100" alt="_img_slide">
+            {% endif %}
+
+          </div>
+
+        </div>
+        <div class="slide-content">
+
+          {%  if block.settings.title_slide != blank %}
+          <h3 class="title-slide" style="color: {{block.settings.color_title}}">{{block.settings.title_slide}}</h3>
+          {% endif %}
+
+          {%  if block.settings.content != blank %}
+          <p class="content" style="color: {{block.settings.color_content}}">{{block.settings.content}}</p>
+          {% endif %}
+
+          {% if block.settings.btn_slide != blank %}
+          <div class="box-btn">
+
+            <div class="btn-slide1">
+              <a href="{{block.settings.url_btn}}" class="btn-slide  btn-slide1-{{ block.id }}">{{block.settings.btn_slide}}</a>
+            </div>
+
+            <div class="btn-slide2">
+              <a href="{{block.settings.url_btn2}}" class="btn-slide   btn-slide2-{{ block.id }}">{{block.settings.btn_slide2}}</a>
+            </div>
+
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+  {% for block in section.blocks %}
+  {% if block.type == 'slideshow' %}
+  .section-slideshow-v5 .slick-side-h5 .item-slide .slide-content .box-btn .btn-slide1-{{ block.id }} {
+    color: {{block.settings.color_btn}};
+    background: {{block.settings.bg_btn}};
+  }
+  .section-slideshow-v5 .slick-side-h5 .item-slide .slide-content .box-btn .btn-slide1-{{ block.id }}:hover {
+    color: {{block.settings.color_btn_hover}};	
+    background: {{block.settings.bg_btn_hover}};
+  }
+  .section-slideshow-v5 .slick-side-h5 .item-slide .slide-content .box-btn .btn-slide2-{{ block.id }} {
+    color: {{block.settings.color_btn2}};
+    background: {{block.settings.bg_btn2}};
+  }
+  .section-slideshow-v5 .slick-side-h5 .item-slide .slide-content .box-btn .btn-slide2-{{ block.id }}:hover {
+    color: {{block.settings.color_btn_hover2}};	
+    background: {{block.settings.bg_btn_hover2}};
+  }
+  {% endif %}
+  {% endfor %}
+</style>
+
+{% schema %}
+{
+  "name": "SLIDESHOW V5",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slideshow",
+      "name": "slideshow",
+      "settings": [
+		{
+          "type": "image_picker",
+          "id": "img_slide",
+          "label": "Image slideshow for destop",
+          "info": "1920 x 900px recommended"
+        },
+		{
+          "type": "image_picker",
+          "id": "img_slide_mb",
+          "label": "Image slideshow for mobile",
+          "info": "500 x 600px recommended"
+        },
+        {
+          "type": "text",
+          "id": "title_slide",
+          "label": "Title ",
+          "default": "Always Fresh Organic <br> Meat & Fish"
+        },
+		{		
+           "type": "color",
+           "id": "color_title",
+           "label": "Color Title",
+           "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "content",
+          "label": "Sub Title ",
+          "default": "Our  Job is to filling  Your Tummy  with Delicious Healthy  Food<br> and Fast free Delivery. "
+        },
+		{		
+           "type": "color",
+           "id": "color_content",
+           "label": "Color Sub Title",
+           "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "btn_slide",
+          "label": "Button 1",
+          "default": "SHOP NOW"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn",
+           "label": "Color Button",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn",
+           "label": "Background Color",
+           "default": "#C29F76"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn_hover",
+           "label": "Color Button Hover",
+           "default": "#000"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn_hover",
+           "label": "Background Color Hover",
+           "default": "#fff"
+        },
+        {
+          "type": "url",
+          "id": "url_btn",
+          "label": "URL Button",
+          "default": "/collections/all"
+        },
+        {
+          "type": "text",
+          "id": "btn_slide2",
+          "label": "Button 2",
+          "default": "ABOUT US"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn2",
+           "label": "Color Button",
+           "default": "#000"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn2",
+           "label": "Background Color",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "color_btn_hover2",
+           "label": "Color Button Hover",
+           "default": "#fff"
+        },
+		{		
+           "type": "color",
+           "id": "bg_btn_hover2",
+           "label": "Background Color Hover",
+           "default": "#C29F76"
+        },
+        {
+          "type": "url",
+          "id": "url_btn2",
+          "label": "URL Button",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SLIDESHOW V5",
+      "category": "HOME",
+	  "blocks": [
+        {
+          "type": "slideshow",
+          "settings": {
+            "title_slide": "Basic Collection",
+			"btn_slide": "SHOP NOW",
+			"btn_slide2": "ABOUT US"
+          }
+        },
+		 {
+          "type": "slideshow",
+          "settings": {
+            "title_slide": "Basic Collection",
+			"btn_slide": "SHOP NOW",
+			"btn_slide2": "ABOUT US"
+          }
+        }		
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

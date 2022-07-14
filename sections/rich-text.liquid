@@ -1,0 +1,50 @@
+<div class="container container-v1 rich-text">
+  <div class="grid">
+    {% if section.settings.rich_icon_svg != blank %}
+    <div class="elementor-icon">{{section.settings.rich_icon_svg}}</div>
+    {% endif %}
+    {% if section.settings.section_title != blank %}
+    <div class="rich-text__heading--{{ section.settings.text_size }} text-center">
+      <h2 class="heading-title">{{ section.settings.section_title  }}</h2>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Rich text"
+  },
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "rich_icon_svg",
+      "label": "Icon Svg"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Talk about your brand"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Rich text"
+      },
+      "category": {
+        "en": "Text"
+      }
+    }
+  ]
+}
+{% endschema %}

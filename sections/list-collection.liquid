@@ -1,0 +1,305 @@
+{% comment %}
+<div class="wrap-bread-crumb breadcrumb_collection2">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+
+{% endcomment %}
+
+{% if section.settings.select_style_bread == 'style_1' %}
+<div class="wrap-bread-crumb breadcrumb_collection style1">
+  <div class="text-center bg_bread " {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% elsif section.settings.select_style_bread == 'style_2' %}
+<div class="wrap-bread-crumb breadcrumb_collection style2">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+{% elsif section.settings.select_style_bread == 'style_3'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style3">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="img_banner">
+                <a href="{{settings[url_collection]}}">
+                  <img class="w-100" alt="section.settings.img_banner" src="{% if settings[img_collection] != blank %} {{settings[img_collection] |img_url : 'master'}} {% else %} //via.placeholder.com/110x110 {% endif %}">
+                </a>
+              </div>
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_4' %}
+<div class="wrap-bread-crumb breadcrumb_collection style4">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+<div class="list-collection " style="background-color: {{settings.bg_color_listcol}}">
+  <div class="container container-v2">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 mx-0">
+        <ul class=" js_list_col mb-0">
+          {% for i in (1..10) %}
+          {% capture title_col %}banner_title_{{i}}{% endcapture %}
+          {% capture link_col %}url_collection_{{i}}{% endcapture %}
+          {% capture color_title %}color_title_{{i}}{% endcapture %}
+          {% if settings[title_col] != blank %}
+          <li class="title-collection  {% if settings[link_col] == collection.url %} active {% endif %}"><a href="{% if settings[link_col] == blank %}#{% else %}{{settings[link_col]}}{% endif %}" style="color : {{settings[color_title]}}">{{settings[title_col]}}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul> 
+      </div>
+    </div>
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_5'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style5">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% elsif section.settings.select_style_bread == 'style_6'  %}
+<div class="wrap-bread-crumb breadcrumb_collection style6">
+  <div class="text-center bg-breadcrumb"  {% if section.settings.ena_bg_img %} style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x300 {% endif %}); background-position : center; background-size: cover" {% else %}style="background-color : {{section.settings.bg_color_breadcrumb}}"{% endif %}>
+    <div class="title-page">
+      <h2 class="">{{collection.title}}</h2>
+    </div>
+    {% include 'breadcrumb' %}
+
+    {% if section.settings.collection_layout == "bg_mordern" %}
+    {% else %}
+    <div class="container container-v2 list_col">
+      <div class="justify-content-center d-flex">
+        <div class="banner_cate col-lg-12">
+          <div class="row js_col_breacrumb">
+            {% for i in (1..10) %}
+            {% capture title_collection %}title_col_{{i}}{% endcapture %}
+            {% capture url_collection %}link_collection_{{i}}{% endcapture %}
+            {% capture color_collection %}color_title_col_{{i}}{% endcapture %}
+            {% capture img_collection %}img_col_{{i}}{% endcapture %}
+            {% if settings[title_collection] != blank %}
+            <div class="col-12 col_item {% if settings[url_collection] == collection.url %} active {% endif %}">
+              <div class="img_banner">
+                <a href="{{settings[url_collection]}}">
+                  <img class="w-100" alt="section.settings.img_banner" src="{% if settings[img_collection] != blank %} {{settings[img_collection] |img_url : 'master'}} {% else %} //via.placeholder.com/110x110 {% endif %}">
+                </a>
+              </div>
+              <div class="banner_title text-center">
+                <a style="color: {{settings[color_collection]}}" href="{{settings[url_collection]}}">{{settings[title_collection]}}</a>
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+
+{% endif %}
+
+<div class="container container-v2">
+  <div class="list-category row">
+    {% for collection in collections %}
+
+    {% if collection.empty? %}
+    {% comment %}add default state for collection block in theme editor{% endcomment %}
+    {% assign collection_image_url = '' %}
+    {% else %}
+    {% if collection.image %}
+    {% capture collection_image_url %}{{ collection | img_url: 'master' }}{% endcapture %}
+    {% elsif collection.products.first %}
+    {% capture collection_image_url %}{{ collection.products.first | img_url: 'master' }}{% endcapture %}
+    {% endif %}
+    {% endif %}
+
+    <div class="col-xl-4 col-lg-4 col-md-6 margin-bottom-30">
+      <div class="img_collection">
+        <a href="{{ collection.url }}">
+          <img src="{{ collection_image_url }}" alt="{{ collection.title }}" title="{{ collection.title }}">
+        </a>
+        <div class="info_col">
+        <h3 class="title_collection">
+          {{ collection.title }}
+        </h3>
+        <div class="total_item"> {{ collection.all_products_count }} {{ collection.all_products_count | pluralize: 'Item', 'Items' }} </div>
+		{% comment %}
+        <a href="{% if collection.empty? %}#{% else %}{{ collection.url }}{% endif %}" class="shop-button">
+          {{'list_collection.view_more'|t}}
+        </a>
+        {% endcomment %}
+      </div>
+      </div>
+      
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .breadcrumb_collection .title-page h2{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb a{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb a i{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+  .breadcrumb_collection .bread-crumb strong{
+    color: {{section.settings.color_breadcrumb}} !important;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "List Collection",
+  "settings": [
+	{
+      "type": "checkbox",
+      "id": "ena_bg_img",
+      "label": "Enable Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image Breadcrumb",
+      "info": "1920x510px recommended"
+    },
+	{
+      "type": "color",
+      "id": "bg_color_breadcrumb",
+      "label": "Background Color",
+      "default": "#fff"
+    },
+	{
+      "type": "color",
+      "id": "color_breadcrumb",
+      "label": "Links Breadcrumb Color",
+      "default": "#000"
+    },
+	{
+      "type": "select",
+      "id": "select_style_bread",
+      "label": "Select Style",
+	  "info": "[View Samples](https://cdn.shopify.com/s/files/1/0579/5568/0414/files/view_samples_breadcrumb.jpg?v=1627286577)",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style_2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style_3",
+          "label": "Style 3"
+        },
+        {
+          "value": "style_4",
+          "label": "Style 4"
+        },
+		{
+          "value": "style_5",
+          "label": "Style 5"
+        },
+		{
+          "value": "style_6",
+          "label": "Style 6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "List Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

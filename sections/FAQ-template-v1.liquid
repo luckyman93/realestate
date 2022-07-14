@@ -1,0 +1,460 @@
+<section class="page_aboutus_v1 page_FQA">
+  {% if section.settings.enable_slide %}
+  <div class="wrap-bread-crumb breadcrumb_collection2">
+    <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+      <div class="title-page">
+
+        <h2 class="">{{page.title}}</h2>
+
+      </div>
+      {% include 'breadcrumb' %}
+    </div>
+  </div>
+  {% endif %}
+  {% if section.settings.enable_asked %}
+  <div class="asked">
+    <div class="container container-v2">
+      <div class="row">
+        <div class="col-lg-12 top_asked">
+          {% if section.settings.title_asked !=blank %}
+          <h3 >{{section.settings.title_asked}}</h3>
+          {% endif %}
+          {% if section.settings.description_asked != blank %}
+          <p class="mb-0">{{section.settings.description_asked}}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="row content_askeds">        
+        <div class="col-lg-12 col-md-12">   
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "faq_left" %}       
+          <div class="box_content_question">
+            {% if block.settings.block_title_question != blank %}
+            <a class="title_question jstitleqs engoc-faq-heading" data-toggle="collapse" href="#faq_block_left_{{forloop.index}}" role="button" aria-expanded="true" aria-controls="collapseExample">
+              <i class="fa fa-plus mr-2 engoc-faq-icon-plus"></i>
+              <i class="fa fa-minus mr-2 engoc-faq-icon-minus"></i>
+              {{block.settings.block_title_question}}
+            </a>
+            {% endif %}
+            <div class="collapse" id="faq_block_left_{{forloop.index}}">
+              {% if block.settings.block_description_question != blank %}
+              <div class="card-body">
+                {{block.settings.block_description_question}}
+              </div>
+              {% endif %}              
+            </div>
+          </div>          
+          {% endif %}
+          {% endfor %}
+          {% else%}
+          <div class="box_content_question">
+            <a class="title_question jstitleqs engoc-faq-heading" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
+              <i class="fa fa-plus mr-2 engoc-faq-icon-plus"></i>
+              <i class="fa fa-minus mr-2 engoc-faq-icon-minus"></i>
+              First question
+            </a>
+            <div class="collapse" id="collapseExample">
+              <div class="card-body">
+                Lorem ipsum dolor sit amet isse potenti. Vesquam ante aliquet 
+                lacusemper elit. Cras neque nulla, convallis non commodo et, 
+                euismod nonsese. At vero eos et accusamus et iusto odio qui 
+                blanditiis praesentium voluptatum deleniti atque corrupti quos 
+                dolores et quas molestias excepturi sint occaecati cupiditate 
+                provident, similique sunt in culpa qui officia.
+                Cras neque nulla, convallis non commodo et, euismod nonsese. 
+                At vero et accusamus.
+              </div>
+            </div>
+          </div>
+          {% endif %}          
+        </div>
+
+        <div class="col-lg-12 col-md-12">   
+          {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+          {% if block.type == "faq_right" %}       
+          <div class="box_content_question">
+            {% if block.settings.block_title_question2 != blank %}
+            <a class="title_question jstitleqs engoc-faq-heading" data-toggle="collapse" href="#faq_block_right_{{forloop.index}}" role="button" aria-expanded="true" aria-controls="collapseExample">
+              <i class="fa fa-plus mr-2 engoc-faq-icon-plus"></i>
+              <i class="fa fa-minus mr-2 engoc-faq-icon-minus"></i>
+              {{block.settings.block_title_question2}}
+            </a>
+            {% endif %}
+            <div class="collapse" id="faq_block_right_{{forloop.index}}">
+              {% if block.settings.block_description_question2 != blank %}
+              <div class="card-body">
+                {{block.settings.block_description_question2}}
+              </div>
+              {% endif %}              
+            </div>
+          </div>          
+          {% endif %}
+          {% endfor %}
+          {% else%}
+          <div class="box_content_question">
+            <a class="title_question jstitleqs engoc-faq-heading" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="true" aria-controls="collapseExample">
+              <i class="fa fa-plus mr-2 engoc-faq-icon-plus"></i>
+              <i class="fa fa-minus mr-2 engoc-faq-icon-minus"></i>
+              First question
+            </a>
+            <div class="collapse" id="collapseExample2">
+              <div class="card-body">
+                Lorem ipsum dolor sit amet isse potenti. Vesquam ante aliquet 
+                lacusemper elit. Cras neque nulla, convallis non commodo et, 
+                euismod nonsese. At vero eos et accusamus et iusto odio qui 
+                blanditiis praesentium voluptatum deleniti atque corrupti quos 
+                dolores et quas molestias excepturi sint occaecati cupiditate 
+                provident, similique sunt in culpa qui officia.
+                Cras neque nulla, convallis non commodo et, euismod nonsese. 
+                At vero et accusamus.
+              </div>
+            </div>
+          </div>
+          {% endif %}          
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% if section.settings.enable_newsletter %}
+  <div class="newsletter">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center box-content">
+          {% if section.settings.section_title != blank %}
+          <h3>{{section.settings.section_title}}</h3>
+          {% endif%}
+          {% if section.settings.section_description != blank %}
+          <p> {{section.settings.section_description}}</p>
+          {% endif %}          
+        </div>         
+        <div class="col-lg-8 text-center box-email">          
+          {% if settings.newsletter_form_action != blank %}
+          {% assign form_action = settings.newsletter_form_action %}
+          {% else %}
+          {% assign form_action = '#' %}
+          {% endif %}          
+          <form class="needs-validation" action="{{form_action}}" method="post">
+            <div class="input-group mb-2 ">                            
+              <input type="email" name="EMAIL" class="form-control" id="mail" placeholder="{{section.settings.newsletter_placeholder_input}}">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="{{section.settings.iconmail}}"></i></div>
+              </div>
+            </div>
+            {% if section.settings.button_name != blank %}            
+            <button class="btn btn-primary w-100" type="submit">{{section.settings.button_name}}</button>
+            {% endif %}
+          </form>
+
+        </div>
+      </div>      
+    </div>
+  </div>
+  {% endif %}
+
+</section>
+
+<script>
+  jQuery(document).ready(function($) {
+    $('.jstitleqs').on( 'click', function() {
+      $(this).toggleClass('engoc-toggle-icon');
+    });
+
+  })
+</script>
+
+{% schema %}
+{
+  "name": "FAQs Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Breadcrumb"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slide",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image Breadcrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Section Asked"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_asked",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title_asked",
+      "label": "Title Asked",
+      "default": "#Frequently asked questions"
+    },
+    {
+      "type": "textarea",
+      "id": "description_asked",
+      "label": "Description Asked",
+      "default": "I am text block. Click edit button to change this text. Lorem ipsum dolor sit amet,consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+    },
+    {
+      "type": "header",
+      "info": "MailChimp form action URL: Setting in Login Store > Customize theme > Theme settings tab > Mailchimp",
+      "content": "Section Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_newsletter",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title section",
+      "default": "Never miss our updates about new arrivals and special offers"
+    },
+    {
+      "type": "text",
+      "id": "section_description",
+      "label": "Description",
+      "default": "Get the latest news & updates"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder_input",
+      "label": "Placeholder input",
+      "default": "EMAIL ADDRESS"
+    },
+    {
+      "type": "text",
+      "id": "iconmail",
+      "label": "Icon right",
+      "default": "ti-email",
+      "info": "[Get icon in here](https://themify.me/themify-icons)"
+    },
+    {
+      "type": "text",
+      "id": "button_name",
+      "label": "Button name",
+      "default": "SUBCRIBE NOW"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_left",
+      "name": "FAQ left",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title_question",
+          "label": "Question",
+          "default": "How long does it take for home delivery?"
+        },
+        {
+          "type": "textarea",
+          "id": "block_description_question",
+          "label": "Answer",
+          "default": "We use Royal mail and DHL to send most of our UK orders.Euro Car Parts reserves the right to use discretion in any circumstance where it makes more sense to use an alternative delivery method."
+        }
+      ]
+    },
+    {
+      "type": "faq_right",
+      "name": "FAQ right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title_question2",
+          "label": "Question",
+          "default": "I placed an order on Friday for next day delivery, why did I not get it until Tuesday?"
+        },
+        {
+          "type": "textarea",
+          "id": "block_description_question2",
+          "label": "Answer",
+          "default": "Our cut off point is 4pm, Monday to Friday. Any order placed after 4pm will be processed through our dispatch system the next working day. We currently do not deliver at weekends."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQs Page",
+      "blocks": [
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "What courier do you use for deliveries?",
+            "block_description_question": "We use Royal mail and DHL to send most of our UK orders.Euro Car Parts reserves the right to use discretion in any circumstance where it makes more sense to use an alternative delivery method."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "How long does it take for home delivery?",
+            "block_description_question": "We currently offer 3 types of delivery service :standard delivery for GB Mainland in approximately 2-4 working days; Super Saver 48 Hour Delivery; Premium Next Day. More on our Delivery Services."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "I placed an order on Friday for next day delivery, why did I not get it until Tuesday?",
+            "block_description_question": "Our cut off point is 4pm, Monday to Friday. Any order placed after 4pm will be processed through our dispatch system the next working day. We currently do not deliver at weekends."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Why am I being charged for delivery on my order when it states standard delivery is free?",
+            "block_description_question": "All our delivery charges are pre-set by our courier company. We sell some oversized items which require a specialist courier company to fulfil the delivery, there is an additional charge for these. Also, our courier company consider some surcharge postcodes ‘Out of area’. There is an additional charge for these also. You can find a list of all [oversized items here] You can find a list of all"
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "I haven’t received a dispatch email/email confirmation?",
+            "block_description_question": "Please be aware an automated email is sent to you to the given email address when your order is dispatched. Please check all folders including you junk as it will come from a noreply email address. To ensure emails reach you, add the domain eurocarparts.com to your safe senders list."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Why does it not tell us on the website that the parts will be delivered by the branch?",
+            "block_description_question": "Due to the delicacy of some parts we take extra care in the delivery of the item. These could include body panels and large bulky items. These are either available for collection from our branches or will be delivered to you through our branch network vehicles."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Can I collect from a local store?",
+            "block_description_question": "We offer a reserve and collect service. This is available on the checkout page. Please be aware, if the product is not available in a local store, you are unable to reserve it."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Do you deliver on Weekend?",
+            "block_description_question": "No, our courier company do not offer the service to deliver on weekends currently."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Why can’t I select next day delivery?",
+            "block_description_question": "We can only offer next day on goods we have in stock at our dispatch depot."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Can I track my item?",
+            "block_description_question": "Yes. You will be sent a dispatch confirmation email as soon as your order has been processed. This email will also contain your tracking number. We also ask for a mobile number so our courier can inform you of the status of your order.Please visit: www.dhl.co.uk/en/express/tracking.html for International orders shipped via DHLwww.ups.com for all orders shipped by UPSwww.tuffnells.co.uk/proof-of-delivery for all oversized orders shipped by TuffnellsPlease note tracking numbers are only active and trackable 2 hours after the order has been collected from our warehouse, approximately 8pm (GMT/BST) Monday to Friday. For orders placed after 4pm on Friday, your order will may not be trackable until it has been collected from us the following Monday."
+          }
+        },
+        {
+          "type": "faq_left",
+          "settings": {
+            "block_title_question": "Can I collect from a local store?",
+            "block_description_question": "We offer a reserve and collect service. This is available on the checkout page. Please be aware, if the product is not available in a local store, you are unable to reserve it."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Can you confirm you have received my return?",
+            "block_description_question2": "We aim to process returns within 5-7 working days of receiving them. You will be notified by email once the return is complete.We suggest you make a note of the shipping reference given when you sent the item back. This will allow you to track your parcel at every stage of delivery, including when we receive it.Should you have any queries about your return, please feel free to contact our Customer Service team via email"
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "How long will it be before I get a refund?",
+            "block_description_question2": "Once we receive your item(s) back, our returns department will inspect and restock the goods. Once our returns department have done this, an automated refund is generated on our system. Your outstanding refund is then processed by our accounts department back to your original payment method. This process typically takes 5-7 working days. When returning your products please remember to include your original invoice, without this it may delay your refund."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Who pays for return postage?",
+            "block_description_question2": "If you are returning an unsuitable item for a refund we will refund the cost of the item only and not the original delivery cost.Should you be returning a faulty item for a refund we will refund both the original shipping costs and the return delivery costs."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Why have you not refunded the original delivery charge?",
+            "block_description_question2": "If you are returning an unsuitable item for a refund we will refund the cost of the item only and not the original delivery cost. Should you be returning a faulty item for a refund we will refund both the original shipping costs and the return delivery costs."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "How do I apply a promotional code?",
+            "block_description_question2": "You can add a valid promotion code in the Basket."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Do you offer a VAT discount to non EU customers?",
+            "block_description_question2": "Customer’s ordering from outside the European Union can contact us via telephone, live chat, or e-mail and quote the order reference number. Our customer services team will go through the process to remove the VAT off of their order."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "When will my card be charged for my order?",
+            "block_description_question2": "Due to the nature of our payments system, the full cost of the order will be charged to the card as soon as it is placed."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Where is my order?",
+            "block_description_question2": "Most of our deliveries are sent via UPS and we will send you an automated email with the tracking number of your order. You can also find the tracking number on your order in My Account"
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Where do I find the phone number for one of your branches?",
+            "block_description_question2": "You can find details for any branch, in our store locator section. This is located at the top right of every page on our website or Find a store here."
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "How can I make a complaint?",
+            "block_description_question2": "In the rare occasion we make a mistake we are more than happy to take all customer feedback. There is always room for improvement. Contact Us"
+          }
+        },
+        {
+          "type": "faq_right",
+          "settings": {
+            "block_title_question2": "Is it possible to change the address/cancel or amend my order?",
+            "block_description_question2": "Due to the high volume of orders we receive, we have an automatic invoicing system. For any changes to your order, please call us immediately after placing the order. We can attempt to stop or amend your order with our dispatch team, if it is not possible, we will advise you on the next steps."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

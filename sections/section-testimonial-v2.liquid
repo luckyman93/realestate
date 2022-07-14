@@ -1,0 +1,171 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-testimonial-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-testimonial-v2" style="background-image: url({% if section.settings.testimonial_bg != blank %}{{section.settings.testimonial_bg|img_url:'master'}}{% else %}//via.placeholder.com/1920x550{% endif %});">
+    <div class="container container-v2">
+      <div class="text-center">
+        {% if section.settings.section_title != blank %}
+        <h3 class="title_heading mb-5" style="color:{{section.settings.color_title}}">{{section.settings.section_title}}</h3>
+        {% endif %}
+      </div>
+      <div class="row js-testimonial-v2-slide">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "testimonial" %}
+        <div class="col-12">
+          <div class="testimonial-inner">
+            <div class="testimonial-info">
+              <p class="text" style="color: {{block.settings.color_content}}">{{block.settings.block_content}}</p> 
+              <span class="engoc-star star-5"></span>
+            </div>
+            <div class="testimonial-author">
+              <div class="avatar">
+                {% if block.settings.block_img != blank %}
+                <img width="88" height="88" src="{{block.settings.block_img | img_url:'master'}}" class="img-responsive" alt="testimonial">
+                {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+              <div class="author-info">
+                <h3 class="mb-1" style="color: {{block.settings.color_name}}">{{block.settings.block_name}}</h3>
+                <p class="text-position" style="color: {{block.settings.color_des}}">{{block.settings.block_des}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TESTIMONIAL v2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Testimonial"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Testimonials"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_bg",
+      "info": "1920 x 550px recommended",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_img",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "block_content",
+          "label": "Content",
+          "default": "Saved our business! We have no regrets! Thanks for the great service. Herbyo is worth much more than I paid Saved our business! We have no regrets! Thanks for the great service. Herbyo  is worth much more!"
+        },
+        {
+          "type": "color",
+          "id": "color_content",
+          "label": "Color",
+      "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "block_name",
+          "label": "Content",
+          "default": "DESTINEE"
+        },
+        {
+          "type": "color",
+          "id": "color_name",
+          "label": "Color Name"
+        },
+        {
+          "type": "text",
+          "id": "block_des",
+          "label": "Info",
+          "default": "Marketing Personal"
+        },
+        {
+          "type": "color",
+          "id": "color_des",
+          "label": "Color Des"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TESTIMONIAL V2",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,442 @@
+
+{% if section.settings.spd_style == "pd_large_img" %}
+{% include 'product-details-large-image' %}
+
+{% elsif section.settings.spd_style =="pd_extended" %}
+{% include 'product-extended' %}
+
+{% elsif section.settings.spd_style =="pd_sidebar" %}
+{% include 'product-details-sidebar' %}
+
+{% elsif section.settings.spd_style =="pd_sticky" %}
+{% include 'product-details-sticky' %}
+
+{% elsif section.settings.spd_style =="pd_sticky_2" %}
+{% include 'product-details-sticky' %}
+
+{% elsif section.settings.spd_style =="pd_sticky_center" %}
+{% include 'product-details-sticky-center' %}
+
+{% elsif section.settings.spd_style =="pd_extend_background" %}
+{% include 'product-extended' %}
+
+{% elsif section.settings.spd_style =="pd_gallery_mordern" %}
+{% include 'product-gallery-basic' %}
+
+{% elsif section.settings.spd_style =="pd_gallery_mordern_2" %}
+{% include 'product-gallery-basic' %}
+
+{% elsif section.settings.spd_style =="pd_large_img_center" %}
+{% include 'product-slide-center' %}
+
+{% elsif section.settings.spd_style =="pd_slide_gallery" %}
+{% include 'product-slide-gallery' %}
+
+{% elsif section.settings.spd_style =="pd_sidebar_v2" %}
+{% include 'product-details-sidebar2' %}
+
+
+
+{% endif %}
+
+
+{% comment %}
+To take advantage of a callback on the select dropdown, add option_selection.js
+and customize the JS in timber.productPage as needed.
+
+Currently, timber.productPage does the following:
+- Hides your <select> tag from above
+- Breaks out the product variants into separate product options, if more than one exists
+- Generates a <select> tag for each product option
+- Enables/disables elements based on variant availability
+
+Callback notes:
+- Keep the callback available to the global scope (window.selectCallback) so that advanced
+addons can override it.
+* E.g. multiple currencies http://docs.shopify.com/manual/configuration/store-customization/currencies-and-translations/currencies/how-to-toggle-between-two-currencies
+{% endcomment %}
+{{ 'option_selection.js' | shopify_asset_url | script_tag }}
+
+<script>
+
+  var selectCallback = function(variant, selector) {
+    // BEGIN SWATCHES
+    if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        if (radioButton.length) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+    // END SWATCHES
+
+    {% if section.settings.show_sku %}
+    if (variant) {
+      $('.engoj-variant-sku').text(variant.sku);
+    }
+    else {
+      $('.engoj-variant-sku').empty();
+    }
+    {% endif %}
+
+    var quantity = 1,
+        totalPrice;
+    if (variant) {
+      if (variant.available) {
+        // Selected a valid variant that is available.
+        $('.engoj-btn-addtocart').removeClass('disabled').removeAttr('disabled').val('Add to Cart').fadeTo(200,1);
+      } else {
+        // Variant is sold out.
+        $('.engoj-btn-addtocart').val('Sold Out').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);
+      }
+      quantity = parseInt($('#Quantity').val(), 10);
+      totalPrice = variant.price * quantity;
+
+      if ( variant.compare_at_price > variant.price ) {
+        $('.enj-product-price').html(Shopify.formatMoney(variant.price, window.money_format));
+        $('.enj-product-price-compare').html(Shopify.formatMoney(variant.compare_at_price, window.money_format));
+      } else {
+        $('.enj-product-price').html(Shopify.formatMoney(variant.price, window.money_format));
+        $('.enj-product-price-compare').html(Shopify.formatMoney(variant.compare_at_price, window.money_format));
+
+      }
+
+
+    } else {
+      // variant doesn't exist.
+      $('.engoj-btn-addtocart').val('Unavailable').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);
+    }
+
+    /*begin variant image*/
+    if (variant && variant.featured_image) {
+      var originalImage = jQuery(".engoj_img_main");
+      var newImage = variant.featured_image;
+      var element = originalImage[0];
+      Shopify.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+        var $el = $(element);
+        $el.attr('src', newImageSizedSrc);
+        $(".engoj-nav-item:eq(0)").trigger('click');
+
+        $('.zoomLens').css('background-image','url("'+newImageSizedSrc+'")');
+      });        
+    }
+
+
+    if (variant && variant.featured_image) {
+      var originalImage = jQuery(".engoj_img_main");
+      var newImage = variant.featured_image;
+      var element = originalImage[1];
+      Shopify.Image.switchImage(newImage, element, function (newImageSizedSrc, newImage, element) {
+        var $el = $(element);
+        $el.attr('src', newImageSizedSrc);
+      });        
+    }
+
+    /*end of variant image*/
+  }
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+                                         {% endif %}
+
+                                         // Hide selectors if we only have 1 variant and its title contains 'Default'.
+                                         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                                         $('.selector-wrapper').hide();
+    {% endif %}
+  });
+</script>
+  
+{% schema %}
+{
+  "name": "Product Detail page",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Style"
+    },
+    {
+      "type": "select",
+      "id": "spd_style",
+      "label": "Select Main Layout",
+      "info": "[View Samples](https://cdn.shopify.com/s/files/1/0579/5568/0414/files/Product-Detail-Styles.jpg?v=1627286659)",
+      "options": [
+        {
+          "value": "pd_extended",
+          "label": "01.Product Extended"
+        },
+        {
+          "value": "pd_large_img",
+          "label": "02.Product Large Image"
+        },
+        {
+          "value": "pd_sticky",
+          "label": "03.Product Sticky"
+        },
+        {
+          "value": "pd_sticky_2",
+          "label": "04.Product Sticky 2"
+        },
+        {
+          "value": "pd_sticky_center",
+          "label": "05.Product Sticky Center"
+        },
+        {
+          "value": "pd_slide_gallery",
+          "label": "06.Product Slider Gallery"
+        },
+        {
+          "value": "pd_large_img_center",
+          "label": "07.Product Slider Center"
+        },
+        {
+          "value": "pd_gallery_mordern",
+          "label": "08.Product Large Grid"
+        },
+        {
+          "value": "pd_gallery_mordern_2",
+          "label": "09.Product Small Grid"
+        },
+        {
+          "value": "pd_extend_background",
+          "label": "10.Product Extended-Background"
+        },
+        {
+          "value": "pd_sidebar",
+          "label": "11.Product Sidebar"
+        },
+        {
+          "value": "pd_sidebar_v2",
+          "label": "12.Product Sidebar 2"
+        }
+      ],
+      "default": "pd_extended"
+    },
+    {
+      "type": "select",
+      "id": "style_page",
+      "label": "Select Thumbnail Style",
+      "info": "(Show for main layout 1 or 10)",
+      "options": [
+        {
+          "value": "left",
+          "label": "Thumbnail Left"
+        },
+        {
+          "value": "right",
+          "label": "Thumbnail Right"
+        },
+        {
+          "value": "bottom",
+          "label": "Thumbnail Bottom"
+        },
+        {
+          "value": "top",
+          "label": "Thumbnail Top"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "header",
+      "content": "Product Background-Extended",
+      "info": "(Show for main layout 10)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_prod_extended",
+      "label": "Background Image",
+      "info": "1920 x 1080px recommended"
+    },
+    {
+      "type": "color",
+      "id": "bg_prod_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "select",
+      "id": "display_bg",
+      "label": "Select background",
+      "options": [
+        {
+          "value": "dis_bg_img",
+          "label": "Backgroung Image"
+        },
+        {
+          "value": "dis_bg_color",
+          "label": "Backgroung Color"
+        }
+      ],
+      "default": "dis_bg_img"
+    },
+    {
+      "type": "header",
+      "content": "Product Sidebar Style",
+      "info": "(Show for main layout 11)"
+    },
+    {
+      "type": "select",
+      "id": "style_sidebar",
+      "label": "Select Style",
+      "options": [
+        {
+          "value": "left",
+          "label": "Sidebar Left"
+        },
+        {
+          "value": "right",
+          "label": "Sidebar Right"
+        },
+        {
+          "value": "no_sidebar",
+          "label": "No Sidebar"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Config"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating star",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sdes",
+      "label": "Show summary description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_share",
+      "label": "Show social share",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity",
+      "label": "Show quantity box",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cate",
+      "label": "Show Categories",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Sticky Add to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_sticky_addcart",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "style_stickyaddcart",
+      "label": "Select Style StickyAddCart on Mobile",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top Under Menu Header"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom Upper Menu"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "header",
+      "content": "Zoom Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_zoom",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Featured Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_featured_icon",
+      "label": "Show",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "display_feaicon",
+      "label": "Select Icon",
+      "info": "[View Samples](https://cdn.shopify.com/s/files/1/0579/5568/0414/files/ServiceBox.jpg?v=1627286953)",
+      "options": [
+        {
+          "value": "dis_svg",
+          "label": "Icon SVG"
+        },
+        {
+          "value": "dis_font",
+          "label": "Font Icon"
+        }
+      ],
+      "default": "dis_svg"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featuredicon",
+      "name": "Featured Icon",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "img_featured",
+          "label": "Icon SVG",
+          "info": "[Get icon in here](https://www.flaticon.com/)"
+        },
+        {
+          "type": "text",
+          "id": "icon_office",
+          "label": "Font Icon",
+          "info": "[Get icon in here](https://fontawesome.com/v4.7/icons/)"
+        },
+        {
+          "type": "text",
+          "id": "block_textheading",
+          "label": "Heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Detail Page"
+    }
+  ]
+}
+{% endschema %}

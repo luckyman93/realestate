@@ -1,0 +1,299 @@
+<!-- /sections/header.liquid -->
+{% if template contains 'index' %}
+  {% if section.settings.select_hds == "header_v1" %}
+  {% include 'header-v1' %}
+  {% elsif section.settings.select_hds == "header_v2" %}
+  {% include 'header-v2' %}
+  {% elsif section.settings.select_hds == "header_v3" %}
+  {% include 'header-v3' %}
+  {% elsif section.settings.select_hds == "header_v4" %}
+  {% include 'header-v4' %}
+  {% elsif section.settings.select_hds == "header_v5" %}
+  {% include 'header-v5' %}
+  {% elsif section.settings.select_hds == "header_v6" %}
+  {% include 'header-v6' %}
+  {% endif %}
+{% else %}
+  {% if section.settings.select_hds_all == "header_ver1" %}
+  {% include 'header-v1' %}
+  {% elsif section.settings.select_hds_all == "header_ver2" %}
+  {% include 'header-v2' %}
+  {% elsif section.settings.select_hds_all == "header_ver3" %}
+  {% include 'header-v3' %}
+  {% elsif section.settings.select_hds_all == "header_ver4" %}
+  {% include 'header-v4' %}
+  {% elsif section.settings.select_hds_all == "header_ver5" %}
+  {% include 'header-v5' %}
+  {% elsif section.settings.select_hds_all == "header_ver6" %}
+  {% include 'header-v6' %}
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Homepage"
+    },
+    {
+      "type": "select",
+      "id": "select_hds",
+      "label": "Select Style",
+      "options": [
+        {
+          "value": "header_v1",
+          "label": "Header v1"
+        },
+        {
+          "value": "header_v2",
+          "label": "Header v2"
+        },
+        {
+          "value": "header_v3",
+          "label": "Header v3"
+        },
+        {
+          "value": "header_v4",
+          "label": "Header v4"
+        },
+        {
+          "value": "header_v5",
+          "label": "Header v5"
+        },
+        {
+          "value": "header_v6",
+          "label": "Header v6"
+        }
+      ],
+      "default": "header_v1"
+    },
+    {
+      "type": "color",
+      "id": "hd_home_color_text",
+      "label": "Texts, Icons Color",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "hd_home_enable_transparents",
+      "label": "Enable Transparent",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "hd_home_bg_header_normal",
+      "label": "Background Color"
+    },
+    {
+      "type": "range",
+      "id": "hd_bg_header_opacity",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "label": "Opacity Background",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_hd_home",
+      "label": "Enable Sticky",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hd_home_logo",
+      "label": "Logo Image",
+      "info": "140 x 46px .png recommended"
+    },
+    {
+      "type": "range",
+      "id": "hd_home_logo_maxwidth",
+      "min": 35,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Display Width",
+      "default": 140
+    },
+    {
+      "type": "textarea",
+      "id": "hd_home_logo_svg",
+      "label": "Logo Svg"
+    },
+    {
+      "type": "header",
+      "content": "Header Other Pages"
+    },
+    {
+      "type": "select",
+      "id": "select_hds_all",
+      "label": "Select Style",
+      "options": [
+        {
+          "value": "header_ver1",
+          "label": "Header v1"
+        },
+        {
+          "value": "header_ver2",
+          "label": "Header v2"
+        },
+        {
+          "value": "header_ver3",
+          "label": "Header v3"
+        },
+        {
+          "value": "header_ver4",
+          "label": "Header v4"
+        },
+        {
+          "value": "header_ver5",
+          "label": "Header v5"
+        },
+        {
+          "value": "header_ver6",
+          "label": "Header v6"
+        }
+      ],
+      "default": "header_ver1"
+    },
+    {
+      "type": "color",
+      "id": "hd_other_color_text",
+      "label": "Texts, Icons Color",
+      "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "hd_other_enable_transparents",
+      "label": "Enable Transparents",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "hd_other_bg_header_normal",
+      "label": "Background Color"
+    },
+    {
+      "type": "range",
+      "id": "hd_other_bg_header_opacity",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.1,
+      "label": "Opacity Background",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_hd_other",
+      "label": "Enable Sticky",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hd_other_logo",
+      "label": "Logo Image",
+      "info": "140 x 46px .png recommended"
+    },
+    {
+      "type": "range",
+      "id": "hd_other_logo_maxwidth",
+      "min": 35,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Display Width",
+      "default": 140
+    },
+    {
+      "type": "textarea",
+      "id": "hd_other_logo_svg",
+      "label": "Logo Svg"
+    },
+    {
+      "type": "header",
+      "content": "Select Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu_store",
+      "label": "Main Menu"
+    },
+	{
+      "type": "header",
+      "content": "Icon Header"
+    },
+	{
+        "type": "header",
+        "content": "Icon search"
+      },
+      {
+        "type": "text",
+        "id": "hd_icon_search",
+        "label": "Icon search",
+        "info": "[Get icon from here](https:\/\/fontawesome.com\/v4.7.0\/icons\/)",
+        "default": "fa fa-search"
+      },
+      {
+        "type": "textarea",
+        "id": "hd_icon_search_svg",
+        "label": "Icon search SVG"
+      },
+      {
+        "type": "header",
+        "content": "Icon Wishlist"
+      },
+      {
+        "type": "text",
+        "id": "hd_icon_wishlist",
+        "label": "Icon Wishlist",
+        "info": "[Get icon from here](https:\/\/fontawesome.com\/v4.7.0\/icons\/)",
+        "default": "icon-heart"
+      },
+      {
+        "type": "textarea",
+        "id": "hd_icon_wishlist_svg",
+        "label": "Icon wishlist SVG"
+      },
+      {
+        "type": "url",
+        "id": "url_wishlist",
+        "label": "Url Wishlist"
+      },
+      {
+        "type": "header",
+        "content": "Icon login"
+      },
+      {
+        "type": "text",
+        "id": "hd_icon_login",
+        "label": "Icon login",
+        "info": "[Get icon from here](https:\/\/fontawesome.com\/v4.7.0\/icons\/)",
+        "default": "icon-icon-user"
+      },
+      {
+        "type": "textarea",
+        "id": "hd_icon_login_svg",
+        "label": "Icon login SVG"
+      },
+      {
+        "type": "header",
+        "content": "Icon cart"
+      },
+      {
+        "type": "text",
+        "id": "hd_icon_cart",
+        "label": "Icon cart",
+        "info": "[Get icon from here](https:\/\/fontawesome.com\/v4.7.0\/icons\/)",
+        "default": "icon-icon-cart"
+      },
+      {
+        "type": "textarea",
+        "id": "hd_icon_cart_svg",
+        "label": "Icon cart SVG"
+      }
+  ]
+}
+{% endschema %}

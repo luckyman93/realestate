@@ -1,0 +1,235 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v11" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v11 mt-all" style="background: {{section.settings.bg_section_color}}">
+    <div class="">
+      <div class="row no-gutters">       
+        <div class="col-md-6 order-2 order-md-1">
+          <div class="banner-img">
+            <img data-src="{% if section.settings.banner_img != blank %} {{section.settings.banner_img | img_url : 'master'}} {% else %}  //via.placeholder.com/960x960 {% endif %}" class="lazyload img-fluid w-100" alt="_img_banner_">
+          </div>
+        </div> 
+        <div class="col-md-6 order-1 order-md-2">
+          <div class="banner-info">
+
+            {% if section.settings.sub_title_top != blank %}
+            <p class="title-top" style="color: {{section.settings.color_title_top}}">{{section.settings.sub_title_top}}</p>
+            {% endif %}
+
+            {% if section.settings.title_banner != blank %}
+            <h3 class="title-banner" style="color: {{section.settings.color_title}}">{{section.settings.title_banner}}</h3>
+            {% endif %}
+
+            {% if section.settings.subtitle_banner != blank %}
+            <p class="subtitle-banner" style="color: {{section.settings.color_subtitle}}">{{section.settings.subtitle_banner}}</p>
+            {% endif %}
+
+
+            {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+            {% if block.type == 'item' %}
+            <div class="item-banner">
+              <div class="icon-info">
+                {% if block.settings.img_icon != blank %}
+                <img data-src="{{block.settings.img_icon |img_url : 'master'}}" class="lazyload" alt="_img">
+                {% endif %}
+              </div>
+              <div class="item-info">
+                {% if block.settings.title_item != blank %}
+                <h3 class="title-item mb-0" style="color: {{block.settings.color_title}}">{{block.settings.title_item}}</h3>
+                {% endif %}
+              </div>
+
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if section.settings.btn_banner != blank %}
+            <div class="btn-banner">
+              <a href="{{section.settings.url_banner}}" class="btn-banner-{{ section.id }} ">{{section.settings.btn_banner}}</a>
+            </div>
+            {% endif %}
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .section-banner-v11 .banner-info  .btn-banner .btn-banner-{{ section.id }}  {
+    color: {{section.settings.color_btn}};
+    background: {{section.settings.bg_btn}};
+    transition: all .3s;
+  }
+  .section-banner-v11 .banner-info  .btn-banner .btn-banner-{{ section.id }}:hover {
+    color: {{section.settings.color_btn_hover}};
+    background: {{section.settings.bg_btn_hover}};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "BANNER V11",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_section_color",
+      "label": "Background color",
+      "default": "#f5f8f2"
+    },
+    {
+      "type": "text",
+      "id": "sub_title_top",
+      "label": "Title banner",
+      "default": "About company"
+    },
+    {
+      "type": "color",
+      "id": "color_title_top",
+      "label": "Color",
+      "default": "#7bae23"
+    },
+    {
+      "type": "text",
+      "id": "title_banner",
+      "label": "Title banner",
+      "default": "World Tea Company"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_banner",
+      "label": "Sub Title",
+      "default": "Our purpose is to build solutions that remove barriers preventing <br>people from doing their best work, and this is at the heart."
+    },
+    {
+      "type": "color",
+      "id": "color_subtitle",
+      "label": "Color",
+      "default": "#666666"
+    },
+    {
+      "type": "text",
+      "id": "btn_banner",
+      "label": "Button Banner",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "url_banner",
+      "label": "URL Button",
+      "default": "/collections/all"
+    },
+    {
+      "type": "color",
+      "id": "color_btn",
+      "label": "Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn",
+      "label": "Background",
+      "default": "#7bae23"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_hover",
+      "label": "Color Hover",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn_hover",
+      "label": "Background Hover",
+      "default": "#000"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "Image",
+      "info": "800 x 800px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img_icon",
+          "label": "Image Icon"
+        },
+        {
+          "type": "text",
+          "id": "title_item",
+          "label": "Title Item",
+          "default": "100% Payment Secure"
+        },
+        {
+          "type": "color",
+          "id": "color_title",
+          "label": "Color",
+          "default": "#000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BANNER V11",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title_item": "Free delivery services"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title_item": "Proffesional customer support"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title_item": "Online store and payments"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

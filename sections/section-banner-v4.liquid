@@ -1,0 +1,168 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v4" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v4 mt-all">
+    <div class="container container-v1">
+      <div class="row no-gutters">
+
+        {% for block in section.blocks %}
+        {% if block.type == 'colection' %}
+        <div class="col-lg-3 col-sm-6 col-item">
+          <div class="row">
+            <div class="col-12">
+              <div class="item-banner">
+                <div class="item-img">
+                  <img data-src="{% if block.settings.img_item != blank %} {{block.settings.img_item | img_url : 'master'}} {% else %} //via.placeholder.com/660x660 {% endif %}" class="lazyload img-fluid w-100" alt="_img_banner">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+
+              <div class="item-banner">
+                <img data-src="{% if block.settings.img_item != blank %} {{block.settings.img_item | img_url : 'master'}} {% else %} //via.placeholder.com/660x660 {% endif %}" class="lazyload img-fluid w-100" alt="_img_banner">
+                <div class="item-info" style="background: {{block.settings.bg_item}}">
+
+                  {% if  block.settings.title_item != blank  %}
+                  <h3 class="title-item" style="color: {{block.settings.color_title}}">{{block.settings.title_item}}</h3>
+                  {% endif %}
+
+                  {% if block.settings.content_item != blank %}
+                  <p class="content-item" style="color: {{block.settings.color_content}}">{{block.settings.content_item}}</p>
+                  {% endif %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  {% for block in section.blocks %}
+  {% if block.type == 'colection' %}
+	
+  {% endif %}
+  {% endfor %}
+</style>
+{% schema %}
+{
+  "name": "BANNER V4",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "colection",
+      "name": "Item Banner",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Banner Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_item",
+          "info": "660 x 660px recommended",
+          "label": "Item Image"
+        },
+        {
+          "type": "header",
+          "content": "Banner Info"
+        },
+        {
+          "type": "color",
+          "id": "bg_item",
+          "label": "Background Item",
+          "default": "#fff0dd"
+        },
+        {
+          "type": "text",
+          "id": "title_item",
+          "label": "Title Banner",
+          "default": "RESERVATIONS"
+        },
+        {
+          "type": "color",
+          "id": "color_title",
+          "label": "Color Title",
+          "default": "#000"
+        },
+        {
+          "type": "text",
+          "id": "content_item",
+          "label": "Content Banner",
+          "default": "Reservation numbers:<br>+458-874-36-21<br>+458-471-56-36"
+        },
+        {
+          "type": "color",
+          "id": "color_content",
+          "label": "Color Content",
+          "default": "#262626"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "BANNER V4",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "colection",
+          "settings": {
+            "title_item": "RESERVATIONS",
+            "content_item": "Reservation numbers: <br>+458-874-36-21<br> +458-471-56-36"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_item": "HOURS",
+            "content_item": "Mon – Fri // 9:00 – 23:00 <br>Sat // 10:00 – 1:00<br> Sun // CLOSED"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_item": "STORES",
+            "content_item": "Dunsmuir Ave, LA <br>Atkins Ave, NY <br>Milk Street, Boston"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_item": "OUR SOURCING",
+            "content_item": "Costa Rica<br> Kenya<br> Brasil <br>Columbia <br>Ethiopia"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

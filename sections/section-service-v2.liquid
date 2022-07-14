@@ -1,0 +1,133 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-service-v2" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="container container-v2">
+    <div class="section-service-v2">
+      <div class="row js-services-v2">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == "service" %}
+        <div class="text-center itemtservice justify-content-center">
+          <div class="box-service col-lg-12">
+            <div class="number">
+              {% if block.settings.img_icon != blank %}
+              <img src="{{block.settings.img_icon |img_url : 'master'}}">
+              {% else %}
+              {{block.settings.block_number}}
+              {% endif %}
+            </div>
+
+            <div class="info">
+              {% if block.settings.block_title != blank %}
+              <h4 class="title">{{block.settings.block_title}}</h4>
+              {% endif %}
+              {% if block.settings.block_content != blank %}          	
+              <p class="content">{{block.settings.block_content}}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "SERVICE V2",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_img",
+      "label": "Background image Section"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service V2",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_number",
+          "label": "Number",
+          "default": "1"
+        },
+        {
+          "type": "image_picker",
+          "id": "img_icon",
+          "label": "Image icon"
+        },
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Title",
+          "default": " SHIPPING & RETURN"
+        },
+        {
+          "type": "text",
+          "id": "block_content",
+          "label": "Content",
+          "default": " If your glasses aren't perfect, return them within 30 days<br> for a full refund. We'll even pay shipping."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SERVICE V2",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "service",
+          "settings": {
+            "block_number": "1",
+            "block_title": " FREE SHIPPING",
+            "block_content": "For all order over $99"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "block_number": "2",
+            "block_title": "DELIVERY ON TIME",
+            "block_content": "Definition and measurement"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "block_number": "3",
+            "block_title": "SECURE PAMENT",
+            "block_content": "100% secure payment"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

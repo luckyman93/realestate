@@ -1,0 +1,187 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v5" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v5 {% if section.settings.ena_padding_top %} padding_top_banner5 {% endif %}">
+    <div class="{% if section.settings.ena_container %} container container-v2 {% endif %}">
+      <div class="row no-gutters align-items-center"  style="background-color:{{section.settings.bg_banner}}"> 
+        <div class=" col-banner-6 {% if section.settings.select_pos =='left' %} order-lg-1 {% elsif section.settings.select_pos == 'right'%} order-lg-2  {% endif %}">
+          <div class="box-img1 img-left" style="background-color:{{section.settings.bg_banner}}">
+            <div class="banner-content">
+              {% if section.settings.title_banner != blank %}
+              <h3 class="title-banner" style="color: {{section.settings.color_title}}">{{section.settings.title_banner}}</h3>
+              {% endif %}
+              {% if section.settings.sub_title_banner != blank %}
+              <p class="sub-title" style="color: {{section.settings.color_sub_title}}">{{section.settings.sub_title_banner}}</p>
+              {% endif %}
+
+              {% if section.settings.button_banner != blank %}
+              <a href="{{section.settings.url_banner}}" class="button-shop button-shop-{{ section.id }}" title="">{{section.settings.button_banner}}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class=" col-banner-4 {% if section.settings.select_pos =='left' %} order-lg-2  {% elsif section.settings.select_pos == 'right'%} order-lg-1 {% endif %}">
+          <div class="box-img img-right">
+            {% if section.settings.img_banner_right != blank %}
+            <img data-src="{{section.settings.img_banner_right | img_url : 'master'}}" class="lazyload img-fluid w-100" alt >
+            {% else %}
+            <img data-src="//via.placeholder.com/960x960" class="lazyload img-fluid w-100" alt>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-banner-v5 .col-banner-6  .img-left .banner-content .button-shop-{{ section.id }} {
+    color: {{section.settings.color_btn}};
+    background: {{section.settings.bg_btn}};
+    border: 2px solid  {{section.settings.bg_btn}};
+  }
+  .section-banner-v5 .col-banner-6  .img-left .banner-content .button-shop-{{ section.id }}:hover {
+    color: {{section.settings.color_btn_hover}};
+    background: transparent;
+    border: 2px solid  {{section.settings.color_btn_hover}};
+  }
+</style>
+{% schema %}
+{
+"name": "BANNER V5",
+"settings": [
+    {
+      "type": "checkbox",
+      "id": "ena_padding_top",
+      "label": "Enable Add Padding Top",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_container",
+      "label": "Enable Add Container Box",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "select_pos",
+      "label": "Select Position Content",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Background Color Banner"
+    },
+    {
+      "type": "color",
+      "id": "bg_banner",
+      "label": "Backgorund Color",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner Content"
+    },
+    {
+      "type": "text",
+      "id": "title_banner",
+      "label": "Title Banner",
+      "default": "Decor & Furniture"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color Title banner",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "sub_title_banner",
+      "label": "Sub Title Banner",
+      "default": "Timeless and evolving, unlimited in expression, we build spaces around the lives we lead. Using furnishings and objects of good design, that respect a space's purpose, creates environments that are beautiful and livable—the ones we love best.Handcrafted furniture, artisanal rugs, wallpaper, classic vases, and lighting accessories—well-made and carefully considered—whether made by Heath or by like-minded makers we admire. Welcome in."
+    },
+    {
+      "type": "color",
+      "id": "color_sub_title",
+      "label": "Color Sub Title banner",
+      "default": "#fff"
+    },
+    {
+      "type": "text",
+      "id": "button_banner",
+      "label": "Button Banner 1",
+      "default": "Shop now"
+    },
+    {
+      "type": "color",
+      "id": "color_btn",
+      "label": "Color button banner",
+      "default": "#222"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn",
+      "label": "Background Color button banner",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_hover",
+      "label": "Color button banner Hover",
+      "default": "#fff"
+    },
+    {
+      "type": "url",
+      "id": "url_banner",
+      "label": "URL Button ",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_banner_right",
+      "label": "Image Banner",
+      "info": "720 x 720px recommended"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BANNER V5",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,122 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-gallery-image" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-gallery-image mt-all">
+    <div class="row js-gallery-image no-gutters">
+      {% for block in section.blocks %}
+      {% if block.type == 'gallery' %}
+      <div class="col-item">
+        <div class="item">
+          <div class="box-img">
+            <a href="{{block.settings.img_gallery | img_url:'master'}}" data-caption="{{block.settings.gallery_cation}}" data-fancybox="images">
+              {% if block.settings.img_gallery != blank %}
+              <img data-src="{{block.settings.img_gallery | img_url:'master'}}" class="lazyload data-fancybox" alt="{{block.settings.gallery_cation}}">
+              {% else %}
+              <img data-src="//via.placeholder.com/600x600" class="lazyload data-fancybox" alt="">
+              {% endif %}
+              <span class="">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                  <path d="M18.0003 0.666626V35.3333M0.666992 18H35.3337" stroke="white"></path>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "GALLERY IMAGE",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery",
+      "name": "Item Gallery",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "img_gallery",
+          "info": "600 x 600px recommended",
+          "label": "Image Gallery"
+        },
+        {
+          "type": "text",
+          "id": "gallery_caption",
+          "label": "Gallery Caption",
+          "default": "Gallery Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GALLERY IMAGE",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        },
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        },
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        },
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        },
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        },
+        {
+          "type": "gallery",
+          "settings": {
+            "gallery_caption": "Gallery Image"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,49 @@
+<div class="aboutus-pages page_aboutus_v4 rich-text-4">
+  <div class="container container-v1">
+    <div class="grid">
+
+      {% if section.settings.section_title != blank %}
+      <div class="rich-text__heading--{{ section.settings.text_size }} text-center">
+        <h2 class="heading-title">{{ section.settings.section_title  }}</h2>
+      </div>
+      {% endif %}
+      {% if section.settings.section_sub != blank %}
+      <div class="elementor-icon">{{section.settings.section_sub}}</div>
+      {% endif %}
+      {% if section.settings.section_url != blank %}
+      <div class="button-wrapper">
+        <a href="{{section.settings.section_url}}">EXPLORE OUR PRODUCT</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Rich text",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Revolutionary Inclusivity"
+    },
+    {
+      "type": "text",
+      "id": "section_sub",
+      "label": "Sub Title"
+    },
+    {
+      "type": "url",
+      "id": "section_url",
+      "label": "Url Button"
+    }
+  ],
+  "presets": [
+    
+  ]
+}
+{% endschema %}

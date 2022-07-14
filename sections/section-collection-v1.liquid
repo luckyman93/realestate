@@ -1,0 +1,237 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-collection-v1" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-collection-v1 mt-all">
+    <div class="container container-v2">
+      <div class="text-center">
+
+        {% if section.settings.sub_heading != blank %}
+        <p class="sub_heading pt-0 mb-0" style="color: {{section.settings.color_sub_heading}}">{{section.settings.sub_heading}}</p>
+        {% endif %}
+
+        {% if section.settings.title_heading != blank %}
+        <h3 class="title_heading mb-0" style="color: {{section.settings.color_title}}">{{section.settings.title_heading}}</h3>
+        {% endif %}
+
+      </div>
+      <div class="row no-gutters js-collection-v1">
+        {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+        {% if block.type == 'colection' %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12 col-item">
+          <div class="item">
+            <div class="box-img">
+
+              <div class="btn-collection">
+                <a href="{{block.settings.brand_url}}" class="button-add  btn-{{ block.id }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+              </div> 
+
+              {% if block.settings.brand_img != blank %}
+              <img data-src="{{block.settings.brand_img | img_url:'master'}}" class="lazyload img-fluid w-100" alt="_img_collection">
+              {% else %}
+              <img data-src="//via.placeholder.com/456x456" class="lazyload img-fluid w-100" alt="_img_collection">
+              {% endif %}
+
+            </div>
+            <div class="category-info">
+              <div class="box-info">
+                {% if block.settings.title_collection != blank %}
+                <h3 class="title-collection" style="color: {{block.settings.color_title}}">{{block.settings.title_collection}}</h3>
+                {% endif %}
+                {% if block.settings.sub_title != blank %}
+                <p class="sub-title" style="color: {{block.settings.color_subtitle}}">{{block.settings.sub_title}}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  {% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+  {% if block.type == 'colection' %}
+  .section-collection-v1 .item .box-img .btn-collection .btn-{{ block.id }} {
+    transition: all .3s;
+    background: {{block.settings.bg_btn}};
+  }
+  .section-collection-v1 .item .box-img .btn-collection .btn-{{ block.id }} i {
+    color: {{block.settings.color_btn}};
+    background: {{block.settings.bg_btn}};
+    border: 1px solid  {{block.settings.color_btn}};
+    transition: all .3s;
+  }
+  .section-collection-v1 .item .box-img .btn-collection .btn-{{ block.id }}:hover {
+    color: {{block.settings.color_btn}};
+  }
+  .section-collection-v1 .item .box-img .btn-collection .btn-{{ block.id }}:hover i {
+    color: {{block.settings.color_btn_hover}};
+    background: {{block.settings.bg_btn_hover}};
+    border: 1px solid  {{block.settings.color_btn_hover}};
+  }
+
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "COLLECTION V1",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Title Heading",
+      "default": "Perfect Ingredient"
+    },
+    {
+      "type": "color",
+      "id": "color_sub_heading",
+      "label": "Color",
+      "default": "#666"
+    },
+    {
+      "type": "text",
+      "id": "title_heading",
+      "label": "Title Heading",
+      "default": "Featured Categories"
+    },
+    {
+      "type": "color",
+      "id": "color_title",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "colection",
+      "name": "Item Collection v1",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_img",
+          "info": "456 x 456px recommended",
+          "label": "Collection 1"
+        },
+        {
+          "type": "text",
+          "id": "title_collection",
+          "label": "Label Collection",
+          "default": "New Collection"
+        },
+        {
+          "type": "color",
+          "id": "color_title",
+          "label": "Color Title",
+          "default": "#000"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "(30 items)"
+        },
+        {
+          "type": "color",
+          "id": "color_subtitle",
+          "label": "Color Sub Title",
+          "default": "#777"
+        },
+        {
+          "type": "color",
+          "id": "color_btn",
+          "label": "Color Button >",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "bg_btn",
+          "label": "Background",
+          "default": "#ff7800"
+        },
+        {
+          "type": "color",
+          "id": "color_btn_hover",
+          "label": "Color Button > Hover",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "bg_btn_hover",
+          "label": "Background",
+          "default": "#7fa15a"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "URL collection",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "COLLECTION V1",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "New Collection"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "New Collection"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "New Collection"
+          }
+        },
+        {
+          "type": "colection",
+          "settings": {
+            "title_collection": "New Collection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

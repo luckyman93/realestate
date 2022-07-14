@@ -1,0 +1,104 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-flash-sale" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="">
+    <div class="lazyload" {% if section.settings.ena_background_img %} {% if section.settings.bg_image != blank %} data-bg="{{section.settings.bg_image | img_url : 'master'}}"  style=" background-size : cover ; background-attachment: fixed;" {% endif %} {% else %} style="background-color : {{section.settings.bg_color}}" {% endif %}  >
+      <div class="section-flash-sale pt-all" >
+        <div class="container container-v2">
+          <div class=" heading text-center">
+            {% if section.settings.title_section_product != blank%}      
+            <h3 class="mb-0 title_heading">{{section.settings.title_section_product}}</h3>      
+            {% endif %}
+          </div>      
+          <div class="row product_new slick_product_5">
+            {% assign products_limit = section.settings.products_limit %}
+            {% assign col = section.settings.select_collection %}
+            {% for product in collections[col].products limit: products_limit %}
+            <div class="col-12">
+              {% include 'product-item-v1' %}
+            </div>
+            {% else %}
+            {% for i in (1..12) %}
+            <div class="col-12">
+              {% include 'empty-product-item' %}
+            </div>
+            {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FLASH SALE",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "header",
+      "content": "Setting Flash Sale"
+    },
+    {
+      "type": "text",
+      "id": "title_section_product",
+      "label": "Title Flash Sale",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "header",
+      "content": "Info Product"
+    },
+    {
+      "type": "collection",
+      "id": "select_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Limit Products",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "ena_background_img",
+      "label": "Enable Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image Section"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FLASH SALE",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}

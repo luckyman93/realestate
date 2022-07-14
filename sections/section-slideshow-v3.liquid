@@ -1,0 +1,181 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-slideshow-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %} {% if section.settings.sections_layout == "dark" %}background: {{section.settings.sections_bg_color}};{% endif %}">
+  <div class="section-slideshow-v3">      
+    {% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+    {% if block.type == "slideshow" %}
+    <div class="itemv-slide-h3" style="background-image: url({% if block.settings.backgroud_slide != blank %}{{block.settings.backgroud_slide |img_url:'master'}}{% else %}//via.placeholder.com/1920x1080{% endif %})">
+      <div class="container container-v2">
+        <div class="content {% if block.settings.select_pos =='left' %} text-left {% elsif block.settings.select_pos == 'center' %} text-center {% elsif block.settings.select_pos == 'right' %} text-right {% endif %}">
+
+          {% if block.settings.block_title != blank %}
+          <h3 class="mb-0 title-slideshow title-{{block.id}}" style="color:{{block.settings.color_title}};"><span class="title">{{block.settings.block_title}}</span></h3>
+          {% endif %}
+
+          {% if block.settings.block_buton != blank %}
+          <div class="box-button box-button-{{section.id}}-{{block.id}}">
+            <a  href="{{block.settings.block_url}}" style="color:{{block.settings.color_block_button}}; background : {{block.settings.bg_btn}} " class="button-shop-{{section.id}}-{{block.id}}">
+              {{block.settings.block_buton}}
+            </a> 
+            <div class="btn-top-line btn-top-line-{{section.id}}-{{block.id}}" style="background-color: {{block.settings.bg_btn}}"></div>
+            <div class="btn-right-line btn-right-line-{{section.id}}-{{block.id}}" style="background-color: {{block.settings.bg_btn}}"></div>
+            <div class="btn-bottom-line btn-bottom-line-{{section.id}}-{{block.id}}" style="background-color: {{block.settings.bg_btn}}"></div>
+            <div class="btn-left-line btn-left-line-{{section.id}}-{{block.id}}" style="background-color: {{block.settings.bg_btn}}"></div>
+          </div>
+          {% endif%}
+
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<style>
+  {% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+  {% if block.type == "slideshow" %}
+
+  .section-slideshow-v3 .itemv-slide-h3 .content .box-button .button-shop-{{section.id}}-{{block.id}} {
+    border: 1px solid transparent;
+  }
+  .section-slideshow-v3 .itemv-slide-h3 .content .btn-right-line-{{section.id}}-{{block.id}} {
+    background: {{block.settings.bg_btn}};
+  }
+  .section-slideshow-v3 .itemv-slide-h3 .content .btn-bottom-line-{{section.id}}-{{block.id}} {
+    background: {{block.settings.bg_btn}};
+  }
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "SLIDESHOW V3",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slideshow",
+      "name": "Slideshow",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "backgroud_slide",
+          "label": "Image slideshow",
+          "info": "1881 x 1080px recommended"
+        },
+        {
+          "type": "select",
+          "id": "select_pos",
+          "label": "Select Position Content",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+		{
+          "type": "header",
+          "content": "Heading Sideshow"
+		},
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Heading",
+          "default": "Nutrition and Health Benefits"
+        },
+        {
+          "type": "color",
+          "id": "color_title",
+          "label": "Color",
+          "default": "#fff"
+        },
+		{
+          "type": "header",
+          "content": "Button Slideshow"
+		},
+        {
+          "type": "text",
+          "id": "block_buton",
+          "label": "Button Label",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "color",
+          "id": "color_block_button",
+          "label": "Color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "id": "bg_btn",
+          "label": "Background Color",
+          "default": "#fff"
+        },
+        {
+          "type": "url",
+          "id": "block_url",
+          "label": "URL Button Slideshow",
+          "default": "/collections/all"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SLIDESHOW V3",
+      "category": "HOME",
+      "blocks": [
+        {
+          "type": "slideshow",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "slideshow",
+          "settings": {
+            
+          }
+        },
+        {
+          "type": "slideshow",
+          "settings": {
+            
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

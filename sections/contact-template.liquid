@@ -1,0 +1,314 @@
+<div class="wrap-bread-crumb breadcrumb_collection2">
+  <div class="text-center bg-breadcrumb" style="background-image : url({% if section.settings.bg_breadcrumb != blank  %}{{section.settings.bg_breadcrumb | img_url : 'master'}} {% else %}//via.placeholder.com/1920x510 {% endif %})">
+    <div class="title-page">
+
+      <h2 class="">{{page.title}}</h2>
+
+    </div>
+    {% include 'breadcrumb' %}
+  </div>
+</div>
+<section id="content">
+  <div class="content-page contact-page">
+
+    <div class="container container-v4">
+      <div class="contact-form">
+        <div class="contact_top">
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              <div class="info_left">
+                <h2>{{section.settings.title_get_left}}</h2>
+                <div class="content">
+                  {{section.settings.des_get_left}}
+                </div>
+                <div class="button-wrapper">
+                  <a href="mailto:{{section.settings.url_mail}}">{{section.settings.url_mail}}</a>
+                </div>
+                <div class="follow_us">
+                  <h2>{{section.settings.title_follow}}</h2>
+                  {% if section.settings.enable_follow %}
+                  	<ul class="social-link">
+                      <li>
+                        <a href="{{section.settings.url_twitter}}"><i class="fa fa-twitter"></i></a>
+                      </li>
+                      <li>
+                        <a href="{{section.settings.url_face}}"><i class="fa fa-instagram"></i></a>
+                      </li>
+                      <li>
+                        <a href="{{section.settings.url_insta}}"><i class="fa fa-facebook"></i></a>
+                      </li>
+                      <li>
+                        <a href="{{section.settings.url_youtube}}"><i class="fa fa-youtube"></i></a>
+                      </li>
+                  </ul>
+
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+              {% if section.settings.select_style_map == 'style_map' %}
+              	 {% if section.settings.enable_map %}
+                  <div class="">
+                    <div class="">
+                      <div class="">
+                        <div class="contact-google-map">
+                          <div id="map" class="map-custom"></div>
+                          <script>
+                            function initMap() {
+                              var myLatLng = {lat: {{settings.gmap_latitude}}, lng: {{settings.gmap_longitude}}};
+
+                              var map = new google.maps.Map(document.getElementById('map'), {
+                                zoom: 12,
+                                center: myLatLng
+                              });
+
+                              var marker = new google.maps.Marker({
+                                position: myLatLng,
+                                map: map,
+                              });
+                            }
+                          </script>
+                          <script src="https://maps.googleapis.com/maps/api/js?key={{settings.gmap_key}}&callback=initMap" async defer></script>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
+              {% elsif section.settings.select_style_map == 'style_image' %}
+                  {% if section.settings.enable_map %}	
+                  <a class="image_map d-block" target="_blank" href="{{section.settings.link_map}}">
+                    <img src="{% if section.settings.image_map != blank %} {{section.settings.image_map | img_url : 'master'}} {% else %}//via.placeholder.com/555x750 {% endif %}">
+                  </a>
+                  {% endif %}
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+        {% if section.settings.enable_s_contactform %}
+          <div class="contact_bottom">
+            <h2 class="contact_title">{{section.settings.contactform_title}}</h2>
+            <div class="contact-form-page">
+
+              {% form 'contact' %}
+
+              {% if form.posted_successfully? %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p style="margin-bottom: 5px;">
+                  {{ 'contact.form.post_success' | t }}
+                </p>
+              </div>
+              {% endif %}
+
+              {% if form.errors %}
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!-- {{ form.errors.size }} or {{ form.errors | size }} -->
+                <p style="margin-bottom: 5px;">Your contact form has {{ form.errors | size | pluralize: "an error", "a few errors" }}. To submit your form, make the following changes and try again:</p>
+                {% for field in form.errors %}
+                <p style="margin-bottom: 5px;">The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+                {% endfor %}
+              </div>
+              {% endif %}
+              <div class="contact-form">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <label>{{section.settings.contactform_name}}</label>
+                  	<p class="contact-name">
+                      <input class="" placeholder="" type="text" id="contactFormName" name="contact[name]" required>
+                    </p>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <label>{{section.settings.contactform_email}}</label>
+                  	<p class="contact-email">
+                      <input class="" placeholder="" type="email" id="contactFormEmail" name="contact[email]" required>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label>{{section.settings.contactform_content}}</label>
+                  	<p class="contact-message">
+                      <textarea class="" placeholder="" cols="30" rows="10" id="contactFormMessage" name="contact[body]" required></textarea>
+                    </p>
+                  </div>
+                </div>
+                
+                
+                <p class="contact-submit">
+                  <input  class="shop-button" type="submit" value="{{section.settings.contactform_btn}}">
+                </p>
+              </div>
+              {% endform %}
+            </div>
+          </div>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Us",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_breadcrumb",
+      "label": "Background Image Breadcrumb",
+      "info": "1920x510px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Config Map",
+      "info": "Google Map: Setting in Login Store > Customize theme > Theme settings tab > Google Maps"
+    },
+	{
+      "type": "checkbox",
+      "id": "enable_map",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "select_style_map",
+      "label": "Select Style Map",
+      "options": [
+          {
+          "value": "style_map",
+          "label": "Style Map"
+          },
+          {
+          "value": "style_image",
+          "label": "Style Image"
+          }
+        ]
+    },
+	{
+      "type": "image_picker",
+      "id": "image_map",
+      "label": "Image Map",
+      "info": "555x750px recommended"
+    },
+    {
+      "type": "url",
+      "id": "link_map",
+      "label": "Link Map"
+    },
+    {
+      "type": "header",
+      "content": "Info Left"
+    },
+    {
+      "type": "text",
+      "id": "title_get_left",
+      "label": "Title Get Left",
+      "default": "CONTACT INFORMATION"
+    },
+    {
+      "type": "html",
+      "id": "des_get_left",
+      "label": "Description Get Left"
+    },
+    {
+      "type": "header",
+      "content": "Mail"
+    },
+    {
+      "type": "text",
+      "id": "url_mail",
+      "label": "Url Mail"
+    },
+    {
+      "type": "header",
+      "content": "Follow Us"
+    },
+	{
+      "type": "text",
+      "id": "title_follow",
+      "label": "Title",
+      "default": "Follow Us"
+    },
+	{
+      "type": "url",
+      "id": "url_twitter",
+      "label": "Url Twitter"
+    },
+	{
+      "type": "url",
+      "id": "url_face",
+      "label": "Url Facebook"
+    },
+    {
+      "type": "url",
+      "id": "url_insta",
+      "label": "Url Instagram"
+    },
+    {
+      "type": "url",
+      "id": "url_youtube",
+      "label": "Url youtube"
+    },
+	{
+      "type": "checkbox",
+      "id": "enable_follow",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Contact Form"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_s_contactform",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contactform_title",
+      "label": "Title From",
+      "default": "Contact Form"
+    },
+    {
+      "type": "text",
+      "id": "contactform_name",
+      "label": "Title name",
+      "default": "Name"
+    },
+    {
+      "type": "text",
+      "id": "contactform_email",
+      "label": "Title email",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "contactform_content",
+      "label": "Title Message",
+      "default": "Your Message"
+    },
+    {
+      "type": "text",
+      "id": "contactform_btn",
+      "label": "Button name",
+      "default": "Submit"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

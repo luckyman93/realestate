@@ -1,0 +1,191 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v10" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v10 mt-all" style="background: {{section.settings.bg_section}}">
+    <div class="container container-v2">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box-video">
+
+            <a data-fancybox href="{{section.settings.url_video1}}">              
+              {% if section.settings.img_video1 != blank %}
+              <img data-src="{{section.settings.img_video1 | img_url:'master'}}" class="lazyload img-fluid w-100" alt="_img_banner_">
+              {% else %}
+              <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img_banner_">
+              {% endif %}
+              <span class="box-btn">
+                <span class="btn-banner">
+                  <i class="fa fa-play"></i>
+                  <span class="line-video line-1"></span>
+                  <span class="line-video line-2"></span>
+                  <span class="line-video line-3"></span>
+                </span>
+              </span>
+            </a>  
+            <div class="banner-info">
+              {% if section.settings.title_banner1 != blank %}
+              <h3 class="title-banner" style="color: {{section.settings.color_title1}}">{{section.settings.title_banner1}}</h3>
+              {% endif %}
+
+              {% if section.settings.sub_title1 != blank %}
+              <p class="content mb-0" style="color: {{section.settings.color_subtitle1}}">{{section.settings.sub_title1}}</p>
+              {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box-video">
+
+            <a data-fancybox href="{{section.settings.url_video2}}">              
+              {% if section.settings.img_video2 != blank %}
+              <img data-src="{{section.settings.img_video2 |img_url:'master'}}" class="lazyload img-fluid w-100" alt="_img_banner_">
+              {% else %}
+              <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img_banner_">
+              {% endif %}
+              <span class="box-btn">
+                <span class="btn-banner">
+                  <i class="fa fa-play"></i>
+                  <span class="line-video line-1"></span>
+                  <span class="line-video line-2"></span>
+                  <span class="line-video line-3"></span>
+                </span>
+              </span>
+            </a>  
+
+            <div class="banner-info">
+              {% if section.settings.title_banner2 != blank %}
+              <h3 class="title-banner" style="color: {{section.settings.color_title2}}">{{section.settings.title_banner2}}</h3>
+              {% endif %}
+
+              {% if section.settings.sub_title2 != blank %}
+              <p class="content mb-0" style="color: {{section.settings.color_subtitle2}}">{{section.settings.sub_title2}}</p>
+              {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% schema %}{
+"name": "BANNER V10",
+"settings": [
+  {
+    "type": "color",
+    "id": "bg_section",
+    "label": "Background section",
+    "default": "#F5F8F2"
+  },
+  {
+    "type": "header",
+    "content": "Video 1"
+  },
+  {
+    "type": "image_picker",
+    "id": "img_video1",
+    "info": "720 x 600px recommended",
+    "label": "Banner Video 1"
+  },
+  {
+    "type": "url",
+    "id": "url_video1",
+    "label": "URL Video 1",
+    "info": "[Upload video .mp4 in here](/admin/settings/files)"
+  },
+  {
+    "type": "text",
+    "id": "title_banner1",
+    "label": "Title Banner 1",
+    "default": "Herbal Tea"
+  },
+  {
+    "type": "color",
+    "id": "color_title1",
+    "label": "Color",
+    "default": "#000"
+  },
+  {
+    "type": "text",
+    "id": "sub_title1",
+    "label": "Sub Title Banner 1",
+    "default": "A unique type of fermented tea that’s traditionally made in the Yunnan Province of China."
+  },
+  {
+    "type": "color",
+    "id": "color_subtitle1",
+    "label": "Color",
+    "default": "#666"
+  },
+  {
+    "type": "header",
+    "content": "Video 2"
+  },
+  {
+    "type": "image_picker",
+    "id": "img_video2",
+    "info": "720 x 600px recommended",
+    "label": "Banner Video 2"
+  },
+  {
+    "type": "url",
+    "id": "url_video2",
+    "label": "URL Video 2",
+    "info": "[Upload video .mp4 in here](/admin/settings/files)"
+  },
+  {
+    "type": "text",
+    "id": "title_banner2",
+    "label": "Title Banner 2",
+    "default": "Blend Flavors"
+  },
+  {
+    "type": "color",
+    "id": "color_title2",
+    "label": "Color",
+    "default": "#000"
+  },
+  {
+    "type": "text",
+    "id": "sub_title2",
+    "label": "Sub Title Banner 2",
+    "default": "A unique type of fermented tea that’s traditionally made in the Yunnan Province of China."
+  },
+  {
+    "type": "color",
+    "id": "color_subtitle2",
+    "label": "Color",
+    "default": "#666"
+  },
+  {
+    "type": "header",
+    "content": "Section Space"
+  },
+  {
+    "type": "text",
+    "id": "margin_top",
+    "label": "Margin Top",
+    "info": "Defined in pixels. Do not add the 'px' unit."
+  },
+  {
+    "type": "text",
+    "id": "margin_bottom",
+    "label": "Margin Bottom",
+    "info": "Defined in pixels. Do not add the 'px' unit."
+  }
+],
+"presets": [
+  {
+    "name": "BANNER V10",
+    "category": "HOME"
+  }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

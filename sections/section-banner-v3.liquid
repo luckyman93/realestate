@@ -1,0 +1,313 @@
+<div data-section-id="{{ section.id }}" data-section-type="section-banner-v3" style="{% if section.settings.margin_top != blank %}margin-top: {{section.settings.margin_top}}px;{%endif%} {% if section.settings.margin_bottom != blank %}margin-bottom: {{section.settings.margin_bottom}}px;{% endif %}">
+  <div class="section-banner-v3 mt-all">
+    <div class="container container-v2">
+      <div class="text-center">
+        {% if section.settings.title_heading != blannk %}
+        <h3 class="title_heading" style="color: {{section.settings.color_heading}}">{{section.settings.title_heading}}</h3>
+        {% endif %}
+        {% if section.settings.sub_heading != blank %}
+        <p class="sub_heading" style="color: {{section.settings.color_sub_heading}}">{{section.settings.sub_heading}}</p>
+        {% endif %}
+      </div>
+      <div class="row">      
+        <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+          <div class="banner-ver">
+            <div class="banner-item">
+              <a href="{{section.settings.url_button_banner1}}" class="box-img d-block">
+                {% if section.settings.banner_img1 != blank %}
+                <img data-src="{{section.settings.banner_img1 | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="_img">
+                {% else %}
+                <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img">
+                {% endif %}
+              </a>
+              <div class="content">
+
+                {% if section.settings.title_banner1 != blank %}
+                <h3 class="title-banner" style="color: {{section.settings.color_title_banner}}">{{section.settings.title_banner1}}</h3>
+                {% endif %}
+
+                {% if section.settings.sub_title1 != blank %}
+                <h3 class="sub-title" style="color: {{section.settings.color_subtitle}}">{{section.settings.sub_title1}}</h3>
+                {% endif %}
+
+                {% if section.settings.button_banner1 != blank %}
+                <a href="{{section.settings.url_button_banner1}}" class="btn-{{ section.id }}">{{section.settings.button_banner1}}</a>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>    
+        <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+          <div class="banner-ver">
+            <div class="banner-item">
+              <a href="{{section.settings.url_button_banner2}}" class="box-img d-block">
+                {% if section.settings.banner_img2 != blank %}
+                <img data-src="{{section.settings.banner_img2 | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="_img">
+                {% else %}
+                <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img">
+                {% endif %}
+              </a>
+              <div class="content">
+
+                {% if section.settings.title_banner2 != blank %}
+                <h3 class="title-banner" style="color: {{section.settings.color_title_banner}}">{{section.settings.title_banner2}}</h3>
+                {% endif %}
+
+                {% if section.settings.sub_title2 != blank %}
+                <h3 class="sub-title" style="color: {{section.settings.color_subtitle}}">{{section.settings.sub_title2}}</h3>
+                {% endif %}
+
+                {% if section.settings.button_banner2 != blank %}
+                <a href="{{section.settings.url_button_banner2}}" class="btn-{{ section.id }}">{{section.settings.button_banner2}}</a>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>    
+        <div class="col-lg-4 col-md-4 col-12 col-sm-12">
+          <div class="banner-ver">
+            <div class="banner-item">
+              <a href="{{section.settings.url_button_banner3}}" class="box-img d-block">
+                {% if section.settings.banner_img3 != blank %}
+                <img data-src="{{section.settings.banner_img3 | img_url: 'master'}}" class="lazyload img-fluid w-100" alt="_img">
+                {% else %}
+                <img data-src="//via.placeholder.com/720x600" class="lazyload img-fluid w-100" alt="_img">
+                {% endif %}
+              </a>
+              <div class="content">
+
+                {% if section.settings.title_banner3 != blank %}
+                <h3 class="title-banner" style="color: {{section.settings.color_title_banner}}">{{section.settings.title_banner3}}</h3>
+                {% endif %}
+
+                {% if section.settings.sub_title3 != blank %}
+                <h3 class="sub-title" style="color: {{section.settings.color_subtitle}}">{{section.settings.sub_title3}}</h3>
+                {% endif %}
+
+                {% if section.settings.button_banner3 != blank %}
+                <a href="{{section.settings.url_button_banner3}}" class="btn-{{ section.id }}">{{section.settings.button_banner3}}</a>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .section-banner-v3 .banner-item .content .btn-{{ section.id }} {
+    color: {{section.settings.color_btn}};
+    background: {{section.settings.bg_btn}};
+
+  }
+  .section-banner-v3 .banner-item .content .btn-{{ section.id }}:hover {
+    color: {{section.settings.color_btn_hover}};
+    background: {{section.settings.bg_btn_hover}};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "BANNER V3",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Space"
+    },
+    {
+      "type": "text",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "info": "Defined in pixels. Do not add the 'px' unit."
+    },
+    {
+      "type": "text",
+      "id": "title_heading",
+      "label": "Title Heading",
+      "default": "Our Special Features"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Title Heading",
+      "default": "Our purpose is to build solutions that remove barriers preventing people<br> from doing their best work, and this is at the heart."
+    },
+    {
+      "type": "color",
+      "id": "color_sub_heading",
+      "label": "Color",
+      "default": "#666"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner 1"
+    },
+    {
+      "type": "text",
+      "id": "title_banner1",
+      "label": "Title Banner 1",
+      "default": "Fashion Shoe"
+    },
+    {
+      "type": "text",
+      "id": "sub_title1",
+      "label": "Sub Title Banner 1",
+      "default": "$12"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img1",
+      "label": "Image",
+      "info": "720 x 600px recommended"
+    },
+    {
+      "type": "text",
+      "id": "button_banner1",
+      "label": "Button Banner 1",
+      "default": "View More"
+    },
+    {
+      "type": "url",
+      "id": "url_button_banner1",
+      "label": "URL Banner 1 ",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner 2"
+    },
+    {
+      "type": "text",
+      "id": "title_banner2",
+      "label": "Title Banner 2",
+      "default": "Style Sandals"
+    },
+    {
+      "type": "text",
+      "id": "sub_title2",
+      "label": "Sub Title Banner 2",
+      "default": "From $9"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img2",
+      "label": "Image",
+      "info": "720 x 600px recommended"
+    },
+    {
+      "type": "text",
+      "id": "button_banner2",
+      "label": "Button Banner 2",
+      "default": "View More"
+    },
+    {
+      "type": "url",
+      "id": "url_button_banner2",
+      "label": "URL Banner 2 ",
+      "default": "/collections/all"
+    },
+    {
+      "type": "header",
+      "content": "Settings Banner 3"
+    },
+    {
+      "type": "text",
+      "id": "title_banner3",
+      "label": "Title Banner 3",
+      "default": "Summer collections"
+    },
+    {
+      "type": "text",
+      "id": "sub_title3",
+      "label": "Sub Title Banner 3",
+      "default": "From $11"
+    },
+    {
+      "type": "text",
+      "id": "button_banner3",
+      "label": "Button Banner 3",
+      "default": "View More"
+    },
+    {
+      "type": "url",
+      "id": "url_button_banner3",
+      "label": "URL Banner 3 ",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img3",
+      "label": "Image",
+      "info": "700 x 600px recommended"
+    },
+    {
+      "type": "header",
+      "content": "Settings Color Banner"
+    },
+    {
+      "type": "color",
+      "id": "color_title_banner",
+      "label": "Color Title Banner",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_subtitle",
+      "label": "Color Sub Title Banner",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_btn",
+      "label": "Color Button",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn",
+      "label": "Background Button",
+      "default": "#c29f76"
+    },
+    {
+      "type": "color",
+      "id": "color_btn_hover",
+      "label": "Color Button Hover",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "bg_btn_hover",
+      "label": "Background Button Hover",
+      "default": "#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "BANNER V3",
+      "category": "HOME"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
