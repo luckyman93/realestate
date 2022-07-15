@@ -1,0 +1,106 @@
+<div class="login_regester">
+  <div class="container container-v2">
+    <div class="row justify-content-between">
+      <div class="col-lg-5 register">
+        <h1 class="mb-0 title_login text-center"><i class="mr-3 ti-pencil-alt"></i>{{ 'customer.register.title' | t }}</h1>
+         {% form 'create_customer' %}
+         {{ form.errors | default_errors }}
+          <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">{{ 'customer.register.email' | t }}</label>
+            <div class="col-sm-9">
+              <input type="email" placeholder="{{ 'customer.register.email' | t }}" class="form-control" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">{{ 'customer.register.password' | t }}</label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control" name="customer[password]"  placeholder="{{ 'customer.register.password' | t }}" required>
+            </div>
+          </div>
+          <div class="text-center mt-5">
+            <button class="btn btn-dark" value="{{ 'customer.register.submit' | t }}">
+              {{ 'customer.register.submit' | t }}
+            </button>
+          </div>
+        {% endform %}
+        <div class="forgot_pass mt-4 text-center">
+          <a  href="/collections/all">{{ 'customer.login.cancel' | t }}</a>
+        </div>
+         
+         
+         
+      </div> 
+      <div class="col-lg-1"></div>
+      <div class="col-lg-5 login">
+        <div class="CustomerLoginForm">
+        <h1 class="mb-0 title_login text-center"><i class="mr-3 ti-user"></i>{{ 'customer.login.title' | t }}</h1>        
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+          <div class="form-group row">
+            
+            <label for="staticEmail" class="col-sm-3 col-form-label">{{ 'customer.login.email' | t }} </label>
+            <div class="col-sm-9">
+              <input type="text"  class="form-control" name="customer[email]" placeholder="{{ 'customer.login.email' | t }}" required>
+            </div>
+          </div>
+        {% if form.password_needed %}
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-3 col-form-label">{{ 'customer.login.password' | t }} </label>
+            <div class="col-sm-9">
+              <input type="password" class="form-control"  placeholder="{{ 'customer.login.password' | t }}" name="customer[password]" required>
+            </div>
+          </div>
+        {% endif %}
+          <div class="text-center mt-5">
+            <button class="btn btn-dark" value="{{ 'customer.login.log_in' | t }}">
+              {{ 'customer.login.log_in' | t }}
+            </button>
+          </div>
+          <div class="forgot_pass_form mt-4 d-flex justify-content-center">
+            <div class="leftx {% if settings.enable_rtl_mode %} pl-4 {% else %}pr-4 {% endif %}">
+               <a  href="/collections/all">{{ 'customer.login.cancel' | t }}</a>
+            </div>
+           
+            {% if form.password_needed %}
+            <div class="rightx">
+            <a href="#recover" class="RecoverPassword"  >{{ 'customer.login.forgot_password' | t }}</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endform %} 
+        
+        {% form 'recover_customer_password' %}
+         {{ form.errors | default_errors }}
+         {% comment %}
+         Assign variable to be used after timber.init() is run in theme.liquid
+         {% endcomment %}
+         {% if form.posted_successfully? %}
+         {% assign resetPassword = true %}
+         {% endif %}
+         <div class="RecoverPasswordForm" style="display: none;">
+           <div class="block-login">
+             <h2 class="title24 text-center title-form-account"><i class="mr-3 ti-reload"></i>{{ 'customer.recover_password.title' | t }}</h2>
+             <div class="form-group row">
+               <label class="col-sm-3">{{ 'customer.login.email' | t }}</label>
+               <div class="col-sm-9">
+                 <input type="email" class="form-control" placeholder="{{ 'customer.login.email' | t }}" name="customer[email]" {% if form.email %} value="{{ form.email }}"{% endif %} required>
+               </div>
+             </div>
+             <div class="text-center mt-5">
+               <input type="submit" class="register-button" value="{{ 'customer.recover_password.submit' | t }}">
+             </div>
+             <div class="table-custom create-account">
+               <div class="text-center mt-4">
+                 <a class="HideRecoverPasswordLink" style="cursor: pointer;" class="color">{{ 'customer.recover_password.cancel' | t }}</a>
+               </div>
+             </div>
+           </div>
+         </div>
+         {% endform %}
+      </div>
+      
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<!-- /templates/customers/account.liquid -->
+{% comment %}
+
+For all available customer liquid tags:
+- http://docs.shopify.com/themes/liquid-variables/customer
+
+{% endcomment %}
+
+<div class="content-pages pages-account woocommerce">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="maxus-myaccount__header">
+          <h2 class="title-shop-page" style="font-size: 16px;" >{{ customer.email }}</h2>
+          <p class="mb-30 secondary-text">(not <strong>{{ customer.email }}</strong>? <a href="/account/logout">Sign out</a>).</p>
+        </div>
+        <div class="maxus-myaccount__content">
+          <h2 style="font-size : 14px ; text-transform: uppercase ; letter-spacing: 2px; font-weight : 600; margin-top: 20px" class="maxus-myaccount__title" id="engo-orders">{{ 'customer.orders.title' | t }}</h2>
+          {% comment %}
+          If we have past orders, loop through each one
+          {% endcomment %}
+          {% paginate customer.orders by 20 %}
+          {% if customer.orders.size != 0 %}
+          <div class="maxus-myaccount__wrap table-responsive mb-30">
+            <table class="table table-hover black-text">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.orders.order_number' | t }}</th>
+                  <th>{{ 'customer.orders.date' | t }}</th>
+                  <th>{{ 'customer.orders.payment_status' | t }}</th>
+                  <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th>{{ 'customer.orders.total' | t }}</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                <tr>
+                  <td><a href="{{ order.customer_url }}" class="twitter-text">{{ order.name }}</a></td>
+                  <td>{{ order.created_at | date: format: 'month_day_year' }}</td>
+                  <td>{{ order.financial_status_label }}</td>
+                  <td>{{ order.fulfillment_status_label }}</td>
+                  <td><span class="primary-text font-600">{{ order.total_price | money }}</span></td>
+                  <td class="text-right">
+                    <a href="{{ order.customer_url }}" class="btn btn-maxus btn-waves btn-sm btn-default btn-rounded w-95">View</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+
+          <p class="mb-30">{{ 'customer.orders.none' | t }}</p>
+
+          {% endif %}
+          {% if paginate.pages > 1 %}
+          <div class="pagination">
+            {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+          </div>
+          {% endif %}
+          {% endpaginate %}
+
+          <h2 class="maxus-myaccount__title d-flex align-items-center justify-content-center" style="margin: 20px 0" id="engo-address">
+            <span style="font-size : 14px ; text-transform: uppercase ; letter-spacing: 2px; font-weight : 600" class="text-middle">{{ 'customer.account.details' | t }}</span>
+            <a href="/account/addresses" class="btn btn-maxus btn-waves btn-sm btn-sharp btn-default w-95">Edit</a>
+          </h2>
+          <div class="maxus-myaccount__wrap">
+            {% if customer.default_address != nil %}
+            <p>
+              {{ customer.default_address.address1 }}<br>
+
+              {% if customer.default_address.address2 != "" %}
+              {{ customer.default_address.address2 }}<br>
+              {% endif %}
+
+              {% if customer.default_address.city != "" %}
+              {{ customer.default_address.city }}<br>
+              {% endif %}
+
+              {% if customer.default_address.province_code != "" %}
+              {{ customer.default_address.province_code | upcase }}<br>
+              {% endif %}
+
+              {% if customer.default_address.zip != "" %}
+              {{ customer.default_address.zip | upcase }}<br>
+              {% endif %}
+
+              {% if customer.default_address.country != "" %}
+              {{ customer.default_address.country }}<br>
+              {% endif %}
+
+              {% if customer.default_address.phone != "" %}
+              {{ customer.default_address.phone }}
+              {% endif %}
+            </p>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
